@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <title>EJEMPLO APP apache CON CRUD</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <script>
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var id = urlParams.get('id');
+        onload = function () {
+            obtenerDatosChuche(id);
+        }
+        function obtenerDatosChuche(id) {
+            var requestOptions = {
+                method: 'GET',
+                headers: myHeaders
+            };
+
+            fetch("/api/chuches/" + id, requestOptions)
+                .then(response => response.json())
+                .then(result => pintarChuche(result))
+                .catch(error => {
+                    alert("Ha habido un error al recuperar los datos del libro");
+                    location.href = "chuches.html";
+                });
+
+        }
+        function pintarChuche(chuche) {
+            console.log(chuche);
+            
+            document.getElementById("nombre").value = chuche.nombre;
+            document.getElementById("descripcion").value = chuche.descripcion;
+            document.getElementById("ingredientes").value = chuche.ingredientes;
+            document.getElementById("precio").value = chuche.precio;
+            document.getElementById("foto").src = chuche.foto;
+        }
+
+        function guardar() {
+            let nombre = document.getElementById("nombre").value;
+            let descripcion= document.getElementById("descripcion").value;
+            let ingredientes = document.getElementById("ingredientes").value;
+            let precio = document.getElementById("precio").value;
+           // let precioIVA = document.getElementById("precioIVA").value;
+            let foto = document.getElementById("foto").value;
+            let datos = JSON.stringify({
+                "id": id,
+                "nombre": nombre,
+                "descripcion": descripcion,
+                "ingredientes": ingredientes,
+                "precio": precio,
+              //  "precioIVA": precioIVA,
+                "foto": foto
+            });
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: datos
+            };
+
+            console.log(requestOptions);
+            
+
+            fetch("/api/chuches/", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    
+                    if (result.status == "OK") {
+                        alert("chuche modificado")
+                        location.href = "chuches.html"
+                    } else {
+                        alert("La chuche no ha podido ser modificado")
+                    }
+                })
+                .catch(error => {
+                    console.log('error', error);
+                    alert("Se ha producido un error y la chuche no ha podido ser modificado")
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <button class="navbar-burger is-warning button" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="chuches.html">Chuches</a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="section">
+        <div class="columns">
+            <div class="column">
+                <h3 class="is-size-3">Editar chuche</h3>
+                <label for="nombre">Nombre:</label>
+                <input required type="text" class="input" placeholder="Nombre" name="nombre" id="nombre">
+                <label for="descripcion">Descripcion</label>
+                <input required type="text" class="input" placeholder="Descripcion" name="descripcion" id="descripcion">
+                <label for="ingredientes">Ingredientes</label>
+                <input required type="text" class="input" placeholder="Ingredientes" name="ingredientes" id="ingredientes">
+                <label for="precio">Precio</label>
+                <input required type="number" class="input" placeholder="Precio" name="precio" id="precio">
+                <input required type="text" class="input" placeholder="Foto" name="foto" id="foto">                
+                <input required type="file" class="input" placeholder="Archivo Foto" name="filefoto" id="filefoto">
+                <img src="#" alt="Foto" width="500" height="600" id="foto">
+                <button type="button" onclick="guardar()" class="button is-success mt-2">Guardar</button>
+                <a href="chuches.html" class="button is-primary mt-2">Volver</a>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
