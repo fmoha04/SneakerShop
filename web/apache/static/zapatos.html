@@ -21,7 +21,7 @@
             let tbody=document.getElementsByTagName("tbody")[0];
             tbody.innerText="";
 
-            lista.forEach(chuche => {
+            lista.forEach(zapato => {
                 let texto=`<tr>
                         <td><img src="${zapato.foto}" width="70"></td>
                         <td>${zapato.nombre}</td>
@@ -40,7 +40,7 @@
                 tbody.innerHTML+=texto                            
             });
         }
-        function pedirChuches(){
+        function pedirZapatos(){
             var requestOptions = {
                 method: 'GET',
                 headers: myHeaders,
