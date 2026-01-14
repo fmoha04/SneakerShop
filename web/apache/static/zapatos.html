@@ -15,66 +15,67 @@
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         onload=function(){
-            pedirChuches();
+            pedirZapatos();
         }
-        function pintarChuches(lista){
+        function pintarZapatos(lista){
             let tbody=document.getElementsByTagName("tbody")[0];
             tbody.innerText="";
 
-            lista.forEach(chuche => {
+            lista.forEach(zapato => {
                 let texto=`<tr>
-                        <td><img src="${chuche.foto}" width="70"></td>
-                        <td>${chuche.nombre}</td>
-                        <td>${chuche.descripcion}</td>
-                        <td>${chuche.ingredientes}</td>
-                        <td>${chuche.precio}</td>
-                        <td>${chuche.precio}</td>
+                        <td><img src="${zapato.foto}" width="70"></td>
+                        <td>${zapato.nombre}</td>
+                        <td>${zapato.descripcion}</td>
+                        <td>${zapato.marca}</td>
+                        <td>${zapato.precio}</td>
+                        <td>${zapato.precio}</td>
+                        <td>${zapato.precio_iva}</td>
                         <td>`
-                texto+=`<a href="editar_chuche.html?id=${chuche.id}" class="button is-info">Editar</a>
+                texto+=`<a href="editar_zapato.html?id=${zapato.id}" class="button is-info">Editar</a>
                         </td>
                         <td>
-                            <button class="button is-danger" onclick="eliminarChuche(${chuche.id})">Eliminar</button>
+                            <button class="button is-danger" onclick="eliminarZapato(${zapato.id})">Eliminar</button>
                         </td>`
                 texto+=`</tr>`;
                 tbody.innerHTML+=texto                            
             });
         }
-        function pedirChuches(){
+        function pedirZapatos(){
             var requestOptions = {
                 method: 'GET',
                 headers: myHeaders,
             };
 
-            fetch("/api/chuches/", requestOptions)
+            fetch("/api/zapatos/", requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     console.log(result);
-                    pintarChuches(result);
+                    pintarZapatos(result);
                 })
                 .catch(error => {
                     console.log('error', error);
-                    alert("Ha habido un error al recuperar las chuches. Refresque la página")
+                    alert("Ha habido un error al recuperar los zapatos. Refresque la página")
                 });
         }
-        function eliminarChuche(id){
+        function eliminarZapato(id){
             var requestOptions = {
                 method: 'DELETE',
                 headers: myHeaders,
             };
 
-            fetch("/api/chuches/"+id, requestOptions)
+            fetch("/api/zapatos/"+id, requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     if (result.status == "OK"){
-                        alert("Chuche eliminado")
-                        pedirChuches();
+                        alert("Zapato eliminado")
+                        pedirZapatos();
                     } else {
-                        alert("La chuche no ha podido ser eliminada")
+                        alert("El zapato no ha podido ser eliminado")
                     }
                 })
                 .catch(error => {
                     console.log('error', error);
-                    alert("Se ha producido un error y la chuche no ha podido ser eliminado")
+                    alert("Se ha producido un error y el zapato no ha podido ser eliminado")
                 });
         }
         function cerrarSesion(){
@@ -111,7 +112,7 @@
         </div>
         <div class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="chuches.html">Chuches</a>
+                <a class="navbar-item" href="zapatos.html">Zapatos</a>
                 <a class="navbar-item" href="ficheros.html">Archivos</a>
                 <a class="navbar-item" href="javascript:cerrarSesion()">Cerrar sesion</a>
             </div>
@@ -124,8 +125,8 @@
     <section class="section">
         <div class="columns">
             <div class="column">
-                <h3 class="is-size-3">Chuches</h3>
-                <a id="enlaceAgregar" href="agregar_chuche.html" class="button is-success">Agregar</a>
+                <h3 class="is-size-3">Zapatos</h3>
+                <a id="enlaceAgregar" href="agregar_zapato.html" class="button is-success">Agregar</a>
                 <table class="table">
                     <thead>
                         <tr>
