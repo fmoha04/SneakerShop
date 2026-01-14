@@ -19,47 +19,48 @@
         var urlParams = new URLSearchParams(queryString);
         var id = urlParams.get('id');
         onload = function () {
-            obtenerDatosChuche(id);
+            obtenerDatosZapato(id);
         }
-        function obtenerDatosChuche(id) {
+        function obtenerDatosZapato(id) {
             var requestOptions = {
                 method: 'GET',
                 headers: myHeaders
             };
 
-            fetch("/api/chuches/" + id, requestOptions)
+            fetch("/api/zapatos/" + id, requestOptions)
                 .then(response => response.json())
-                .then(result => pintarChuche(result))
+                .then(result => pintarZapato(result))
                 .catch(error => {
                     alert("Ha habido un error al recuperar los datos del libro");
-                    location.href = "chuches.html";
+                    location.href = "zapatos.html";
                 });
 
         }
-        function pintarChuche(chuche) {
-            console.log(chuche);
+        function pintarZapato(zapato) {
+            console.log(zapato);
             
-            document.getElementById("nombre").value = chuche.nombre;
-            document.getElementById("descripcion").value = chuche.descripcion;
-            document.getElementById("ingredientes").value = chuche.ingredientes;
-            document.getElementById("precio").value = chuche.precio;
-            document.getElementById("foto").src = chuche.foto;
+            document.getElementById("nombre").value = zapato.nombre;
+            document.getElementById("descripcion").value = zapato.descripcion;
+            document.getElementById("marca").value = zapato.marca;
+            document.getElementById("precio").value = zapato.precio;
+            document.getElementById("foto").src = zapato.foto;
+            document.getElementById("precio_iva").src = zapato.precio_iva;
         }
 
         function guardar() {
             let nombre = document.getElementById("nombre").value;
             let descripcion= document.getElementById("descripcion").value;
-            let ingredientes = document.getElementById("ingredientes").value;
+            let marca = document.getElementById("marca").value;
             let precio = document.getElementById("precio").value;
-           // let precioIVA = document.getElementById("precioIVA").value;
+            let precio_iva = document.getElementById("precio_iva").value;
             let foto = document.getElementById("foto").value;
             let datos = JSON.stringify({
                 "id": id,
                 "nombre": nombre,
                 "descripcion": descripcion,
-                "ingredientes": ingredientes,
+                "marca": marca,
                 "precio": precio,
-              //  "precioIVA": precioIVA,
+                "precio_iva": precio_iva,
                 "foto": foto
             });
             var requestOptions = {
@@ -71,20 +72,20 @@
             console.log(requestOptions);
             
 
-            fetch("/api/chuches/", requestOptions)
+            fetch("/api/zapatos/", requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     
                     if (result.status == "OK") {
-                        alert("chuche modificado")
-                        location.href = "chuches.html"
+                        alert("zapato modificado")
+                        location.href = "zapatos.html"
                     } else {
-                        alert("La chuche no ha podido ser modificado")
+                        alert("La zapato no ha podido ser modificado")
                     }
                 })
                 .catch(error => {
                     console.log('error', error);
-                    alert("Se ha producido un error y la chuche no ha podido ser modificado")
+                    alert("Se ha producido un error y el zapato no ha podido ser modificado")
                 });
         }
     </script>
@@ -102,7 +103,7 @@
         </div>
         <div class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="chuches.html">Chuches</a>
+                <a class="navbar-item" href="zapatos.html">Zapatos</a>
             </div>
             <div class="navbar-end">
                 <div class="navbar-item">
@@ -113,20 +114,22 @@
     <section class="section">
         <div class="columns">
             <div class="column">
-                <h3 class="is-size-3">Editar chuche</h3>
+                <h3 class="is-size-3">Editar zapato</h3>
                 <label for="nombre">Nombre:</label>
                 <input required type="text" class="input" placeholder="Nombre" name="nombre" id="nombre">
                 <label for="descripcion">Descripcion</label>
                 <input required type="text" class="input" placeholder="Descripcion" name="descripcion" id="descripcion">
-                <label for="ingredientes">Ingredientes</label>
-                <input required type="text" class="input" placeholder="Ingredientes" name="ingredientes" id="ingredientes">
+                <label for="marca">marca</label>
+                <input required type="text" class="input" placeholder="marca" name="marca" id="marca">
                 <label for="precio">Precio</label>
                 <input required type="number" class="input" placeholder="Precio" name="precio" id="precio">
                 <input required type="text" class="input" placeholder="Foto" name="foto" id="foto">                
                 <input required type="file" class="input" placeholder="Archivo Foto" name="filefoto" id="filefoto">
                 <img src="#" alt="Foto" width="500" height="600" id="foto">
+                <label for="precio_iva">Precio iva:</label>
+                <input required type="number" class="input" placeholder="Precio" name="precio_iva" id="precio_iva">
                 <button type="button" onclick="guardar()" class="button is-success mt-2">Guardar</button>
-                <a href="chuches.html" class="button is-primary mt-2">Volver</a>
+                <a href="zapatos.html" class="button is-primary mt-2">Volver</a>
                 </form>
             </div>
         </div>
