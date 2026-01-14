@@ -1,104 +1,103 @@
 :root {
-    --primary-color: #ff6b6b;
-    --secondary-color: #4ecdc4;
-    --dark-bg: #2d3436;
-    --light-text: #f7f1e3;
+    --bg-dark: #24333b;    /* fondo oscuro imagen */
+    --green: #1ab188;      /* color verde esmeralda */
+    --green-dark: #148f6e; /* hover */
+    --text-grey: #a0b3b0;  /* bordes e inputs */
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--dark-bg);
-    color: var(--light-text);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background: radial-gradient(circle, #13c888 0%, #10a36f 100%);
+    font-family: 'Titillium Web', sans-serif;
     margin: 0;
+    padding: 0;
 }
 
-.login-card {
-    /*background-color: rgba(255, 255, 255, 0.1);*/
-    background-color: #2e27a2;
-    padding: 3rem;
-    border-radius: 15px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
+.form-container {
+    flex: 0 0 450px;
+    width: 450px;
+    background: var(--bg-dark);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+    z-index: 2;
 }
 
-h1 {
-    margin-bottom: 1.5rem;
-    font-weight: 300;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-.input-group {
-    margin-bottom: 1.5rem;
-    text-align: left;
-}
-
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    color: #ccc;
-}
-
-input {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.9);
-    box-sizing: border-box;
-    font-size: 1rem;
-    color: #333;
-}
-
-input:focus {
-    outline: 2px solid var(--primary-color);
-}
-
-.btn-container {
+.tab-group {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px 0;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
 }
 
-button {
-    padding: 12px;
-    border: none;
-    border-radius: 25px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.2s, opacity 0.2s;
-    font-size: 1rem;
+.tab-group li a {
+    display: block;
+    text-decoration: none;
+    padding: 15px;
+    background: rgba(160, 179, 176, 0.25);
+    color: var(--text-grey);
+    font-size: 20px;
+    text-align: center;
+    transition: .5s ease;
 }
 
-button:active {
-    transform: scale(0.98);
-}
-
-.btn-login {
-    background-color: var(--primary-color);
+.tab-group .active a {
+    background: var(--green);
     color: white;
 }
 
-.btn-register {
-    background-color: transparent;
-    border: 2px solid var(--secondary-color);
-    color: var(--secondary-color);
+h1 {
+    text-align: center;
+    color: white;
+    font-weight: 300;
+    margin: 0 0 40px;
 }
 
-.btn-comments {
-    background-color: transparent;
-    color: #aaa;
-    font-size: 0.8rem;
-    text-decoration: underline;
+/* Inputs */
+.field-wrap {
+    margin-bottom: 30px;
+}
+
+.top-row {
+    display: flex;
+    gap: 20px;
+}
+
+input {
+    font-size: 22px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: none;
+    border: 1px solid var(--text-grey);
+    color: white;
+    border-radius: 0;
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: 0;
+    border-color: var(--green);
+}
+
+/* Botón principal */
+.button {
+    border: 0;
+    outline: none;
+    border-radius: 0;
+    padding: 15px 0;
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    background: var(--green);
+    color: white;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.button:hover {
+    background: var(--green-dark);
 }
 
 .error {
@@ -110,3 +109,64 @@ button:active {
     margin-bottom: 1rem;
     border: 1px solid #ff6b6b;
 }
+
+/* Area de comentarios */
+textarea {
+    font-size: 22px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: none;
+    border: 1px solid var(--text-grey);
+    color: white;
+    border-radius: 0;
+    resize: vertical;
+    min-height: 100px;
+    box-sizing: border-box;
+    font-family: inherit;
+    
+}
+
+textarea:focus {
+    outline: 0;
+    border-color: var(--green);
+}
+
+/* Para que las 3 pestañas midan lo mismo */
+.tab-group li {
+    flex: 1;
+}
+
+/* Contenedor principal para alinear los dos bloques */
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    gap: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden; 
+}
+
+/* Estilo de la zapatilla */
+.sneaker-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    max-width: 600px;
+}
+
+.floating-sneaker {
+    width: 130%;
+    height: auto;
+    max-width: 500px;
+    transform: rotate(-20deg);
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.5));
+    animation: float 4s ease-in-out infinite;
+    pointer-events: none;
+    margin-right: -100px;
+}
+
