@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS ciber;
 USE ciber;
 
-CREATE TABLE zapatillas(
+CREATE TABLE zapatos(
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
     descripcion VARCHAR(255) NOT NULL,
@@ -23,4 +23,5 @@ CREATE TABLE usuarios(
 );
 
 INSERT INTO `usuarios` (`usuario`, `clave`, `perfil`) VALUES ('root','1234', 'admin');
+
 
