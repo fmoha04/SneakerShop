@@ -1,23 +1,29 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SneakerShop Login</title>
-    
-    <link rel="stylesheet" href="style.css">
-
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <title>APP PEPS</title>
+    <style>
+        .error {
+            display: none;
+            color: red;
+        }
+    </style>
     <script>
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        
         function verComentarios() {
             location.href="comentarios.html";
         }
-
         function conectar() {
             document.getElementsByClassName("error")[0].style.display = "none";
-            
             var raw = JSON.stringify({
                 "username": document.getElementById("username").value,
                 "password": document.getElementById("password").value
@@ -42,26 +48,23 @@
         }
     </script>
 </head>
+
 <body>
-    <div class="login-card">
-        <h1>Sneaker Shop</h1>
-        <div class="error">Usuario o clave incorrecta</div>
+    <h1>BIENVENIDO AL SISTEMA DEL PROFE</h1>
+    <label>Usuario</label><input type="text" name="username" id="username"><br>
+    <label>Clave</label><input type="password" name="password" id="password"><br>
+    <label class="error">Usuario/clave erronea</label>
+    <button type="button" onclick="conectar()">ENVIAR</button>
+    <button type="button" onclick="location.href='registro.html'">REGISTRARSE</button>
 
-        <div class="input-group">
-            <label for="username">Usuario</label>
-            <input type="text" id="username" placeholder="Usuario">
+    <section class="section">
+        <div class="columns">
+            <div class="column">
+                <h3 class="is-size-3">Ver Comentarios</h3>
+                <button type="button" onclick="verComentarios()" class="button is-success mt-2">Ver comentarios</button>
+            </div>
         </div>
-
-        <div class="input-group">
-            <label for="password">Contraseña</label>
-            <input type="password" id="password" placeholder="Contraseña">
-        </div>
-
-        <div class="btn-container">
-            <button type="button" class="btn-login" onclick="conectar()">ENTRAR</button>
-            <button type="button" class="btn-register" onclick="location.href='registro.html'">REGISTRARSE</button>
-            <button type="button" class="btn-comments" onclick="verComentarios()">Ver comentarios</button>
-        </div>
-    </div>
+    </section>
 </body>
+
 </html>
