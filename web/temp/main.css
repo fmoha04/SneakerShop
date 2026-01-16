@@ -1,0 +1,389 @@
+/* VARIABLES GLOBALES (:root)
+Aquí definimos los colores una sola vez para usarlos en todo el documento.
+Si cambias el color aquí, se cambiará en toda la web automáticamente. */
+:root {
+
+    /* Paleta para Login (Auth) */
+    --auth-bg-dark: #24333b;    /* Fondo oscuro del panel de login */
+    --auth-green: #1ab188;      /* Verde principal (botones y pestañas activas) */
+    --auth-green-dark: #148f6e; /* Verde más oscuro para cuando pasas el ratón (hover) */
+    --auth-text-grey: #a0b3b0;  /* Gris para textos secundarios y bordes de inputs */
+
+/* Paleta para Gestión (Admin - Zapatos) 
+    --adm-primary: #065004;    /* Verde muy oscuro para la barra de navegación
+    --adm-secondary: #a0ce37;  /* Verde lima para botones de acción (Editar)
+    --adm-bg: #1c2126;         /* Fondo de la página (negro personalizado)
+    --adm-text: #5e5d5b;       /* Gris oscuro para que el texto sea legible
+*/
+    /* NUEVA PALETA */
+    --adm-primary: #34ce9d;    /* Tu nuevo Verde para Panel y Scroll */
+    --adm-bg: #262b2f;         /* Tu nuevo Negro para el fondo general */
+    --adm-card-desc: #40464b;  /* Tu nuevo Gris-Negro para la descripción */
+    --adm-secondary: #34ce9d;  /* Mantenemos el verde para botones de acción por ahora */
+    --adm-text: #ffffff;       /* Texto blanco para que resalte sobre el negro */
+}
+
+/* HEX codes of interest colors
+#34ce9d     Verde esmeralda-rdctv
+#40464b     Gris-Negro
+#262b2f     Negro 
+#ffffff     Blanco
+*/
+
+/* --------------- index.html --------------- */
+
+/* ESTILOS LOGIN (.auth-page)*/
+
+.auth-page {
+    /* Fondo con degradado circular que va desde el centro hacia afuera */
+    background: radial-gradient(circle, #13c888 0%, #10a36f 100%);
+    font-family: 'Titillium Web', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor que centra todo el contenido en pantalla completa */
+.auth-page .page-wrapper {
+    display: flex;             /* Usamos Flexbox para centrar */
+    justify-content: center;   /* Centrado horizontal */
+    align-items: center;       /* Centrado vertical */
+    width: 100%;
+    height: 100vh;             /* 100% de la altura de la ventana del navegador */
+    overflow: hidden;          /* Evita que aparezcan barras de scroll innecesarias */
+}
+
+/* Grupo de pestañas (Sign Up / Log In) */
+.auth-page .tab-group {
+    list-style: none;          /* Quita los puntos de la lista */
+    padding: 0;
+    margin: 0 0 40px 0;
+    display: flex;             /* Pone las pestañas una al lado de la otra */
+}
+
+.auth-page .tab-group li { 
+    flex: 1;                   /* Hace que todas las pestañas midan lo mismo */
+}
+
+.auth-page .tab-group li a {
+    display: block;
+    text-decoration: none;
+    padding: 15px;
+    background: rgba(160, 179, 176, 0.25); /* Fondo gris muy transparente */
+    color: var(--auth-text-grey);
+    text-align: center;
+    transition: .5s ease;      /* Animación suave al cambiar de color */
+}
+
+/* Estilo de la pestaña que está seleccionada */
+.auth-page .tab-group .active a {
+    background: var(--auth-green);
+    color: white;
+}
+
+/* Panel central donde están los formularios */
+.auth-page .form-container {
+    flex: 1;
+    max-width: 500px;
+    background: var(--auth-bg-dark);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* Sombra para dar profundidad */
+    z-index: 2;                /* Asegura que el panel esté por encima de la zapatilla */
+}
+
+/* Estilos de los campos de texto (Inputs) */
+.auth-page input, .auth-page textarea {
+    font-size: 22px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: none;          /* Sin fondo para que se vea el color del panel */
+    border: 1px solid var(--auth-text-grey);
+    color: white;
+    box-sizing: border-box;    /* Importante: el padding no aumenta el ancho total */
+}
+
+/* Botón grande de la página de Login */
+.auth-page .button {
+    border: 0;
+    padding: 15px 0;
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: var(--auth-green);
+    color: white;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.auth-page .button:hover {
+    background: var(--auth-green-dark); /* Oscurece al pasar el ratón */
+}
+
+/* Imagen de la zapatilla con animación */
+.auth-page .floating-sneaker {
+    width: 120%;
+    max-width: 550px;
+    transform: rotate(-20deg); /* La inclina un poco */
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.5)); /* Sombra realista */
+    /*animation: float 4s ease-in-out infinite;  Llama a la animación de abajo */
+    margin-right: -15%;        /* La acerca más al panel de login */
+}
+
+/* --------------- zapatos.html --------------- */
+
+/* ESTILOS PARA PÁGINA DE GESTIÓN (.admin-page) */
+.admin-page {
+    background-color: var(--adm-bg); /* negro #1c2126 */
+    color: #eeeeee;                  /* Cambiado a un gris muy claro para que se lea sobre negro */
+    min-height: 100vh;               /* CLAVE: Cambiado de height a min-height */
+    margin: 0;                       /* Asegúrate de quitar márgenes por defecto */
+    display: flex;
+    flex-direction: column;          /* Ayuda a que la estructura sea sólida */
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Barra de navegación superior con efecto flotante */
+.admin-page .navbar {
+    background-color: var(--adm-primary) !important; /* !important para sobrepasar a Bulma */
+    margin: 10px;              /* Separa la barra de los bordes */
+    border-radius: 15px;       /* Bordes redondeados */
+}
+
+/* color de la letra de los objetos del panel superior */
+.admin-page .navbar-item {
+    color: #262b2f !important; /* Usamos tu nuevo color negro para que contraste con el verde */
+    font-weight: bold;
+}
+
+/* Hover transparente panel superior */
+.admin-page .navbar-start .navbar-item, .admin-page .navbar-end .navbar-item {
+    background-color: transparent !important; /* Fondo invisible al inicio */
+    margin: 5px 8px;
+    border-radius: 20px;
+    color: #262b2f !important; /* texto visible y oscuro */
+    transition: all 0.3s ease; /* transición suave */
+    padding: 10px 20px;
+    border: 1px solid transparent; /* fix de posible salto del texto al aparecer el borde */
+}
+
+/* Hover cápsula panel superior  */
+.admin-page .navbar-start .navbar-item:hover, .admin-page .navbar-end .navbar-item:hover {
+    background-color: rgba(38, 43, 47, 0.1) !important; /* gris */
+    border: 1px solid rgba(38, 43, 47, 0.1);          /* borde muy fino */
+    transform: translateY(-1px);                       /* pequeño salto */
+}
+
+/* Cambia el color de fondo y texto al pasar el ratón por el menú superior */
+.admin-page .navbar-item:hover {
+    background-color: rgba(0, 0, 0, 0.1) !important; /* Un oscurecimiento muy leve */
+    color: #000000 !important;                      /* Letras totalmente negras al pasar el ratón */
+    transition: 0.3s;
+}
+
+.navbar-end .navbar-item {
+    background-color: rgba(38, 43, 47, 0.1); /* Un fondo sutilmente más oscuro */
+    margin: 5px;
+    border-radius: 20px;
+}
+
+/* quitar color al pasar el ratón por el menú superior*/
+.admin-page .brand-logo:hover {
+    background-color: transparent !important;
+    color: white !important;
+}
+
+.admin-page .brand-logo {
+    color: #262b2f !important;
+}
+
+/* Tabla con efecto de cristal */
+.admin-page .table {
+    /* Fondo verde muy transparente */
+    background-color: rgba(6, 80, 4, 0.3) !important; 
+    color: var(--adm-text);
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px); /* Desenfoque del fondo detrás de la tabla */
+}
+
+.admin-page .table th {
+    color: #fff !important;    /* Títulos de tabla en blanco */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Personalización de los botones de Bulma dentro de esta página */
+.admin-page .button.is-info {
+    background-color: var(--adm-secondary);
+    border: none;
+    color: var(--adm-primary);
+    font-weight: bold;
+}
+
+/* ANIMACIONES (@keyframes) */
+@keyframes float {
+    0%   { transform: rotate(-20deg) translateY(0px); }    /* Inicio */
+    50%  { transform: rotate(-20deg) translateY(-20px); } /* Sube 20px */
+    100% { transform: rotate(-20deg) translateY(0px); }    /* Baja de nuevo */
+}
+
+/* --------------- dashboard config --------------- */
+
+.dashboard-view {
+    overflow-y: hidden !important; /* Bloqueamos scroll vertical */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* Contenedor principal */
+.dashboard-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1px 1% 0 1%; /* padding on panel.s<-->welcome /// right padding /// left padding */
+}
+
+/* Navbar Redondeada*/
+.is-rounded-custom {
+    background-color: var(--adm-primary) !important;
+    border-radius: 50px !important;
+    margin-bottom: 60px;
+    padding: 0 20px;
+}
+
+/* padding on agregar button<-->zapatos.disponibles */
+.welcome-section {
+    margin-bottom: 12px;
+}
+
+.welcome-text {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 15px;
+}
+
+/* Scroll Horizontal */
+.horizontal-scroll-wrapper {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto; /* scroll horizontal ON */
+    overflow-y: hidden;
+    gap: 20px;
+    padding: 20px 5px;
+    height: 450px; /* Ajuste tamaño de imagenes */
+}
+
+/* Estilo de la Carta */
+.shoe-card {
+    min-width: 300px; /* Ancho fijo para forzar el scroll horizontal */
+    background: #40464b;
+    backdrop-filter: blur(10px);
+    border: 1px solid #34ce9d;
+    border-radius: 20px;
+    display: flex;
+    flex-direction:column;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.shoe-card:hover {
+    transform: translateY(-10px);
+}
+
+.card-image {
+    height: 50%; /* Mitad superior imagen */
+    background: #c21717;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-image img {
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.card-data {
+    height: 40%; /* Datos */
+    padding: 15px;
+    color: white;
+}
+
+.card-data h3 {
+    font-weight: bold;
+    color: var(--adm-secondary);
+}
+
+.card-data .desc {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    height: 40px;
+    overflow: hidden;
+}
+
+/* Botones de acción inferiores */
+.card-actions {
+    height: 10%;
+    display: flex;
+    border-top: 1px solid rgba(190, 19, 19, 0.1);
+}
+
+.btn-edit, .btn-delete {
+    flex: 1;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.btn-edit {
+    background-color: var(--adm-primary) !important;
+    color: #262b2f !important;
+}
+
+.btn-delete {
+    background: #ff3860;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #2bb388 !important; /* Un verde un poco más oscuro que el original */
+    color: #ffffff !important;           /* En el hover, el texto pasa a blanco */
+}
+
+/* Estilo para el botón de Agregar */
+.add-custom-btn {
+    background-color: var(--adm-primary) !important; /* Tu verde #34ce9d */
+    color: #262b2f !important;                      /* Texto oscuro para contraste */
+    border-radius: 50px !important;                 /* Forma de cápsula completa */
+    font-weight: bold;
+    letter-spacing: 1px;                            /* Espaciado entre letras */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 25px; 
+}
+
+.add-custom-btn:hover {
+    background-color: #2bb388 !important; /* Un verde un poco más intenso */
+    cursor: pointer;
+    transition: background-color 0.2s ease; /* Para que el cambio de color no sea brusco */
+}
+
+/* Personalización del scrollbar para que sea estético */
+.horizontal-scroll-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+.horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: var(--adm-secondary);
+    border-radius: 10px;
+}
+
