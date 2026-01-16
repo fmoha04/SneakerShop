@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EJEMPLO APP WEB CON CRUD</title>
+    <title>APP WEB</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="zapatos-styles.css">
     <style>
         .oculto{
             display: none;
@@ -27,7 +28,6 @@
                         <td>${zapato.nombre}</td>
                         <td>${zapato.descripcion}</td>
                         <td>${zapato.marca}</td>
-                        <td>${zapato.precio}</td>
                         <td>${zapato.precio}</td>
                         <td>${zapato.precio_iva}</td>
                         <td>`
@@ -101,9 +101,10 @@
     </script>
 </head>
 <body>
-    <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <button class="navbar-burger is-warning button" aria-label="menu" aria-expanded="false"
+            <!-- <button class="navbar-burger is-warning button" aria-label="menu" aria-expanded="false"-->
+            <button class="navbar-burger button" style="background: transparent; border:none;" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
                 data-target="navbarBasicExample">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -133,7 +134,7 @@
                             <th>Imagen</th>
                             <th>Nombre</th>
                             <th>Descripcion</th>
-                            <th>Ingredientes</th>
+                            <th>Marcas</th>
                             <th>Precio</th>
                             <th>PrecioIVA</th>
                             <th>Editar</th>
