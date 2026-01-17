@@ -26,24 +26,24 @@
 
             lista.forEach(zapato => {
                 let card = `
-            <div class="shoe-card">
-                <div class="card-image">
-                    <img src="${zapato.foto}" alt="${zapato.nombre}">
-                </div>
-                <div class="card-data">
-                    <h3>${zapato.nombre}</h3>
-                    <p><strong>Marca:</strong> ${zapato.marca}</p>
-                    <p class="desc">${zapato.descripcion}</p>
-                    <div class="prices">
-                        <span>Neto: ${zapato.precio}€</span>
-                        <span>IVA: ${zapato.precio_iva}€</span>
+                <div class="shoe-card">
+                    <div class="card-image">
+                        <img src="${zapato.foto}" alt="${zapato.nombre}">
                     </div>
-                </div>
-                <div class="card-actions">
-                    <a href="editar_zapato.html?id=${zapato.id}" class="btn-edit">Editar</a>
-                    <button onclick="eliminarZapato(${zapato.id})" class="btn-delete">Eliminar</button>
-                </div>
-            </div>`;
+                    <div class="card-data">
+                        <h3>${zapato.nombre}</h3>
+                        <p>Marca: ${zapato.marca}</p>
+                        <p class="desc">${zapato.descripcion}</p>
+                        <div class="prices">
+                            <span class="price-neto">Neto: ${zapato.precio}€</span>
+                            <span class="price-iva">IVA: ${zapato.precio_iva}€</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="editar_zapato.html?id=${zapato.id}" class="btn-edit">Editar</a>
+                        <button onclick="eliminarZapato(${zapato.id})" class="btn-delete">Eliminar</button>
+                    </div>
+                </div>`;
                 container.innerHTML += card; // Inyectamos la carta
             });
         }
@@ -106,26 +106,49 @@
                 });
 
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Conseguir todos los "navbar-burger" de la página
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            // Revisar si hay "burguers"
+            if ($navbarBurgers.length > 0) {
+                $navbarBurgers.forEach(el => {
+                    el.addEventListener('click', () => {
+                        // Obtener el target del atributo "data-target"
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+                        // Alternar la clase "is-active" tanto en el botón como en el menú
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+                    });
+                });
+            }
+        });
+
     </script>
 </head>
 
 <body class="admin-page dashboard-view">
-    <nav class="navbar is-rounded-custom" role="navigation">
+    <nav class="navbar is-rounded-custom" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item brand-logo" href="#">SneakerShop/Home</a>
+            <a class="navbar-item brand-logo "href="zapatos.html">🏠 SneakerShop/Home</a>
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenuPrincipal">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
         </div>
-        <div class="navbar-menu">
+        <div id="navbarMenuPrincipal" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="ficheros.html">UPLOADS</a>
-                <a class="navbar-item" href="#">VIEW CONTENT OF UPLOADS</a>
-                <a class="navbar-item" href="comentarios.html">COMMENTS</a>
+                <a class="navbar-item" href="ficheros.html">📁 UPLOADS</a>
+                <a class="navbar-item" href="ficheros.html">👁️ VIEW CONTENT OF UPLOADS</a>
+                <a class="navbar-item" href="comentarios.html">💬 COMMENTS</a>
             </div>
             <div class="navbar-end">
-                <a class="navbar-item" href="javascript:cerrarSesion()">SIGN OUT</a>
+                <a class="navbar-item" href="javascript:cerrarSesion()">🛑 LOG OUT</a>
             </div>
         </div>
     </nav>
-
     <main class="dashboard-content">
         <header class="welcome-section">
             <h1 class="welcome-text">Welcome <span id="user-display">$(You)</span> to the SneakerShop</h1>
