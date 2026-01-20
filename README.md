@@ -1,5 +1,8 @@
 ### SneakerShop
 > Web App / Cybersecurity Project / <<Grupo 7 - Ciber1A - 2025/26>>
+Registrar usuario - NO
+Iniciar sesion - SI
+
 CRUD para zapatos - NO
 SUBIR DATOS DE PRUEBA
 > Zapatos - Si
