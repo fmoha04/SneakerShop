@@ -45,7 +45,8 @@ services:
     links:
       - python
     # Volumen TEMPORAL, solo para cambios y pruebas en vivo
-    volumes:
-      - ./apache/static/:/var/www/html
+    # volumes:
+    # - ./apache/static/:/var/www/html
 volumes:
   mariadb_data:
+
