@@ -10,7 +10,7 @@ services:
       MARIADB_DATABASE: ciber
     volumes:
       - mariadb_data:/var/lib/mysql
-      - ./Zapatos.sql:/docker-entrypoint-initdb.d/Zapatos.sql:ro
+      - ./Zapatos.sql:/docker-entrypoint-initdb.d/Zapatos.sql
     user: mysql
   phpmyadmin:
     image: phpmyadmin
@@ -45,8 +45,8 @@ services:
     links:
       - python
     # Volumen TEMPORAL, solo para cambios y pruebas en vivo
-    # volumes:
-    # - ./apache/static/:/var/www/html
+    volumes:
+      - ./apache/static/:/var/www/html
 volumes:
   mariadb_data:
 

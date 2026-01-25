@@ -9,6 +9,9 @@ COPY web/ /app/
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Create archivos directory
+RUN mkdir -p /app/static/archivos
+
 # Expose port
 EXPOSE 8080
 

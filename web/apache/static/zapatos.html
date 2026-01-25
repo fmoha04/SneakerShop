@@ -16,8 +16,21 @@
     <script>
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
+        
         onload = function () {
+            mostrarUsuario();
             pedirZapatos();
+        }
+        
+        function mostrarUsuario() {
+            // Obtener el nombre del usuario del localStorage
+            let usuario = localStorage.getItem('usuario');
+            if (usuario) {
+                document.getElementById('user-display').textContent = usuario;
+            } else {
+                // Si no hay usuario en localStorage, intentar obtenerlo de la sesión
+                document.getElementById('user-display').textContent = 'Usuario';
+            }
         }
 
         function pintarZapatos(lista) {
@@ -95,6 +108,7 @@
                 .then(response => response.json())
                 .then(result => {
                     if (result.status == "OK") {
+                        localStorage.removeItem('usuario');
                         location.href = "index.html";
                     } else {
                         alert("No se ha podido cerrar sesión")
@@ -131,7 +145,7 @@
 <body class="admin-page dashboard-view">
     <nav class="navbar is-rounded-custom" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item brand-logo "href="zapatos.html">🏠 SneakerShop/Home</a>
+            <a class="navbar-item brand-logo "href="zapatos.html">🏠 Home</a>
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenuPrincipal">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -140,12 +154,23 @@
         </div>
         <div id="navbarMenuPrincipal" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="ficheros.html">📁 UPLOADS</a>
-                <a class="navbar-item" href="ficheros.html">👁️ VIEW CONTENT OF UPLOADS</a>
-                <a class="navbar-item" href="comentarios.html">💬 COMMENTS</a>
+                <a class="navbar-item" href="agregar_zapato.html">➕ Agregar Zapato</a>
+                <a class="navbar-item" href="ficheros.html?action=upload">📤 Upload Files</a>
+                <a class="navbar-item" href="ficheros.html?action=view">👁️ View Files</a>
+                <a class="navbar-item" href="comentarios.html">💬 Comments</a>
             </div>
             <div class="navbar-end">
-                <a class="navbar-item" href="javascript:cerrarSesion()">🛑 LOG OUT</a>
+                <div class="navbar-item">
+                    <small style="font-size: 0.85rem; color: #333; margin-right: 1rem;">
+                        👤 Logged as <span id="user-display">$(You)</span>
+                    </small>
+                </div>
+                <div class="navbar-item">
+                    <a href="javascript:cerrarSesion()" class="button is-danger">🔐 LOG OUT</a>
+                </div>
+                <div class="navbar-item">
+                    <a href="registro.html" class="button is-info">📝 CREATE ACCOUNT</a>
+                </div>
             </div>
         </div>
     </nav>
