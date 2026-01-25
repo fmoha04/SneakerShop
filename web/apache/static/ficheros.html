@@ -1,21 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <meta http-equiv="Last-Modified" content="0">
-    <title>Document</title>
+    <title>Gestión de Archivos - SneakerShop</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="main.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0c0636 0%, #1a1a2e 100%);
+            color: #c5dfe0;
+            min-height: 100vh;
+        }
+        .navbar.is-warning {
+            background-color: #1ab188;
+        }
+        .navbar.is-warning .navbar-burger,
+        .navbar.is-warning a.navbar-item {
+            color: white;
+        }
+        .navbar.is-warning a.navbar-item:hover {
+            background-color: #148f6e;
+            color: white;
+        }
+        .section {
+            background: transparent;
+            padding: 1rem 1.5rem;
+        }
+        .section-card {
+            background: linear-gradient(135deg, #24333b 0%, #2a3f47 100%);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #1ab188;
+        }
+        .upload-section {
+            border-left-color: #1ab188 !important;
+        }
+        .view-section {
+            border-left-color: #13c888 !important;
+        }
+        .title {
+            color: #c5dfe0;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        .label {
+            color: #a0b3b0;
+            font-weight: 600;
+        }
+        .input, textarea {
+            background-color: #1a2a2f;
+            color: #c5dfe0;
+            border-color: #1ab188;
+        }
+        .input:focus, textarea:focus {
+            border-color: #1ab188;
+            box-shadow: 0 0 0 0.125em rgba(26, 177, 136, 0.25);
+            background-color: #1a2a2f;
+            color: #c5dfe0;
+        }
+        .button-upload {
+            background-color: #1ab188;
+            color: white;
+            border: none;
+            font-weight: 600;
+        }
+        .button-upload:hover {
+            background-color: #148f6e;
+            color: white;
+        }
+        .button-view {
+            background-color: #13c888;
+            color: white;
+            border: none;
+            font-weight: 600;
+        }
+        .button-view:hover {
+            background-color: #0fa860;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+        textarea#contenidoArchivo {
+            min-height: 200px;
+            font-family: 'Courier New', monospace;
+            background-color: #1a2a2f;
+            color: #9fd86b;
+            border-color: #1ab188;
+        }
+        #archivosList {
+            background-color: #1a2a2f;
+            color: #a0b3b0;
+        }
+        #archivosList li:hover {
+            background-color: #24333b;
+            color: #1ab188;
+        }
+        #archivosList p {
+            color: #a0b3b0;
+        }
+    </style>
     <script>
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Funcionalidad del navbar
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            $navbarBurgers.forEach( el => {
+                el.addEventListener('click', () => {
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+            
+            // Mostrar usuario
+            mostrarUsuario();
+            
+            // Mostrar sección según parámetro
+            mostrarSeccion();
+            
+            // Cargar lista de archivos
+            cargarListaArchivos();
+        });
+        
+        function mostrarUsuario() {
+            let usuario = localStorage.getItem('usuario');
+            if (usuario) {
+                document.getElementById('user-navbar').textContent = usuario;
+            } else {
+                document.getElementById('user-navbar').textContent = 'Usuario no logueado';
+            }
+        }
+        
+        function cerrarSesion() {
+            localStorage.removeItem('usuario');
+            location.href = 'index.html';
+        }
+        
+        function mostrarSeccion() {
+            const params = new URLSearchParams(window.location.search);
+            const action = params.get('action');
+            
+            const uploadSection = document.getElementById('uploadSection');
+            const viewSection = document.getElementById('viewSection');
+            
+            if (action === 'upload') {
+                uploadSection.classList.remove('hidden');
+                viewSection.classList.add('hidden');
+            } else if (action === 'view') {
+                viewSection.classList.remove('hidden');
+                uploadSection.classList.add('hidden');
+            } else {
+                // Mostrar ambas por defecto
+                uploadSection.classList.remove('hidden');
+                viewSection.classList.remove('hidden');
+            }
+        }
+        
         function enviarArchivo(){
             const formData = new FormData();
-            formData.append('fichero',document.getElementById("fichero").files[0]);
-            formData.append('nombre',document.getElementById("nombre").value);
+            formData.append('fichero', document.getElementById("fichero").files[0]);
+            formData.append('nombre', document.getElementById("nombre").value);
             var requestOptions = {
                 method: 'POST',
                 body: formData
@@ -25,30 +181,40 @@
                 .then(response => response.json())
                 .then(result => {
                     if (result.status == "OK"){
-                        alert("archivo subido correctamente");
-                        location.href="index.html"
+                        alert("Archivo subido correctamente");
+                        document.getElementById("nombre").value = "";
+                        document.getElementById("fichero").value = "";
                     } else {
                         alert("El archivo no ha podido subirse");
                     }
                 })
                 .catch(error => {
                     console.log('error', error);
-                    alert("Ha habido un error al recuperar el archivo. Refresque la página")
+                    alert("Ha habido un error al subir el archivo. Refresque la página")
                 });
         }
 
         function verArchivo(){
+            let nombreArchivo = document.getElementById("nombreArchivo").value;
+            console.log("Intentando ver archivo: " + nombreArchivo);
+            
             var requestOptions = {
                 method: 'GET',
             };
 
-            fetch("/api/ficheros/" + document.getElementById("nombreArchivo").value, requestOptions)
-                .then(response => response.json())
+            fetch("/api/ficheros/" + nombreArchivo, requestOptions)
+                .then(response => {
+                    console.log("Respuesta del servidor: status " + response.status);
+                    return response.json();
+                })
                 .then(result => {
+                    console.log("Resultado parseado:", result);
                     if (result.status == "OK"){
-                        document.getElementById("contenidoArchivo").innerText=result.contenido;
+                        console.log("Contenido encontrado, mostrando...");
+                        document.getElementById("contenidoArchivo").innerText = result.contenido;
                     } else {
-                        document.getElementById("contenidoArchivo").innerText="EL CONTENIDO NO ESTA DISPONIBLE";                        
+                        console.log("Error: status no es OK");
+                        document.getElementById("contenidoArchivo").innerText = "EL CONTENIDO NO ESTÁ DISPONIBLE";                        
                     }
                 })
                 .catch(error => {
@@ -56,18 +222,144 @@
                     alert("Ha habido un error al recuperar el archivo. Refresque la página")
                 });
         }
- 
+        
+        function cargarListaArchivos() {
+            var requestOptions = {
+                method: 'GET',
+            };
+
+            fetch("/api/ficheros/", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    pintarListaArchivos(result);
+                })
+                .catch(error => {
+                    console.log('error', error);
+                });
+        }
+        
+        function pintarListaArchivos(archivos) {
+            let listContainer = document.getElementById('archivosList');
+            if (!listContainer) return;
+            
+            listContainer.innerHTML = '';
+            
+            if (!archivos || archivos.length === 0) {
+                listContainer.innerHTML = '<p style="color: #999; text-align: center;">No hay archivos subidos</p>';
+                return;
+            }
+            
+            let html = '<ul style="list-style: none; padding: 0;">';
+            archivos.forEach(archivo => {
+                html += `<li style="padding: 0.5rem; border-bottom: 1px solid #eee; cursor: pointer;" onclick="document.getElementById('nombreArchivo').value='${archivo}'; console.log('Cargando archivo: ${archivo}'); verArchivo();">
+                    📄 ${archivo}
+                </li>`;
+            });
+            html += '</ul>';
+            
+            listContainer.innerHTML = html;
+        }
+
     </script>
 </head>
 <body>
-    <h1>SUBIR UN ARCHIVO</h1>
-        <label>Nombre archivo</label><input type="text" name="nombre" id="nombre"><br>
-        <label>Archivo</label><input type="file" name="fichero" id="fichero"><br>
-        <button type="button" onclick="enviarArchivo()">ENVIAR</button><br>
-    <h1>VER CONTENIDO DE UN ARCHIVO</h1>
-    <label>Nombre archivo</label><input type="text" name="nombreArchivo" id="nombreArchivo"><br>
-    <button type="button" onclick="verArchivo()">Ver</button><br>
-    <label>Contenido archivo</label><textarea id="contenidoArchivo"></textarea><br>
+    <nav class="navbar is-rounded-custom" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <button class="navbar-burger button" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+        </div>
+        <div id="navbarMenu" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="zapatos.html">🏠 Dashboard-Home</a>
+                <a class="navbar-item" href="agregar_zapato.html">➕ Agregar Zapato</a>
+                <a class="navbar-item" href="ficheros.html?action=upload">📤 Upload Files</a>
+                <a class="navbar-item" href="ficheros.html?action=view">👁️ View Files</a>
+                <a class="navbar-item" href="comentarios.html">💬 Comments</a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <small style="font-size: 0.85rem; color: white; margin-right: 1rem;">
+                        👤 Logged as <span id="user-navbar">Cargando...</span>
+                    </small>
+                </div>
+                <div class="navbar-item">
+                    <a href="javascript:cerrarSesion()" class="button" style="background-color: #c5213a; color: white;">🔐 LOG OUT</a>
+                </div>
+                <div class="navbar-item">
+                    <a href="registro.html" class="button" style="background-color: #148f6e; color: white;">📝 CREATE ACCOUNT</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-10">
+                    <h1 class="title is-1">📁 Gestión de Archivos</h1>
+                    
+                    <!-- SECCIÓN SUBIR ARCHIVOS -->
+                    <div id="uploadSection" class="section-card upload-section">
+                        <h2 class="title is-3">📤 Subir Archivo</h2>
+                        <form onsubmit="event.preventDefault(); enviarArchivo();">
+                            <div class="field">
+                                <label class="label" for="nombre">Nombre del Archivo:</label>
+                                <div class="control">
+                                    <input required type="text" class="input" placeholder="Nombre descriptivo" name="nombre" id="nombre">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label" for="fichero">Seleccionar Archivo:</label>
+                                <div class="control">
+                                    <input required type="file" class="input" name="fichero" id="fichero">
+                                </div>
+                            </div>
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <button type="submit" class="button button-upload">📤 Enviar Archivo</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- SECCIÓN VER ARCHIVOS -->
+                    <div id="viewSection" class="section-card view-section">
+                        <h2 class="title is-3">👁️ Ver Contenido de Archivo</h2>
+                        
+                        <!-- Lista de archivos -->
+                        <div class="field" style="margin-bottom: 2rem;">
+                            <label class="label">📋 Archivos Disponibles:</label>
+                            <div style="border: 1px solid #ddd; border-radius: 4px; background-color: #fafafa; max-height: 200px; overflow-y: auto;">
+                                <div id="archivosList" style="padding: 1rem;">
+                                    <p style="color: #999; text-align: center;">Cargando archivos...</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <form onsubmit="event.preventDefault(); verArchivo();">
+                            <div class="field">
+                                <label class="label" for="nombreArchivo">Nombre del Archivo:</label>
+                                <div class="control">
+                                    <input required type="text" class="input" placeholder="Nombre del archivo a visualizar" name="nombreArchivo" id="nombreArchivo">
+                                </div>
+                            </div>
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <button type="submit" class="button button-view">👁️ Ver Contenido</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="field">
+                            <label class="label" for="contenidoArchivo">Contenido:</label>
+                            <textarea class="textarea" id="contenidoArchivo" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

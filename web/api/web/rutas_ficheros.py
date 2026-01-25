@@ -7,6 +7,16 @@ import subprocess
 
 bp = Blueprint('ficheros', __name__)
 
+@bp.route ('/', methods=['GET'])
+def listar():
+    try:
+        respuesta, code = controlador_ficheros.listar_ficheros()
+    except Exception as e:
+        print(f"Error listando archivos: {e}", flush=True)
+        respuesta = []
+        code = 500
+    return jsonify(respuesta), code
+
 @bp.route ('/', methods=['POST']) 
 def upload():
     try:

@@ -13,13 +13,12 @@
     <div class="page-wrapper">
         <div class="content-group">
     
-            <img  src="./assets/zap1-home.png" alt="Sneaker" class="floating-sneaker">
+
     
-            <div class="form-container" style="margin-bottom: 150px;">
+            <div class="form-container">
                 <ul class="tab-group">
                     <li class="tab active"><a href="#signup">Sign Up</a></li>
                     <li class="tab"><a href="#login">Log In</a></li>
-                    <li class="tab"><a href="#comments">Comments</a></li>
                 </ul>
     
                 <div class="tab-content">
@@ -41,16 +40,6 @@
                             </div>
                             <p class="error" style="display:none;">💀 Usuario o contraseña incorrectos 💀</p>
                             <button type="submit" class="button button-block">LOG IN</button>
-                        </form>
-                    </div>
-    
-                    <div id="comments" style="display:none;">
-                        <h1>Leave a Comment</h1>
-                        <form action="/" method="post">
-                            <div class="field-wrap"><input type="text" placeholder="Your Name*" required /></div>
-                            <div class="field-wrap"><textarea placeholder="Write your comment here*" rows="4"
-                                    required></textarea></div>
-                            <button type="submit" class="button button-block">SEND COMMENT</button>
                         </form>
                     </div>
                 </div>
@@ -99,16 +88,23 @@
         const errorMsg = document.querySelector("#login .error");
         errorMsg.style.display = "none";
 
+        var usuario = document.getElementById("username").value;
         var raw = JSON.stringify({
-            "username": document.getElementById("username").value,
+            "username": usuario,
             "password": document.getElementById("password").value
         });
 
         fetch("/api/usuarios/login", { method: 'POST', headers: myHeaders, body: raw })
             .then(response => response.json())
             .then(result => {
-                if (result.status == "OK") { location.href = "zapatos.html"; } 
-                else { errorMsg.style.display = "block"; }
+                if (result.status == "OK") { 
+                    // Guardar el nombre de usuario en localStorage
+                    localStorage.setItem('usuario', usuario);
+                    location.href = "zapatos.html"; 
+                } 
+                else { 
+                    errorMsg.style.display = "block"; 
+                }
             })
             .catch(error => {
                 console.log('Login error:', error)
@@ -121,8 +117,7 @@
         const tabs = document.querySelectorAll('.tab a');
         const sections = {
             '#signup': document.getElementById('signup'),
-            '#login': document.getElementById('login'),
-            '#comments': document.getElementById('comments')
+            '#login': document.getElementById('login')
         };
 
         tabs.forEach(tab => {
