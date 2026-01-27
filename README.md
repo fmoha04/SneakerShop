@@ -35,6 +35,7 @@ ___
 > **DESPLIEGUE**: DOCKER, DOCKERFILE, DOCKER-COMPOSE, KUBERNETES
 > 
 > **SAST**: SonarQube
+> 
 > **IDE**: Visual Studio Code
 
 ___
