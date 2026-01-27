@@ -19,7 +19,7 @@ services:
     environment:
       - PMA_HOST=mariadb
     ports:
-      - EXPOSED_PORT_MYADMIN:80
+      - $EXPOSED_PORT_MYADMIN:80
     depends_on:
       - mariadb
   python:
@@ -49,6 +49,7 @@ services:
       #- ./apache/static/:/var/www/html
 volumes:
   mariadb_data:
+
 
 
 
