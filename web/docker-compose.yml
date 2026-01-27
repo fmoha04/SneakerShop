@@ -15,7 +15,6 @@ services:
   phpmyadmin:
     image: phpmyadmin
     container_name: phpmyadmina7
-    restart: always
     environment:
       - PMA_HOST=mariadb
     ports:
@@ -49,6 +48,7 @@ services:
     restart: unless-stopped
 volumes:
   mariadb_data:
+
 
 
 
