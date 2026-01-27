@@ -12,22 +12,8 @@ ___
 > - CREAR ITEMS / EDITAR ITEMS / ELIMINAR ITEMS - OKEY
 > - SUBIR ARCHIVOS / MOSTRAR ARCHIVOS - OKEY
 > - VER COMENTARIOS / CREAR COMENTARIOS - OKEY
-> - IVA FUNCTION - NOK
+> - IVA FUNCTION - OK
+> - UNITARY IVA TEST - NOK
 > - SAST TEST - NOK
-> - DOCKER DEPLOY - NOK
+> - DOCKER DEPLOY - OK
 > - KUBERNETES DEPLOY - NOK
-
-___
-
-- Registrar usuario - SI
-- Iniciar sesion - SI
-- Comentarios - SI
-- Subir archivos - NO
-- CRUD para zapatos - NO
-- SUBIR DATOS DE PRUEBA - SI
-- Funcion IVA - No
-- Prueba unitaria funcion IVA - No
-- Prueba SAST - NO
-- Despliegue - SI
-
-___
