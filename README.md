@@ -26,7 +26,7 @@ ___
 
 🛠️ Tecnologías Utilizadas
 
-> **FRONTEND**: HTML, CSS, PYTHON, SQL
+> **FRONTEND**: HTML, CSS, JAVASCRIPT
 > 
 > **BACKEND**: PYTHON
 > 
