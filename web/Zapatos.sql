@@ -24,12 +24,10 @@ CREATE TABLE usuarios(
 );
 
 INSERT INTO zapatos (nombre, descripcion, precio, precio_iva, foto, marca) VALUES 
-('Air Max Plus', 'Zapatillas de running premium y diseño aerodinámico.', 185.00, 223.85, 'airmax_plus.jpg', 'Nike'),
-('Ultraboost 22', 'Zapatillas de alto rendimiento.', 160.00, 193.60, 'ultraboost.jpg', 'Adidas');
+('Air Max Plus', 'Zapatillas premium con diseño aerodinámico.', 185.00, 223.85, 'airmax_plus.jpg', 'Nike');
 
 INSERT INTO comentarios (usuario, descripcion) VALUES 
-('root', 'Se ha actualizado el stock de las Converse hoy mismo.');
+('root', 'Se ha actualizado el stock de las zapatillas Nike hoy mismo.');
 
 INSERT INTO usuarios (usuario, clave, perfil) VALUES 
-('root', '1234', 'admin'),
-('test', 'test', 'normal');
+('root', '1234', 'admin');
