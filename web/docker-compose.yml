@@ -19,9 +19,10 @@ services:
     environment:
       - PMA_HOST=mariadb
     ports:
-      - $EXPOSED_PORT_MYADMIN:80
+      - 7007:80
     depends_on:
       - mariadb
+    restart: unless-stopped
   python:
     build: ./api
     container_name: pythona7
@@ -48,6 +49,7 @@ services:
     restart: unless-stopped
 volumes:
   mariadb_data:
+
 
 
 
