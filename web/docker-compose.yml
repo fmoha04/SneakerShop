@@ -19,7 +19,7 @@ services:
     environment:
       - PMA_HOST=mariadb
     ports:
-      - 9093:80
+      - EXPOSED_PORT_MYADMIN:80
     depends_on:
       - mariadb
   python:
@@ -39,7 +39,7 @@ services:
     container_name: apache-$COMPOSE_PROJECT_NAME
     build: ./apache #./waf/ en un futuro
     ports:
-      - $EXPOSED_PORT:80
+      - $EXPOSED_PORT_APACHE:80
     depends_on:
       - python
     links:
@@ -49,6 +49,7 @@ services:
       #- ./apache/static/:/var/www/html
 volumes:
   mariadb_data:
+
 
 
 
