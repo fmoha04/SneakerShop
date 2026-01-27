@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <title>EJEMPLO APP apache CON CRUD</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="main.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0c0636 0%, #1a1a2e 100%);
+            color: #c5dfe0;
+            min-height: 100vh;
+        }
+        .section {
+            background: transparent;
+            padding: 1rem 1.5rem;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .columns {
+            margin-top: 0.5rem;
+        }
+        .column {
+            background: transparent;
+        }
+        .title {
+            color: #c5dfe0;
+            margin-bottom: 2rem;
+        }
+        .edit-form {
+            background: linear-gradient(135deg, #24333b 0%, #2a3f47 100%);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #1ab188;
+        }
+        h3 {
+            color: #c5dfe0;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        .field {
+            margin-bottom: 1.5rem;
+        }
+        .label {
+            color: #a0b3b0;
+            font-weight: 600;
+        }
+        .input {
+            background-color: #1a2a2f !important;
+            color: #c5dfe0 !important;
+            border-color: #1ab188 !important;
+        }
+        .input:focus {
+            border-color: #1ab188 !important;
+            box-shadow: 0 0 0 0.125em rgba(26, 177, 136, 0.25) !important;
+            background-color: #1a2a2f !important;
+            color: #c5dfe0 !important;
+        }
+        .button {
+            background-color: #1ab188;
+            color: white;
+            border: none;
+            font-weight: 600;
+        }
+        .button:hover {
+            background-color: #13c888;
+            color: white;
+        }
+        .button.is-success {
+            background-color: #1ab188;
+        }
+        .button.is-success:hover {
+            background-color: #13c888;
+        }
+        .button-upload {
+            background-color: #1ab188;
+            color: white;
+            font-weight: 600;
+            border: none;
+        }
+        .button-upload:hover {
+            background-color: #13c888;
+            color: white;
+        }
+        .button.is-light {
+            background-color: #2a3f47;
+            color: #c5dfe0;
+            border: 1px solid #1ab188;
+        }
+        .button.is-light:hover {
+            background-color: #1ab188;
+            color: white;
+        }
+        .image img {
+            border-radius: 8px;
+            border: 2px solid #1ab188;
+        }
+    </style>
+    <script>
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        // Funcionalidad del navbar
+        document.addEventListener('DOMContentLoaded', () => {
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+            $navbarBurgers.forEach( el => {
+                el.addEventListener('click', () => {
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        });
+
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var id = urlParams.get('id');
+        onload = function () {
+            obtenerDatosZapato(id);
+        }
+        function obtenerDatosZapato(id) {
+            var requestOptions = {
+                method: 'GET',
+                headers: myHeaders
+            };
+
+            fetch("/api/zapatos/" + id, requestOptions)
+                .then(response => response.json())
+                .then(result => pintarZapato(result))
+                .catch(error => {
+                    alert("Ha habido un error al recuperar los datos del zapato");
+                    location.href = "zapatos.html";
+                });
+
+        }
+        function pintarZapato(zapato) {
+            console.log(zapato);
+            
+            document.getElementById("nombre").value = zapato.nombre;
+            document.getElementById("descripcion").value = zapato.descripcion;
+            document.getElementById("marca").value = zapato.marca;
+            document.getElementById("precio").value = zapato.precio;
+            document.getElementById("foto_url").value = zapato.foto;
+            document.getElementById("foto_preview").src = zapato.foto;
+        }
+
+        function guardar() {
+            let nombre = document.getElementById("nombre").value;
+            let descripcion = document.getElementById("descripcion").value;
+            let marca = document.getElementById("marca").value;
+            let precio = document.getElementById("precio").value;
+            let foto = document.getElementById("foto_url").value;
+            let datos = JSON.stringify({
+                "id": id,
+                "nombre": nombre,
+                "descripcion": descripcion,
+                "marca": marca,
+                "precio": precio,
+                "foto": foto
+            });
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: datos
+            };
+
+            console.log(requestOptions);
+            
+
+            fetch("/api/zapatos/", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    
+                    if (result.status == "OK") {
+                        alert("zapato modificado correctamente")
+                        location.href = "zapatos.html"
+                    } else {
+                        alert("El zapato no ha podido ser modificado: " + (result.mensaje || "Error desconocido"))
+                    }
+                })
+                .catch(error => {
+                    console.log('error', error);
+                    alert("Se ha producido un error y el zapato no ha podido ser modificado: " + error.message)
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="navbar is-rounded-custom" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <button class="navbar-burger button" aria-label="menu" aria-expanded="false"
+                data-target="navbarMenu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+        </div>
+        <div id="navbarMenu" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="zapatos.html">🏠 Dashboard-Home</a>
+                <a class="navbar-item" href="agregar_zapato.html">➕ Agregar Zapato</a>
+                <a class="navbar-item" href="ficheros.html?action=upload">📤 Upload Files</a>
+                <a class="navbar-item" href="ficheros.html?action=view">👁️ View Files</a>
+                <a class="navbar-item" href="comentarios.html">💬 Comments</a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <a href="javascript:history.back()" class="button" style="background-color: #148f6e; color: white;">← Atrás</a>
+                </div>
+                <div class="navbar-item">
+                    <a href="registro.html" class="button" style="background-color: #148f6e; color: white;">📝 CREATE ACCOUNT</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <h1 class="title is-1">✏️ Editar Zapato</h1>
+                    <form class="edit-form">
+                        <div class="field">
+                            <label class="label" for="nombre">Nombre:</label>
+                            <div class="control">
+                                <input required type="text" class="input" placeholder="Nombre" name="nombre" id="nombre">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="descripcion">Descripción</label>
+                            <div class="control">
+                                <input required type="text" class="input" placeholder="Descripción" name="descripcion" id="descripcion">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="marca">Marca</label>
+                            <div class="control">
+                                <input required type="text" class="input" placeholder="Marca" name="marca" id="marca">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="precio">Precio</label>
+                            <div class="control">
+                                <input required type="number" class="input" placeholder="Precio" name="precio" id="precio">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="foto_url">URL de Foto:</label>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="URL de la foto" name="foto_url" id="foto_url">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Vista Previa:</label>
+                            <figure class="image is-256x256">
+                                <img id="foto_preview" src="#" alt="Vista previa de la foto">
+                            </figure>
+                        </div>
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button type="button" onclick="guardar()" class="button button-upload">💾 Guardar Cambios</button>
+                            </div>
+                            <div class="control">
+                                <a href="zapatos.html" class="button is-light">← Volver</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

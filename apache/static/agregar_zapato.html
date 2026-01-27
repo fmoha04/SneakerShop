@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <title>EJEMPLO APP apache CON CRUD</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="main.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0c0636 0%, #1a1a2e 100%);
+            color: #c5dfe0;
+            min-height: 100vh;
+        }
+        .navbar.is-warning {
+            background-color: #1ab188 !important;
+        }
+        .navbar.is-rounded-custom {
+            background-color: #1ab188 !important;
+            border-radius: 50px !important;
+            margin-bottom: 60px;
+            padding: 0 20px;
+        }
+        .navbar.is-warning .navbar-burger,
+        .navbar.is-warning a.navbar-item {
+            color: white;
+        }
+        .navbar.is-rounded-custom .navbar-burger,
+        .navbar.is-rounded-custom a.navbar-item {
+            color: white;
+        }
+        .navbar.is-warning a.navbar-item:hover {
+            background-color: #148f6e;
+            color: white;
+        }
+        .navbar.is-rounded-custom a.navbar-item:hover {
+            background-color: #148f6e;
+            color: white;
+        }
+        .section {
+            background: transparent;
+            padding: 1rem 1.5rem;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .columns {
+            margin-top: 0.5rem;
+        }
+        .column {
+            background: transparent;
+        }
+        .title {
+            color: #c5dfe0;
+            margin-bottom: 2rem;
+        }
+        .add-form {
+            background: linear-gradient(135deg, #24333b 0%, #2a3f47 100%);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #1ab188;
+        }
+        h3 {
+            color: #c5dfe0;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        .field {
+            margin-bottom: 1.5rem;
+        }
+        .label {
+            color: #a0b3b0;
+            font-weight: 600;
+        }
+        .input, textarea {
+            background-color: #1a2a2f !important;
+            color: #c5dfe0 !important;
+            border-color: #1ab188 !important;
+        }
+        .input:focus, textarea:focus {
+            border-color: #1ab188 !important;
+            box-shadow: 0 0 0 0.125em rgba(26, 177, 136, 0.25) !important;
+            background-color: #1a2a2f !important;
+            color: #c5dfe0 !important;
+        }
+        .button {
+            background-color: #1ab188;
+            color: white;
+            border: none;
+            font-weight: 600;
+        }
+        .button:hover {
+            background-color: #13c888;
+            color: white;
+        }
+        .button.is-light {
+            background-color: #2a3f47;
+            color: #c5dfe0;
+            border: 1px solid #1ab188;
+        }
+        .button.is-light:hover {
+            background-color: #1ab188;
+            color: white;
+        }
+        .button-upload {
+            background-color: #1ab188;
+            color: white;
+            font-weight: 600;
+            border: none;
+        }
+        .button-upload:hover {
+            background-color: #13c888;
+            color: white;
+        }
+    </style>
+    <script>
+        // Funcionalidad del navbar y usuario
+        document.addEventListener('DOMContentLoaded', () => {
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+            $navbarBurgers.forEach( el => {
+                el.addEventListener('click', () => {
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+            
+            // Mostrar usuario
+            mostrarUsuario();
+        });
+        
+        function mostrarUsuario() {
+            let usuario = localStorage.getItem('usuario');
+            if (usuario) {
+                document.getElementById('user-navbar').textContent = usuario;
+            } else {
+                document.getElementById('user-navbar').textContent = 'Usuario no logueado';
+            }
+        }
+        
+        function cerrarSesion() {
+            localStorage.removeItem('usuario');
+            location.href = 'index.html';
+        }
+
+        function guardar(){
+            console.log("Función guardar() iniciada");
+            
+            let nombre = document.getElementById("nombre").value;
+            let descripcion = document.getElementById("descripcion").value;
+            let marca = document.getElementById("marca").value;
+            let precio = document.getElementById("precio").value;
+            let fileInput = document.getElementById("filefoto");
+            
+            console.log("Datos ingresados:", {nombre, descripcion, marca, precio, archivos: fileInput.files.length});
+            
+            // Validar campos requeridos
+            if (!nombre || !descripcion || !marca || !precio) {
+                alert("Todos los campos son requeridos");
+                console.log("Validación fallida: campos vacíos");
+                return;
+            }
+            
+//            if (fileInput.files.length === 0) {
+//                alert("Por favor selecciona un archivo de foto");
+//                console.log("Validación fallida: no hay archivo");
+//                return;
+//            }
+            
+            console.log("Validaciones pasadas, preparando FormData");
+            
+            // Crear FormData para enviar el archivo
+            let formData = new FormData();
+            formData.append("nombre", nombre);
+            formData.append("descripcion", descripcion);
+            formData.append("marca", marca);
+            formData.append("precio", precio);
+            formData.append("foto", fileInput.files[0]); // Agregar el archivo
+            
+            console.log("FormData preparado, enviando a /api/zapatos/");
+            
+            var requestOptions = {
+                method: 'POST',
+                body: formData
+                // No establecer Content-Type, el navegador lo hará automáticamente
+            };
+
+            fetch("/api/zapatos/", requestOptions)
+                .then(response => {
+                    console.log("Respuesta recibida, status:", response.status);
+                    return response.json();
+                })
+                .then(result => {
+                    console.log("JSON parseado:", result);
+                    if (result.status == "OK"){
+                        alert("Zapato guardado correctamente");
+                        location.href="zapatos.html";
+                    } else {
+                        alert("Error: " + (result.mensaje || JSON.stringify(result)));
+                    }
+                })
+                .catch(error => {
+                    console.log('Error en fetch:', error);
+                    alert("Se ha producido un error: " + error.message);
+                });
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar is-rounded-custom" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <button class="navbar-burger button" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+        </div>
+        <div id="navbarMenu" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="zapatos.html">🏠 Dashboard-Home</a>
+                <a class="navbar-item is-active" href="agregar_zapato.html">➕ Agregar Zapato</a>
+                <a class="navbar-item" href="ficheros.html?action=upload">📤 Upload Files</a>
+                <a class="navbar-item" href="ficheros.html?action=view">👁️ View Files</a>
+                <a class="navbar-item" href="comentarios.html">💬 Comments</a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <small style="font-size: 0.85rem; color: white; margin-right: 1rem;">
+                        👤 Logged as <span id="user-navbar">Cargando...</span>
+                    </small>
+                </div>
+                <div class="navbar-item">
+                    <a href="javascript:cerrarSesion()" class="button" style="background-color: #c5213a; color: white;">🔐 LOG OUT</a>
+                </div>
+                <div class="navbar-item">
+                    <a href="registro.html" class="button" style="background-color: #148f6e; color: white;">📝 CREATE ACCOUNT</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <h1 class="title is-1">➕ Agregar Zapato</h1>
+                    <form class="add-form">
+                        <div class="field">
+                            <label class="label" for="nombre">Nombre:</label>
+                            <div class="control">
+                                <input required type="text" class="input" placeholder="Nombre" name="nombre" id="nombre">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="descripcion">Descripcion</label>
+                            <div class="control">
+                                <input required type="text" class="input" placeholder="Descripcion" name="descripcion" id="descripcion">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="marca">Marca</label>
+                            <div class="control">
+                                <input required type="text" class="input" placeholder="Marca" name="marca" id="marca">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="precio">Precio</label>
+                            <div class="control">
+                                <input required type="number" class="input" placeholder="Precio" name="precio" id="precio">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="filefoto">Foto (cualquier tipo de archivo)</label>
+                            <div class="control">
+                                <input required type="file" class="input" placeholder="Archivo Foto" name="filefoto" id="filefoto">
+                            </div>
+                        </div>
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button type="button" onclick="guardar()" class="button button-upload">💾 Guardar Zapato</button>
+                            </div>
+                            <div class="control">
+                                <a href="zapatos.html" class="button is-light">← Volver</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
