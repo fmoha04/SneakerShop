@@ -40,13 +40,12 @@ def guardar_zapato():
             nombre = request.form.get("nombre")
             descripcion = request.form.get("descripcion")
             precio = request.form.get("precio")
-            precio_iva = request.form.get("precio_iva")
             marca = request.form.get("marca")
             
-            print(f"Datos recibidos: nombre={nombre}, desc={descripcion}, precio={precio}, precio_iva={precio_iva}, marca={marca}", flush=True)
+            print(f"Datos recibidos: nombre={nombre}, desc={descripcion}, precio={precio}, marca={marca}", flush=True)
             
             # Validar campos requeridos
-            if not all([nombre, descripcion, precio, precio_iva, marca]):
+            if not all([nombre, descripcion, precio, marca]):
                 print("Error: Faltan campos requeridos", flush=True)
                 return jsonify({"status": "Bad request", "mensaje": "Faltan campos requeridos"}), 400
             
@@ -70,9 +69,9 @@ def guardar_zapato():
                 print("Error: No se proporcionó archivo", flush=True)
                 return jsonify({"status": "Bad request", "mensaje": "El archivo de foto es requerido"}), 400
             
-            print(f"Llamando a insertar_zapato con: {nombre}, {descripcion}, {precio}, {precio_iva}, {foto}, {marca}", flush=True)
+            print(f"Llamando a insertar_zapato con: {nombre}, {descripcion}, {precio}, {foto}, {marca}", flush=True)
             respuesta, code = controlador_zapatos.insertar_zapato(
-                nombre, descripcion, precio, precio_iva, foto, marca
+                nombre, descripcion, precio, foto, marca
             )
             print(f"Respuesta de insertar_zapato: {respuesta}, {code}", flush=True)
         # Manejo de JSON (sin archivo)
@@ -81,12 +80,11 @@ def guardar_zapato():
             nombre = zapato_json.get("nombre")
             descripcion = zapato_json.get("descripcion")
             precio = zapato_json.get("precio")
-            precio_iva = zapato_json.get("precio_iva")
             foto = zapato_json.get("foto")
             marca = zapato_json.get("marca")
             
             respuesta, code = controlador_zapatos.insertar_zapato(
-                nombre, descripcion, precio, precio_iva, foto, marca
+                nombre, descripcion, precio, foto, marca
             )
         else:
             print(f"Content-Type no reconocido: {content_type}", flush=True)
@@ -116,11 +114,10 @@ def actualizar_zapato():
         nombre = zapato_json["nombre"]
         descripcion = zapato_json["descripcion"]
         precio = float(zapato_json["precio"])
-        precio_iva = float(zapato_json.get("precio_iva", 0))
         foto = zapato_json["foto"]
         marca = zapato_json["marca"]
         respuesta, code = controlador_zapatos.actualizar_zapato(
-            id, nombre, descripcion, precio, precio_iva, foto, marca
+            id, nombre, descripcion, precio, foto, marca
         )
     else:
         respuesta = {"status": "Bad request"}

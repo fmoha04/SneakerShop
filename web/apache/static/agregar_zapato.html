@@ -158,23 +158,22 @@
             let descripcion = document.getElementById("descripcion").value;
             let marca = document.getElementById("marca").value;
             let precio = document.getElementById("precio").value;
-            let precio_iva = document.getElementById("precio_iva").value;
             let fileInput = document.getElementById("filefoto");
             
-            console.log("Datos ingresados:", {nombre, descripcion, marca, precio, precio_iva, archivos: fileInput.files.length});
+            console.log("Datos ingresados:", {nombre, descripcion, marca, precio, archivos: fileInput.files.length});
             
             // Validar campos requeridos
-            if (!nombre || !descripcion || !marca || !precio || !precio_iva) {
+            if (!nombre || !descripcion || !marca || !precio) {
                 alert("Todos los campos son requeridos");
                 console.log("Validación fallida: campos vacíos");
                 return;
             }
             
-            if (fileInput.files.length === 0) {
-                alert("Por favor selecciona un archivo de foto");
-                console.log("Validación fallida: no hay archivo");
-                return;
-            }
+//            if (fileInput.files.length === 0) {
+//                alert("Por favor selecciona un archivo de foto");
+//                console.log("Validación fallida: no hay archivo");
+//                return;
+//            }
             
             console.log("Validaciones pasadas, preparando FormData");
             
@@ -184,7 +183,6 @@
             formData.append("descripcion", descripcion);
             formData.append("marca", marca);
             formData.append("precio", precio);
-            formData.append("precio_iva", precio_iva);
             formData.append("foto", fileInput.files[0]); // Agregar el archivo
             
             console.log("FormData preparado, enviando a /api/zapatos/");
@@ -282,12 +280,6 @@
                             <label class="label" for="filefoto">Foto (cualquier tipo de archivo)</label>
                             <div class="control">
                                 <input required type="file" class="input" placeholder="Archivo Foto" name="filefoto" id="filefoto">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label" for="precio_iva">Precio con IVA:</label>
-                            <div class="control">
-                                <input required type="number" class="input" placeholder="Precio con IVA" name="precio_iva" id="precio_iva">
                             </div>
                         </div>
                         <div class="field is-grouped">

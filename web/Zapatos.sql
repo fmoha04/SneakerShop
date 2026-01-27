@@ -23,10 +23,9 @@ CREATE TABLE usuarios(
     perfil VARCHAR(100) NOT NULL
 );
 
-INSERT INTO zapatos (nombre, descripcion, precio, foto, marca) VALUES 
-('Air Max Plus', 'Zapatillas de running premium y diseño aerodinámico.', 185.50, 'airmax_plus.jpg', 'Nike'),
-('Ultraboost 22', 'Zapatillas de alto rendimiento.', 160.00, 'ultraboost.jpg', 'Adidas'),
-('Old Skool', 'Zapatillas de lona clásicas con la icónica banda lateral.', 75.00, 'vans_oldskool.jpg', 'Vans');
+INSERT INTO zapatos (nombre, descripcion, precio, precio_iva, foto, marca) VALUES 
+('Air Max Plus', 'Zapatillas de running premium y diseño aerodinámico.', 185.00, 223.85, 'airmax_plus.jpg', 'Nike'),
+('Ultraboost 22', 'Zapatillas de alto rendimiento.', 160.00, 193.60, 'ultraboost.jpg', 'Adidas');
 
 INSERT INTO comentarios (usuario, descripcion) VALUES 
 ('root', 'Se ha actualizado el stock de las Converse hoy mismo.');

@@ -151,7 +151,6 @@
             document.getElementById("descripcion").value = zapato.descripcion;
             document.getElementById("marca").value = zapato.marca;
             document.getElementById("precio").value = zapato.precio;
-            document.getElementById("precio_iva").value = zapato.precio_iva;
             document.getElementById("foto_url").value = zapato.foto;
             document.getElementById("foto_preview").src = zapato.foto;
         }
@@ -161,7 +160,6 @@
             let descripcion = document.getElementById("descripcion").value;
             let marca = document.getElementById("marca").value;
             let precio = document.getElementById("precio").value;
-            let precio_iva = document.getElementById("precio_iva").value;
             let foto = document.getElementById("foto_url").value;
             let datos = JSON.stringify({
                 "id": id,
@@ -169,7 +167,6 @@
                 "descripcion": descripcion,
                 "marca": marca,
                 "precio": precio,
-                "precio_iva": precio_iva,
                 "foto": foto
             });
             var requestOptions = {
@@ -256,12 +253,6 @@
                             <label class="label" for="precio">Precio</label>
                             <div class="control">
                                 <input required type="number" class="input" placeholder="Precio" name="precio" id="precio">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label" for="precio_iva">Precio con IVA:</label>
-                            <div class="control">
-                                <input required type="number" class="input" placeholder="Precio con IVA" name="precio_iva" id="precio_iva">
                             </div>
                         </div>
                         <div class="field">

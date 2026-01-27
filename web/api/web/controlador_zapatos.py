@@ -1,7 +1,6 @@
 from bd import obtener_conexion
 import sys
 
-
 def convertir_zapatos_a_json(zapato):
     d = {}
     d['id'] = zapato[0]
@@ -13,8 +12,9 @@ def convertir_zapatos_a_json(zapato):
     d['marca'] = zapato[6]
     return d
 
-def insertar_zapato(nombre, descripcion, precio, precio_iva, foto, marca):
+def insertar_zapato(nombre, descripcion, precio, foto, marca):
     try:
+        precio_iva = float(precio) + calculariva(float(precio))
         print(f"Insertando zapato: {nombre}, {descripcion}, {precio}, {precio_iva}, {foto}, {marca}", flush=True)
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
@@ -32,6 +32,9 @@ def insertar_zapato(nombre, descripcion, precio, precio_iva, foto, marca):
         ret = {"status": "Error", "mensaje": str(e)}
         code = 500
     return ret, code
+
+def calculariva(precio):
+    return precio*0.21
 
 def obtener_zapatos():
     zapatosjson = []
@@ -83,12 +86,12 @@ def eliminar_zapato(id):
         code=500
     return ret,code
 
-def actualizar_zapato(id, nombre, descripcion, precio, precio_iva, foto, marca):
+def actualizar_zapato(id, nombre, descripcion, precio, foto, marca):
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
             cursor.execute("UPDATE zapatos SET nombre = %s, descripcion = %s, precio = %s, precio_iva = %s, foto = %s, marca = %s WHERE id = %s",
-                    (nombre, descripcion, precio, precio_iva, foto, marca, id))
+                    (nombre, descripcion, precio, (calculariva(float(precio)) + float(precio)), foto, marca, id))
             if cursor.rowcount == 1:
                 ret = {"status": "OK"}
             else:
