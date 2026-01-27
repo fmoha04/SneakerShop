@@ -1,5 +1,6 @@
 from bd import obtener_conexion
 import sys
+from funciones_auxiliares import calculariva
 
 def convertir_zapatos_a_json(zapato):
     d = {}
@@ -32,9 +33,6 @@ def insertar_zapato(nombre, descripcion, precio, foto, marca):
         ret = {"status": "Error", "mensaje": str(e)}
         code = 500
     return ret, code
-
-def calculariva(precio):
-    return precio*0.21
 
 def obtener_zapatos():
     zapatosjson = []
