@@ -4,10 +4,10 @@ services:
     container_name: mariadba7
     restart: unless-stopped
     environment:
-      MARIADB_ROOT_PASSWORD: example
-      MARIADB_USER: agente
-      MARIADB_USER_PASSWORD: 0traClave
-      MARIADB_DATABASE: ciber
+      MARIADB_ROOT_PASSWORD: ${SQL_ROOT_PASSWORD}
+      MARIADB_USER: ${SQL_USER}
+      MARIADB_PASSWORD: ${SQL_PASSWORD}
+      MARIADB_DATABASE: ${SQL_DATABASE}
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./Zapatos.sql:/docker-entrypoint-initdb.d/Zapatos.sql
@@ -26,13 +26,13 @@ services:
     build: ./api
     container_name: pythona7
     environment:
-      DB_USERNAME: root
-      DB_PASSWORD: example
-      DB_DATABASE: ciber
-      DB_HOST: mariadb
-      DB_PORT: 3306
-      PORT: 8080
-      HOST: 0.0.0.0
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      PORT: ${PORT}
+      HOST: ${HOST}
     depends_on:
       - mariadb
     restart: unless-stopped
@@ -48,11 +48,3 @@ services:
     restart: unless-stopped
 volumes:
   mariadb_data:
-
-
-
-
-
-
-
-
