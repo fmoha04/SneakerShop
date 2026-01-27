@@ -26,9 +26,9 @@ ___
 
 🛠️ Tecnologías Utilizadas
 
-> **FRONTEND**: HTML, CSS, JAVASCRIPT
+> **FRONTEND**: HTML5, CSS3, JAVASCRIPT
 > 
-> **BACKEND**: PYTHON
+> **BACKEND**: PYTHON, FLASK
 > 
 > **DATABASE**: SQL (MARIADB)
 > 
