@@ -23,4 +23,3 @@ kubectl apply -f /home/vagrant/SneakerShop/k8s/apache_service.yml
 #6 phpmyadmin
 kubectl apply -f /home/vagrant/SneakerShop/k8s/phpmyadmin_deployment.yml
 kubectl apply -f /home/vagrant/SneakerShop/k8s/phpmyadmin_service.yml
-
