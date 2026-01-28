@@ -18,10 +18,17 @@ spec:
           image: mariadb:11-ubi
           ports:
             - containerPort: 3306
-          envFrom:
-            - secretRef:
-                name: grupoa7-secret
-                key: SQL_ROOT_PASSWORD
+          env:
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: grupoa7-secret
+                  key: SQL_ROOT_PASSWORD
+            - name: MARIADB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: grupoa7-secret
+                  key: SQL_DATABASE
           envFrom:
             - secretRef:
                 name: grupoa7-secret
