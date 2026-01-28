@@ -21,6 +21,10 @@ spec:
           envFrom:
             - secretRef:
                 name: grupoa7-secret
+                key: SQL_ROOT_PASSWORD
+          envFrom:
+            - secretRef:
+                name: grupoa7-secret
           volumeMounts:
             - name: mariadb-data
               mountPath: /var/lib/mysql
