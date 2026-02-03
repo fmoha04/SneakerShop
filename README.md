@@ -20,7 +20,7 @@ ___
 > - UNITARY IVA TEST - ✔️
 > - SAST TEST - ✔️
 > - DOCKER COMPOSE DEPLOY - ✔️
-> - KUBERNETES DEPLOY - ✔️❌
+> - KUBERNETES DEPLOY - ✔️
 
 ___
 
