@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache-waf
+  namespace: profesor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apache-waf
+  template:
+    metadata:
+      labels:
+        app: apache-waf
+    spec:
+      containers:
+        - name: apache
+          image: fernipeps/pepsapachewaf:1.0
+          ports:
+            - containerPort: 80
