@@ -10,13 +10,11 @@ ___
 
 📍 Objetivos Fase 1
 
-> - LOGIN PAGE - ✔️
-> - LOG IN / LOG OUT - ✔️
+> - LOG IN / SIGN UP / LOG OUT - ✔️
 > - DASHBOARD - ✔️
 > - CREAR ITEMS / EDITAR ITEMS / ELIMINAR ITEMS - ✔️
 > - SUBIR ARCHIVOS / MOSTRAR ARCHIVOS - ✔️
 > - VER COMENTARIOS / CREAR COMENTARIOS - ✔️
-> - IVA FUNCTION - ✔️
 > - UNITARY IVA TEST - ✔️
 > - SAST TEST - ✔️
 > - DOCKER COMPOSE DEPLOY - ✔️
@@ -34,9 +32,10 @@ ___
 > 
 > **DESPLIEGUE**: DOCKER, DOCKERFILE, DOCKER-COMPOSE, KUBERNETES
 > 
-> **SAST**: SonarQube
+> **SAST**: SONARQUBE
 > 
-> **IDE**: Visual Studio Code
+> **IDE**: VISUAL STUDIO CODE
 >
-> **Control de Versiones**: Git, Github
+> **VERSION CONTROL**: GIT, GITHUB
+
 ___
