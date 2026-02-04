@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: apache-waf
-  namespace: grupoa7
+  namespace: grupo7a
 spec:
   replicas: 1
   selector:

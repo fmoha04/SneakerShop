@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: grupoa7-pv
+  name: grupo7a-pv
 spec:
   capacity:
     storage: 1Gi
@@ -11,4 +11,5 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: manual
   hostPath:
-    path: /mnt/data/grupoa7
+    path: /mnt/data/grupo7a
+#    path: /home/grupo7a/mnt/data/grupo7a

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mariadb-initdb
-  namespace: grupoa7
+  namespace: grupo7a
 data:
   init.sql: |-
     CREATE DATABASE IF NOT EXISTS ciber;
@@ -36,11 +36,11 @@ data:
     ('Old Skool', 'Zapatillas de lona iconicas para skate.', 70.00, 84.70, 'vans_oldskool.jpg', 'Vans'),
     ('Chuck Taylor All Star', 'Bota alta clasica de lona.', 65.00, 78.65, 'converse_allstar.jpg', 'Converse');
 
-    INSERT INTO comentarios (usuario, descripcion) VALUES 
+    INSERT INTO comentarios (usuario, descripcion) VALUES
     ('admin@N1', 'Revisar el margen de beneficio de las zapatillas Vans el próximo mes.'),
     ('admin@N2', 'Error corregido en la visualización de la foto de las Converse.');
 
-    INSERT INTO usuarios (usuario, clave, perfil) VALUES 
+    INSERT INTO usuarios (usuario, clave, perfil) VALUES
     ('root', '1234', 'admin'),
     ('admin@N1', 'trynexttime!', 'admin'),
     ('admin@N2', 'tryhackme!', 'admin'),

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mariadb
-  namespace: grupoa7
+  namespace: grupo7a
 spec:
   replicas: 1
   selector:
@@ -13,25 +13,28 @@ spec:
       labels:
         app: mariadb
     spec:
+#      securityContext:
+#        fsGroup: 1001
       containers:
         - name: mariadb
-          image: mariadb:11-ubi
+          #image: mariadb:11-ubi
+          image: mariadb:10.5
           ports:
             - containerPort: 3306
           env:
             - name: MARIADB_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: grupoa7-secret
+                  name: grupo7a-secret
                   key: SQL_ROOT_PASSWORD
             - name: MARIADB_DATABASE
               valueFrom:
                 secretKeyRef:
-                  name: grupoa7-secret
+                  name: grupo7a-secret
                   key: SQL_DATABASE
           envFrom:
             - secretRef:
-                name: grupoa7-secret
+                name: grupo7a-secret
           volumeMounts:
             - name: mariadb-data
               mountPath: /var/lib/mysql
@@ -40,7 +43,7 @@ spec:
       volumes:
         - name: mariadb-data
           persistentVolumeClaim:
-            claimName: grupoa7-pvc
+            claimName: grupo7a-pvc
         - name: mariadb-init
           configMap:
             name: mariadb-initdb
