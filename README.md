@@ -37,5 +37,6 @@ ___
 > **SAST**: SonarQube
 > 
 > **IDE**: Visual Studio Code
-
+>
+> **Control de Versiones**: Git, Github
 ___
