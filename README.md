@@ -2,7 +2,7 @@ ___
 
 👟 SneakerShop
 > 
-> Web App / Cybersecurity Project / Grupo 7 - Ciber1A - IES El Cañaveral - 2025/26
+> Web App / Cybersecurity Project / DevSecOps Project / Grupo 7 - Ciber1A - IES El Cañaveral - 2025/26
 > 
 > Developed by Mohamed, Andrei and Iván
 
