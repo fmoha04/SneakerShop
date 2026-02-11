@@ -29,6 +29,7 @@ pipeline {
       registryCredential= 'DockerHub'
       GITHUB_CREDENTIALS = credentials('GitHub')
       DOCKERHUB_CREDENTIALS = credentials('DockerHub')
+	  K8S_CREDENTIALS = credentials('k8sA7')
       DOCKER_IMAGEPYTHON = "fmoha21/pps-python"
       DOCKER_IMAGEWAF = "fmoha21/pps-apache"
       FINAL_IMAGE_TAG_PYTHON = "${params.IMAGE_TAG_PYTHON}"
@@ -132,7 +133,7 @@ pipeline {
         steps{
           script{
 //            dockerImageWaf= docker.build("${registrywaf}:${FINAL_IMAGE_TAG_WAF}", "-f waf/Dockerfile waf")
-              dockerImageWaf= docker.build("${registrywaf}:${FINAL_IMAGE_TAG_WAF}", "-f apache Dockerfile")
+              dockerImageWaf= docker.build("${registrywaf}:${FINAL_IMAGE_TAG_WAF}", "-f apache/Dockerfile apache")
           }
         }
       }
@@ -196,31 +197,31 @@ EOF
 stage('Deploy en Kubernetes') {
   steps {
     // Usamos credenciales tipo Username with password de Jenkins
-    withCredentials([usernamePassword(credentialsId: 'kubernetes-ssh', 
+    withCredentials([usernamePassword(credentialsId: 'k8sA7', 
                                       usernameVariable: 'JUMP_USER', 
                                       passwordVariable: 'JUMP_PASS')]) {
       // Despliegue del servicio Python
       sh """
-        sshpass -p '$JUMP_PASS' ssh -o StrictHostKeyChecking=no $JUMP_USER@$KUBERNETES-HOST << 'EOF'
+        sshpass -p "\$JUMP_PASS" ssh -o StrictHostKeyChecking=no \$JUMP_USER@$KUBERNETES_HOST << 'EOF'
           kubectl set image deployment/pepspython \
             pepspython=${registrypython}:${FINAL_IMAGE_TAG_PYTHON} \
-            -n profesor
+            -n grupoa7
 
-          kubectl rollout status deployment/pepspython -n profesor
-        EOF
+          kubectl rollout status deployment/pepspython -n grupoa7
+EOF
       """
 
       // Despliegue del WAF si corresponde
       script {
         if (params.IMAGE_TAG_WAF?.trim()) {
           sh """
-            sshpass -p '$JUMP_PASS' ssh -o StrictHostKeyChecking=no $JUMP_USER@$KUBERNETES-HOST << 'EOF'
+            sshpass -p "\$JUMP_PASS" ssh -o StrictHostKeyChecking=no \$JUMP_USER@$KUBERNETES_HOST << 'EOF'
               kubectl set image deployment/pepsapachewaf \
                 pepsapachewaf=${registrywaf}:${FINAL_IMAGE_TAG_WAF} \
-                -n profesor
+                -n grupoa7
 
-              kubectl rollout status deployment/pepsapachewaf -n profesor
-            EOF
+              kubectl rollout status deployment/pepsapachewaf -n grupoa7
+EOF
           """
         } else {
           echo "WAF TAG vacío → No se despliega WAF"
