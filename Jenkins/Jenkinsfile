@@ -23,6 +23,7 @@ pipeline {
 
     // Definimos las variables de entorno que se utilizarán en el pipeline
     environment {
+	  ENVIRONMENT="test"
       registrypython= "fmoha21/pps-python"
       registrywaf= "fmoha21/pps-apache"
       registryCredential= 'DockerHub'
@@ -50,7 +51,7 @@ pipeline {
     	steps {
         	echo "Iniciando prueba unitaria..."
         	// Entramos a la carpeta específica usando la directiva de Jenkins
-        	dir('/SneakerShop/api/test') { 
+        	dir('api/test') { 
             	sh 'pytest test_CalcularIva.py'
        	 	}
    		}
@@ -130,7 +131,8 @@ pipeline {
         } 
         steps{
           script{
-            dockerImageWaf= docker.build("${registrywaf}:${FINAL_IMAGE_TAG_WAF}", "-f waf/Dockerfile waf")
+//            dockerImageWaf= docker.build("${registrywaf}:${FINAL_IMAGE_TAG_WAF}", "-f waf/Dockerfile waf")
+              dockerImageWaf= docker.build("${registrywaf}:${FINAL_IMAGE_TAG_WAF}", "-f apache Dockerfile")
           }
         }
       }
