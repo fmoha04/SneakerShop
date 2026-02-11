@@ -23,37 +23,41 @@ pipeline {
 
     // Definimos las variables de entorno que se utilizarán en el pipeline
     environment {
-      registrypython= "fernipeps/pepspython"
-      registrywaf= "fernipeps/pepsapachewaf"
+      registrypython= "fmoha21/pps-python"
+      registrywaf= "fmoha21/pps-apache"
       registryCredential= 'DockerHub'
       GITHUB_CREDENTIALS = credentials('GitHub')
       DOCKERHUB_CREDENTIALS = credentials('DockerHub')
-      DOCKER_IMAGEPYTHON = "fernipeps/pepspython"
-      DOCKER_IMAGEWAF = "fernipeps/pepsapachewaf"
+      DOCKER_IMAGEPYTHON = "fmoha21/pps-python"
+      DOCKER_IMAGEWAF = "fmoha21/pps-apache"
       FINAL_IMAGE_TAG_PYTHON = "${params.IMAGE_TAG_PYTHON}"
       FINAL_IMAGE_TAG_WAF = "${params.IMAGE_TAG_WAF}"
-      KUBERNETES-HOST="10.227.87.9"
+      KUBERNETES_HOST="10.227.87.9"
     }
 
     // Stage de clonar el repo de github 
     stages {
       stage('Clonar repositorio') {
         steps {
-          git url: 'https://github.com/ProfeFernando/peps2025a.git', 
+          git url: 'https://github.com/fmoha04/SneakerShop.git', 
           branch: 'main',
           credentialsId: 'GitHub'
         }
       }
 
       // Stage de pruebas
-      stage('Prueba unitaria') {
-        steps {
-          sh 'echo aqui se hace la prueba unitaria'
-        }
-      }
+	stage('Prueba unitaria') {
+    	steps {
+        	echo "Iniciando prueba unitaria..."
+        	// Entramos a la carpeta específica usando la directiva de Jenkins
+        	dir('/SneakerShop/api/test') { 
+            	sh 'pytest test_CalcularIva.py'
+       	 	}
+   		}
+	}
 
-      // Stage de análisis estático de código
-      stage('Static Analysis') {
+    // Stage de análisis estático de código
+    stage('Static Analysis') {
         parallel {
           stage('Detect Secrets') {
             steps{
