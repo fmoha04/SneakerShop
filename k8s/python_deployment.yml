@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
         - name: python
-          image: zoltar238/kubepython:1.0
+          # image: zoltar238/kubepython:1.0
+          image: fmoha21/pps-python:${FINAL_IMAGE_TAG_PYTHON}
           ports:
             - containerPort: 8080
           env:
