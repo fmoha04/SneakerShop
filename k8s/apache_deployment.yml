@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: apache-waf
+  name: apache_waf
   namespace: grupo7a
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: apache-waf
+      app: apache_waf
   template:
     metadata:
       labels:
-        app: apache-waf
+        app: apache_waf
     spec:
       containers:
         - name: apache
