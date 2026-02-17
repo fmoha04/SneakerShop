@@ -37,7 +37,7 @@ services:
     depends_on:
       - mariadb
     restart: unless-stopped
-  apache-waf:
+  apache:
     container_name: apachea7
     build: ./apache #./waf/ en un futuro
     # imagen/WAF:${TAG_WAF}
