@@ -178,7 +178,10 @@ DB_PASSWORD=example
 DB_DATABASE=ciber
 EOF
 '''
-            sh '''
+// TESTING		export TAG_WAF=$FINAL_IMAGE_TAG_WAF
+// TESTING		export TAG_PYTHON=$FINAL_IMAGE_TAG_PYTHON
+		sh '''
+
                 docker compose -f docker-compose.yml up -d
             '''
           }
@@ -202,26 +205,24 @@ stage('Deploy en Kubernetes') {
                                       passwordVariable: 'JUMP_PASS')]) {
       // Despliegue del servicio Python
       sh """
-        sshpass -p "\$JUMP_PASS" ssh -o StrictHostKeyChecking=no \$JUMP_USER@$KUBERNETES_HOST << 'EOF'
-          kubectl set image deployment/pepspython \
+        sshpass -p '$JUMP_PASS' ssh -o StrictHostKeyChecking=no $JUMP_USER@$KUBERNETES_HOST \\
+          "kubectl set image deployment/python \
             pepspython=${registrypython}:${FINAL_IMAGE_TAG_PYTHON} \
-            -n grupoa7
+            -n grupoa7 && \\
 
-          kubectl rollout status deployment/pepspython -n grupoa7
-EOF
+          kubectl rollout status deployment/pepspython -n grupoa7"
       """
 
       // Despliegue del WAF si corresponde
       script {
         if (params.IMAGE_TAG_WAF?.trim()) {
           sh """
-            sshpass -p "\$JUMP_PASS" ssh -o StrictHostKeyChecking=no \$JUMP_USER@$KUBERNETES_HOST << 'EOF'
-              kubectl set image deployment/pepsapachewaf \
+            sshpass -p '$JUMP_PASS' ssh -o StrictHostKeyChecking=no $JUMP_USER@$KUBERNETES_HOST \\
+              "kubectl set image deployment/apache-waf \
                 pepsapachewaf=${registrywaf}:${FINAL_IMAGE_TAG_WAF} \
-                -n grupoa7
+                -n grupoa7 && \\
 
-              kubectl rollout status deployment/pepsapachewaf -n grupoa7
-EOF
+              kubectl rollout status deployment/pepsapachewaf -n grupoa7"
           """
         } else {
           echo "WAF TAG vacío → No se despliega WAF"
