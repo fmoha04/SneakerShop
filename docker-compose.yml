@@ -24,6 +24,7 @@ services:
     restart: unless-stopped
   python:
     build: ./api
+    # imagen/python:${TAG_IMG}
     container_name: pythona7
     environment:
       DB_USERNAME: ${DB_USERNAME}
@@ -39,6 +40,7 @@ services:
   apache-waf:
     container_name: apachea7
     build: ./apache #./waf/ en un futuro
+    # imagen/WAF:${TAG_WAF}
     ports:
       - $EXPOSED_PORT_APACHE:80
     depends_on:
