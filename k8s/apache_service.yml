@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: apache_waf
+  name: apache
   namespace: grupo7a
 spec:
   type: NodePort
@@ -9,4 +9,4 @@ spec:
     - port: 80
       nodePort: 30607
   selector:
-    app: apache_waf
+    app: apache
