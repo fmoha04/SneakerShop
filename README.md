@@ -24,9 +24,18 @@ ___
 
 📍 Objetivos Fase 2 (..in-progress..)
 
-> - JENKINS CI/CD Pipeline - ❌
-> - SECURITY TESTS WITH JENKINS - ❌
-> - END-TO-END TESTS WITH JENKINS AND PUPPETEER - ❌
+> - INITIAL-1 JENKINS CI/CD Pipeline - ✔️
+> - INITIAL-2 JENKINS CI/CD Pipeline - ✔️
+> - UNITARY TEST JENKINS CI/CD Pipeline - ✔️
+> - SECRETS SCANNING WITH TRUFFLEHOG - ✔️
+> - SCA WITH OWASP DEPENDENCY-CHECK - ❌
+> - SAST - ❌
+> - IaC SCANNING - ❌
+> - CONTAINER SCAN - ❌
+> - INTERACTIVE APPLICATION SECURITY TESTING - ❌
+> - DAST - ❌
+> - KUBERNETES DEPLOY - ✔️
+> - END-TO-END TESTS WITH PUPPETEER - ❌
 > - ELK SIEM Integration with Kubernetes - ❌
 
 ___
