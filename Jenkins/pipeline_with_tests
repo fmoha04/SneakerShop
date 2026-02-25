@@ -87,6 +87,22 @@ pipeline {
             }
         }
     }
+    // Test SAST
+    stage('SAST') {
+    steps {
+        echo "Escaneando con Bandit..."
+        dir('api') {
+            script {
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    sh '''
+                        pip install bandit --break-system-packages
+                        bandit -r . -ll
+                    '''
+                }
+            }
+        }
+    }
+}
 
     // Stage de análisis estático de código
     stage('Static Analysis') {
