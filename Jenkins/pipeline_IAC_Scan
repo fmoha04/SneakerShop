@@ -1,0 +1,284 @@
+pipeline {
+    // especificamos cualquier agente disponible para ejecutar el pipeline
+    agent any
+
+    // Definimos las herramientas necesarias para el pipeline
+    tools {
+      dockerTool "Docker"
+    }
+
+    // Definimos los parámetros que se pueden pasar al pipeline
+    parameters {
+      string(
+       name: 'IMAGE_TAG_PYTHON',
+       defaultValue: '1.0',
+       description: 'Tag de la imagen Docker de python'
+      )
+      string(
+       name: 'IMAGE_TAG_WAF',
+       defaultValue: '1.0',
+       description: 'Tag de la imagen Docker de waf'
+      )
+    }
+
+    // Definimos las variables de entorno que se utilizarán en el pipeline
+    environment {
+	  ENVIRONMENT="test"
+      registrypython= "fmoha21/pps-python"
+      registrywaf= "fmoha21/pps-apache"
+      registryCredential= 'DockerHub'
+      GITHUB_CREDENTIALS = credentials('GitHub')
+      DOCKERHUB_CREDENTIALS = credentials('DockerHub')
+	  K8S_CREDENTIALS = credentials('k8sA7')
+      DOCKER_IMAGEPYTHON = "fmoha21/pps-python"
+      DOCKER_IMAGEWAF = "fmoha21/pps-apache"
+      FINAL_IMAGE_TAG_PYTHON = "${params.IMAGE_TAG_PYTHON}"
+      FINAL_IMAGE_TAG_WAF = "${params.IMAGE_TAG_WAF}"
+      KUBERNETES_HOST="10.227.87.9"
+    }
+
+    // Stage de clonar el repo de github 
+    stages {
+      stage('Clonar repositorio') {
+        steps {
+          git url: 'https://github.com/fmoha04/SneakerShop.git', 
+          branch: 'main',
+          credentialsId: 'GitHub'
+        }
+      }
+
+// IAC Scan
+   stage('Checkov IaC Scan') {
+    steps {
+        script {
+            catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                sh '''
+                docker run --rm \
+                  -v $WORKSPACE:/iac \
+                  bridgecrew/checkov:latest \
+                  -d /iac
+                '''
+            }
+        }
+    }
+}
+    
+      // Stage de pruebas
+	stage('Prueba unitaria') {
+    	steps {
+        	echo "Iniciando prueba unitaria..."
+        	// Entramos a la carpeta específica usando la directiva de Jenkins
+        	dir('api/test') { 
+            	sh 'pytest test_CalcularIva.py'
+       	 	}
+   		}
+	}
+
+    // Stage de análisis estático de código
+    stage('Static Analysis') {
+        parallel {
+          stage('Detect Secrets') {
+            steps{
+                script {
+                    // Ejemplo de como capturar el error y dejar que continue el pipeline
+                    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                        sh 'echo detect secrets && exit 0' 
+                    }
+                }
+            }
+          }
+          stage('SonarQube') {
+            steps { 
+              sh 'echo sonar' 
+            }
+          }
+          stage('SCA') {
+            steps { 
+              sh 'echo sca' 
+            }
+          }
+        }
+      }
+
+      // Stage docker login
+      stage('Docker Login') {
+        steps {
+          withCredentials([usernamePassword(
+            credentialsId: 'DockerHub',
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+          )]) {
+              sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin' //así no apare la clave en el log
+          }
+        }
+      }
+      
+      // Stage docker build
+      stage('Build Docker python'){
+        steps{
+          script{
+            dockerImagePython= docker.build("${registrypython}:${FINAL_IMAGE_TAG_PYTHON}", "-f api/Dockerfile api")
+          }
+        }
+      }
+
+      // Stage docker push
+      stage('Push Docker python'){
+        steps{
+          script{
+            dockerImagePython.push(FINAL_IMAGE_TAG_PYTHON)
+          } 
+        }
+      }
+
+      // Stage de escaneo de vulnerabilidades en la imagen Docker de python
+      stage('Scan Docker Image Python for Vulnerabilities') {
+        steps {
+          script {
+            // Escanear la imagen Docker usando docker scan
+            sh 'echo aqui va el escaneo de imagen python'
+          }
+        }
+      }
+
+      // Stages para el WAF, solo se ejecutan si se ha proporcionado un tag para la imagen del WAF
+      stage('Build Docker WAF'){
+        when {
+          expression { params.IMAGE_TAG_WAF?.trim() }
+        } 
+        steps{
+          script{
+//            dockerImageWaf= docker.build("${registrywaf}:${FINAL_IMAGE_TAG_WAF}", "-f waf/Dockerfile waf")
+              dockerImageWaf= docker.build("${registrywaf}:${FINAL_IMAGE_TAG_WAF}", "-f apache/Dockerfile apache")
+          }
+        }
+      }
+
+      // Stage docker push para el WAF
+      stage('Push Docker waf'){
+        when {
+          expression { params.IMAGE_TAG_WAF?.trim() }
+        }
+        steps{
+          script{
+            dockerImageWaf.push(FINAL_IMAGE_TAG_WAF)
+          }
+        }
+      }
+
+      // Stage de escaneo de vulnerabilidades en la imagen Docker de WAF
+      stage('Scan Docker Image Waf for Vulnerabilities') {
+        when {
+          expression { params.IMAGE_TAG_WAF?.trim() }
+        }
+	      steps {
+          script {
+            // Escanear la imagen Docker
+            sh 'echo aqui escaneo imagen waf'
+          }
+        }
+     }
+
+      stage('Run Application with Docker Compose') {
+        steps {
+          script {
+            // Ejecutar la aplicación con Docker Compose
+            sh '''
+cat << 'EOF' > .env
+MARIADB_ROOT_PASSWORD=example
+MARIADB_USER=agente
+MARIADB_USER_PASSWORD=0traClave
+MARIADB_DATABASE=ciber
+DB_USERNAME=root
+DB_PASSWORD=example
+DB_DATABASE=ciber
+EOF
+'''
+// TESTING		export TAG_WAF=$FINAL_IMAGE_TAG_WAF
+// TESTING		export TAG_PYTHON=$FINAL_IMAGE_TAG_PYTHON
+		sh '''
+docker compose down -v
+docker compose -f docker-compose.yml up -d
+'''
+          }
+        }
+      }
+  
+      stage('Vulnerability Scan') {
+        steps {
+          script {
+            // Ejecutar escaneo para detectar vulnerabilidades en la aplicación desplegada
+            sh 'echo aqui van las pruebas DAST'
+          }
+        }
+      }
+
+stage('Deploy en Kubernetes') {
+  steps {
+    // Usamos credenciales tipo Username with password de Jenkins
+    withCredentials([usernamePassword(credentialsId: 'k8sA7', 
+                                      usernameVariable: 'JUMP_USER', 
+                                      passwordVariable: 'JUMP_PASS')]) {
+      // Despliegue del servicio Python
+      sh """
+        sshpass -p '$JUMP_PASS' ssh -o StrictHostKeyChecking=no $JUMP_USER@$KUBERNETES_HOST \\
+          "kubectl set image deployment/python \
+            python=${registrypython}:${FINAL_IMAGE_TAG_PYTHON} \
+            -n grupo7a && \\
+
+          kubectl rollout status deployment/python -n grupo7a"
+      """
+
+      // Despliegue del WAF si corresponde
+      script {
+        if (params.IMAGE_TAG_WAF?.trim()) {
+          sh """
+            sshpass -p '$JUMP_PASS' ssh -o StrictHostKeyChecking=no $JUMP_USER@$KUBERNETES_HOST \\
+              "kubectl set image deployment/apache-waf \
+                apache=${registrywaf}:${FINAL_IMAGE_TAG_WAF} \
+                -n grupo7a && \\
+
+              kubectl rollout status deployment/apache-waf -n grupo7a"
+          """
+        } else {
+          echo "WAF TAG vacío → No se despliega WAF"
+        }
+      }
+    }
+  }
+}
+
+
+      stage('Clean Up') {
+        steps {
+          script {
+            // Detener los contenedores después de la prueba
+            sh '''
+                docker compose down -v
+               '''
+          }
+        }
+      }
+    }
+
+    post {
+      always {
+        script {
+            if (env.WORKSPACE) {
+                cleanWs()
+            } else {
+                echo 'No hay workspace, se omite cleanWs'
+            }
+        }
+      }
+
+      success {
+        // Enviar notificación o realizar acciones después de la ejecución exitosa
+        echo 'Pipeline correcto!'}
+
+      failure {
+        // Enviar notificación en caso de fallo
+        echo 'Pipeline fallo!'
+      }
+    }
+}
