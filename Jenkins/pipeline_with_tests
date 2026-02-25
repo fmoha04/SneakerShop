@@ -183,7 +183,19 @@ pipeline {
           }
         }
       }
-
+    // TEST container scan
+    stage('Container Scan Python') {
+          steps {
+              echo "Escaneando vulnerabilidades en imagen Python con Trivy..."
+              catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
+                  sh """
+                  docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+                  aquasec/trivy:latest image --severity HIGH,CRITICAL --exit-code 1 \
+                  ${registrypython}:${FINAL_IMAGE_TAG_PYTHON}
+                  """
+              }
+          }
+      }
       // Stage docker push para el WAF
       stage('Push Docker waf'){
         when {
