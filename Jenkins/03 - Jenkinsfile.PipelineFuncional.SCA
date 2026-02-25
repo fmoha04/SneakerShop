@@ -85,11 +85,6 @@ pipeline {
                 }
             }
           }
-          stage('SonarQube') {
-            steps { 
-              sh 'echo sonar' 
-            }
-          }
         }
       }
 
