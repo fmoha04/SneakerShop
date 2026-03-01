@@ -89,17 +89,43 @@ pipeline {
       }
 
     stage('SCA - OWASP Dependency Check') {
-      steps {
-        withCredentials([string(credentialsId: 'owasp', variable: 'NVD_API_KEY')]) {
-          dependencyCheck additionalArguments: """
-                                --nvdApiKey $NVD_API_KEY
-                                -o './'
-                                -s './'
-                                -f 'ALL' 
-                                --prettyPrint
-                              """, odcInstallation: 'owasp'
+        agent {
+          docker {
+            image 'owasp/dependency-check:latest'
+            args  '--entrypoint="" -u root'
+            reuseNode true
+          }
         }
-     }
+        steps {
+          withCredentials([string(credentialsId: 'owasp', variable: 'NVD_API_KEY')]) {
+            sh """
+              mkdir -p reports
+              /usr/share/dependency-check/bin/dependency-check.sh \
+              --project "SneakerShop" \
+              --scan api/web/requirements.txt \
+              --format XML \
+              --format JSON \
+              --out reports \
+              --nvdApiKey \$NVD_API_KEY \
+              --enableExperimental \
+              --disableNodeJS \
+              --disableAssembly \
+              --disableRubygems \
+              --disableCocoapods \
+              --disableNugetconf \
+              --disableMSBuild \
+              --disableComposer \
+              --disableMaven
+            """
+          }
+        }
+        post {
+          always {
+            archiveArtifacts artifacts: 'reports/dependency-check-report.json', fingerprint: true
+            dependencyCheckPublisher pattern: 'reports/dependency-check-report.xml'
+          }
+      }
+    }
       post {
         always {
           dependencyCheckPublisher pattern: 'dependency-check-report.xml'
@@ -119,7 +145,6 @@ pipeline {
           }
         }
       }
-      
 
       // Stage docker build
       stage('Build Docker python'){
@@ -173,8 +198,6 @@ pipeline {
           }
         }
       }
-
-
 
       // Stage de escaneo de vulnerabilidades en la imagen Docker de WAF
       stage('Scan Docker Image Waf for Vulnerabilities') {
@@ -257,7 +280,6 @@ stage('Deploy en Kubernetes') {
     }
   }
 }
-
 
       stage('Clean Up') {
         steps {
