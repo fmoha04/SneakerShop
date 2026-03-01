@@ -1,0 +1,42 @@
+env:
+  contexts:
+    - name: "AppContext"
+      urls:
+        #- "http://10.227.87.250:6600"
+        - "http://172.17.0.1:8080"
+      includePaths:
+        #- "http://10.227.87.250:6600"
+        - "http://172.17.0.1:8080/.*"
+      authentication:
+        method: form
+        parameters:
+          #loginPageUrl: "http://10.227.87.250:6600/login"
+          loginPageUrl: "http://172.17.0.1:8080/login"
+          #loginRequestUrl: "http://10.227.87.250:6600/login"
+          loginRequestUrl: "http://172.17.0.1:8080/login"
+          loginRequestBody: "username={%username%}&password={%password%}"
+      users:
+        - name: "zap_user"
+          credentials:
+            username: "root"
+            password: "1234"
+  parameters:
+    #failOnError: true
+    failOnError: false
+
+jobs:
+  - type: spider
+    parameters:
+      context: "AppContext"
+      user: "zap_user"
+
+  - type: activeScan
+    parameters:
+      context: "AppContext"
+      user: "zap_user"
+
+  - type: report
+    parameters:
+      template: "traditional-html"
+      reportFile: "zap-report.html"
+
