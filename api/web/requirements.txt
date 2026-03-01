@@ -3,4 +3,12 @@ Flask==1.1.4
 markupsafe==2.0.1
 python-dotenv
 pytest
+# librerias vulnerables para testear el análisis SCA
 requests==2.19.0
+Django==2.2.1
+Flask==1.0
+PyYAML==5.3.1
+Jinja2==2.10.1
+urllib3==1.25.7
+Pillow==8.1.0
+
