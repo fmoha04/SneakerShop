@@ -267,11 +267,11 @@ stage('Deploy en Kubernetes') {
         if (params.IMAGE_TAG_WAF?.trim()) {
           sh """
             sshpass -p '$JUMP_PASS' ssh -o StrictHostKeyChecking=no $JUMP_USER@$KUBERNETES_HOST \\
-              "kubectl set image deployment/apache-waf \
+              "kubectl set image deployment/apache \
                 apache=${registrywaf}:${FINAL_IMAGE_TAG_WAF} \
                 -n grupo7a && \\
 
-              kubectl rollout status deployment/apache-waf -n grupo7a"
+              kubectl rollout status deployment/apache -n grupo7a"
           """
         } else {
           echo "WAF TAG vacío → No se despliega WAF"
