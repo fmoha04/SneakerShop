@@ -8,7 +8,7 @@ env:
         #- "http://10.227.87.250:6600"
         - "http://172.17.0.1:8080/.*"
       authentication:
-        method: form
+        method: json
         parameters:
           #loginPageUrl: "http://10.227.87.250:6600/login"
           loginPageUrl: "http://172.17.0.1:8080/index.html"
