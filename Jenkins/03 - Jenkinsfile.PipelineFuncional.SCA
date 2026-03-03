@@ -126,12 +126,12 @@ pipeline {
           }
       	}
     }
-      post {
-        always {
-          dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-        }
-      }
-    }
+//      post {
+//        always {
+//          dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+//        }
+//      }
+//    }
 
       // Stage docker login
       stage('Docker Login') {
@@ -314,3 +314,4 @@ stage('Deploy en Kubernetes') {
       }
     }
 
+}
