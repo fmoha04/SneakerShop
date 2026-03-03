@@ -3,17 +3,17 @@ env:
     - name: "AppContext"
       urls:
         #- "http://10.227.87.9:30607"
-        - "http://172.17.0.1:8080"
+        - "http://host.docker.internal:8080"
       includePaths:
         #- "http://10.227.87.9:30607/.*"
-        - "http://172.17.0.1:8080/.*"
+        - "http://host.docker.internal:8080/.*"
       authentication:
         method: json
         parameters:
           #loginPageUrl: "http://10.227.87.9:30607/index.html"
-          loginPageUrl: "http://172.17.0.1:8080/index.html"
+          loginPageUrl: "http://host.docker.internal:8080/index.html"
           #loginRequestUrl: "http://10.227.87.9:30607/api/usuarios/login"
-          loginRequestUrl: "http://172.17.0.1:8080/api/usuarios/login"
+          loginRequestUrl: "http://host.docker.internal:8080/api/usuarios/login"
           loginRequestBody: '{"username":"{%username%}","password":"{%password%}"}'
       users:
         - name: "zap_user"
