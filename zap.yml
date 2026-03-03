@@ -2,18 +2,18 @@ env:
   contexts:
     - name: "AppContext"
       urls:
-        #- "http://10.227.87.250:6600"
-        - "http://172.17.0.1:8080"
+        - "http://10.227.87.250:6600"
+        #- "http://172.17.0.1:8080"
       includePaths:
-        #- "http://10.227.87.250:6600"
-        - "http://172.17.0.1:8080/.*"
+        - "http://10.227.87.250:6600"
+        #- "http://172.17.0.1:8080/.*"
       authentication:
         method: json
         parameters:
-          #loginPageUrl: "http://10.227.87.250:6600/login"
-          loginPageUrl: "http://172.17.0.1:8080/index.html"
-          #loginRequestUrl: "http://10.227.87.250:6600/login"
-          loginRequestUrl: "http://172.17.0.1:8080/api/usuarios/login"
+          loginPageUrl: "http://10.227.87.9:30607/index.html"
+          #loginPageUrl: "http://172.17.0.1:8080/index.html"
+          loginRequestUrl: "http://10.227.87.9:30607/api/usuarios/login"
+          #loginRequestUrl: "http://172.17.0.1:8080/api/usuarios/login"
           #loginRequestBody: "username={%username%}&password={%password%}"
           loginRequestBody: '{"username":"{%username%}","password":"{%password%}"}'
       users:
