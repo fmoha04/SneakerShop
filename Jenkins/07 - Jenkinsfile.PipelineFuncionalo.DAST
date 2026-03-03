@@ -191,33 +191,7 @@ EOF
           }
         }
       }
-  
-      stage('Vulnerability Scan') {
-        steps {
-          script {
-            // Ejecutar escaneo para detectar vulnerabilidades en la aplicación desplegada
-            sh 'echo aqui van las pruebas DAST'
-          }
-        }
-      }
 
-      stage('DAST - Owasp Zap') {
-        steps {
-          script {
-            echo "Esperando a que la aplicación esté completamente levantada..."
-            sleep 30
-            
-            docker.image('zaproxy/zap-stable').inside('-u root') {
-              sh "zap.sh -cmd -autorun ${WORKSPACE}/zap.yml"
-            }
-          }
-        }
-        post {
-          always {
-            archiveArtifacts artifacts: '*zap-report*', fingerprint: true
-          }
-        }
-      }
 
 stage('Deploy en Kubernetes') {
   steps {
@@ -253,6 +227,24 @@ stage('Deploy en Kubernetes') {
     }
   }
 }
+
+      stage('DAST - Owasp Zap') {
+        steps {
+          script {
+            echo "Esperando a que la aplicación esté completamente levantada..."
+            sleep 30
+            
+            docker.image('zaproxy/zap-stable').inside('-u root') {
+              sh "zap.sh -cmd -autorun ${WORKSPACE}/zap.yml"
+            }
+          }
+        }
+        post {
+          always {
+            archiveArtifacts artifacts: '*zap-report*', fingerprint: true
+          }
+        }
+      }
 
       stage('Clean Up') {
         steps {
