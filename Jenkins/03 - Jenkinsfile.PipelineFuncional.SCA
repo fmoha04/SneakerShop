@@ -92,7 +92,8 @@ pipeline {
         agent {
           docker {
             image 'owasp/dependency-check:latest'
-            args  '--entrypoint="" -u root'
+            // args  '--entrypoint="" -u root'
+			args '--entrypoint="" -u root -v owasp-data:/usr/share/dependency-check/data'
             reuseNode true
           }
         }
