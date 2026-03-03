@@ -232,7 +232,7 @@ stage('Deploy en Kubernetes') {
         steps {
           script {
             echo "Esperando a que la aplicación esté completamente levantada..."
-            sleep 30
+            //sleep 30
             
             docker.image('zaproxy/zap-stable').inside('-u root') {
               sh "zap.sh -cmd -autorun ${WORKSPACE}/zap.yml"
