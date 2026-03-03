@@ -254,6 +254,29 @@ docker compose -f docker-compose.yml up -d
           }
         }
       }
+// DAST TEST
+stage('DAST - OWASP ZAP') {
+    steps {
+        script {
+            sleep 20
+            sh """
+            docker run --rm \
+              --user root \
+              --network part2_proyect_default \
+              -v ${WORKSPACE}:/zap/wrk \
+              zaproxy/zap-stable \
+              zap.sh -cmd \
+              -quickurl http://apachea7:80 \
+              -quickout /zap/wrk/zap-report.html
+            """
+
+            // Verificar que el archivo existe
+            sh "ls -la ${WORKSPACE}"
+
+            archiveArtifacts artifacts: '**/zap-report.html', allowEmptyArchive: true
+        }
+    }
+}
 
 stage('Deploy en Kubernetes') {
   steps {
