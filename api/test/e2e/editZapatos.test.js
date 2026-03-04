@@ -11,7 +11,7 @@ describe('Flujo de Editar Zapato', () => {
 
   beforeAll(async () => {
     browser = await puppeteer.launch({
-      headless: true,
+      headless: 'new',
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
   });
