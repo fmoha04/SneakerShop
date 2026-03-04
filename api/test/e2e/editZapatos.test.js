@@ -2,11 +2,6 @@ const puppeteer = require('puppeteer');
 
 // ⚠️ IMPORTANTE: Cambia 'editar_zapato.html' por el nombre real de tu archivo HTML
 const BASE_URL = process.env.BASE_URL ? `${process.env.BASE_URL}/editar_zapato.html` : 'http://10.227.87.9:30607/editar_zapato.html';
-//browser
-const browser = await puppeteer.launch({
-    headless: "new", // 💡 importante para evitar warnings y compatibilidad futura
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
-});
 
 jest.setTimeout(30000);
 
