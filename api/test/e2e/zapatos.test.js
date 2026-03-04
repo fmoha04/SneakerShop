@@ -17,7 +17,7 @@ describe('Flujo de Agregar Zapato', () => {
 
   beforeAll(async () => {
     browser = await puppeteer.launch({
-      headless: true,
+      headless: 'new',
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
     page = await browser.newPage();
