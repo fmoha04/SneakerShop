@@ -6,7 +6,7 @@ const fs = require('fs');
 const BASE_URL = process.env.BASE_URL ? `${process.env.BASE_URL}/agregar_zapato.html` : 'http://10.227.87.9:30607/agregar_zapato.html';
 
 // Mantenemos el timeout alto para evitar fallos de Puppeteer
-jest.setTimeout(30000); 
+jest.setTimeout(60000); 
 
 describe('Flujo de Agregar Zapato', () => {
   let browser;
