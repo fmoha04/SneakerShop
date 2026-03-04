@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "puppeteer": "^21.0.0"
+  }
+}
