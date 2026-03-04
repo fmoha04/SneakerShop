@@ -5,6 +5,12 @@ const fs = require('fs');
 // Cambia la ruta final para que apunte a la página correcta
 const BASE_URL = process.env.BASE_URL ? `${process.env.BASE_URL}/agregar_zapato.html` : 'http://10.227.87.9:30607/agregar_zapato.html';
 
+//browser
+const browser = await puppeteer.launch({
+    headless: "new", // 💡 importante para evitar warnings y compatibilidad futura
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+});
+
 // Mantenemos el timeout alto para evitar fallos de Puppeteer
 jest.setTimeout(30000); 
 
