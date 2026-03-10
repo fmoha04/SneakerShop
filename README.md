@@ -2,43 +2,11 @@ ___
 
 👟 SneakerShop
 > 
-> Cybersecurity Project / DevSecOps Project / [ Grupo 7 - Ciber1A - IES El Cañaveral - 2025/26 ]
+> Cybersecurity Project / DevSecOps Project
 > 
 > Developed by Mohamed, Andrei and Iván
 
-___
-
-📍 Objetivos Fase 1
-
-> - LOG IN / SIGN UP / LOG OUT - ✔️
-> - DASHBOARD - ✔️
-> - CREAR ITEMS / EDITAR ITEMS / ELIMINAR ITEMS - ✔️
-> - SUBIR ARCHIVOS / MOSTRAR ARCHIVOS - ✔️
-> - VER COMENTARIOS / CREAR COMENTARIOS - ✔️
-> - UNITARY IVA TEST - ✔️
-> - Static Application Security Testing (SAST) - ✔️
-> - Docker Compose Deployment - ✔️
-> - Kubernetes Deployment - ✔️
-
-___
-
-📍 Objetivos Fase 2 (..in-progress..)
-
-> - INITIAL-1 JENKINS CI/CD Pipeline - ✔️
-> - INITIAL-2 JENKINS CI/CD Pipeline - ✔️
-> - UNITARY TEST JENKINS CI/CD Pipeline - ✔️
-> - SECRETS SCANNING WITH TRUFFLEHOG - ✔️
-> - SCA WITH OWASP DEPENDENCY-CHECK - ✔️
-> - SAST - ✔️
-> - IaC SCANNING - ✔️
-> - CONTAINER SCAN - ✔️
-> - INTERACTIVE APPLICATION SECURITY TESTING - ❌
-> - DAST - ✔️
-> - KUBERNETES DEPLOY - ✔️
-> - END-TO-END TESTS WITH PUPPETEER - ❌
-> - ELK SIEM Integration with Kubernetes - ❌
-
-___
+_
 
 🛠️ DevSecOps Stack
 
