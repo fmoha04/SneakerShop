@@ -22,7 +22,7 @@ _
 > 
 > PARTE 6 - MASVS-Code: Controls 3 y 4 /-> Mohamed
 > 
-> PARTE 7 - Tests/Theory Android /-> Mohamed
+> PARTE 7 - Android Anti-reversing defenses and Resilience /-> Mohamed
 
 _
 
