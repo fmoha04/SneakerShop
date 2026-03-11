@@ -20,9 +20,9 @@ _
 > 
 > PARTE 5 - Input Validation Testing /->
 > 
-> PARTE 6 - MASVS-Code: Controls 3 y 4 /-> Mohamed
+> PARTE 6 - MASVS-Code: Controls 3 y 4 /-> Moha
 > 
-> PARTE 7 - Android Anti-reversing defenses and Resilience /-> Mohamed
+> PARTE 7 - Android Anti-reversing defenses and Resilience /-> Moha
 
 _
 
@@ -36,7 +36,7 @@ _
 > 
 > **DEPLOY**: DOCKER, DOCKERFILE, DOCKER-COMPOSE, KUBERNETES
 > 
-> **SAST**: SONARQUBE
+> **TESTS**: SAST, DAST, SCA, E2E,...
 > 
 > **IDE**: VISUAL STUDIO CODE
 >
