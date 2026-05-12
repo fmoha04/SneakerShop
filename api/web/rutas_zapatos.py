@@ -83,7 +83,7 @@ def guardar_zapato():
             print(f"Respuesta de insertar_zapato: {respuesta}, {code}", flush=True)
         # Manejo de JSON (sin archivo)
         elif content_type == 'application/json':
-            zapato_json = request.json
+            zapato_json = request.cleaned_json
             nombre = zapato_json.get("nombre")
             descripcion = zapato_json.get("descripcion")
             precio = zapato_json.get("precio")
@@ -118,7 +118,7 @@ def eliminar_zapato(id):
 def actualizar_zapato():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
-        zapato_json = request.json
+        zapato_json = request.cleaned_json
         id = zapato_json["id"]
         nombre = zapato_json["nombre"]
         descripcion = zapato_json["descripcion"]
