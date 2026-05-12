@@ -1,6 +1,5 @@
 from flask import Flask, jsonify
 import os
-from variables import cargarvariables
 from funciones_auxiliares import sanitize_field
 
 app = Flask(__name__)
@@ -39,7 +38,6 @@ def create_app():
 
 if __name__ == '__main__':
     app=create_app()
-    #cargarvariables() # ocultar en caso de lanzar todos los contenedores
     try:
         port = int(os.environ.get('PORT'))
         host = os.environ.get('HOST')
