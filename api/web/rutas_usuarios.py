@@ -14,7 +14,7 @@ bp = Blueprint('usuarios', __name__)
 def login():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
-        login_json = request.json
+        login_json = request.cleaned.json
         username = login_json['username']
         password = login_json['password']
         respuesta,code= controlador_usuarios.login_usuario(username,password)
@@ -28,7 +28,7 @@ def login():
 def registro():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
-        login_json = request.json
+        login_json = request.cleaned.json
         username = login_json['username']
         password = login_json['password']
         profile = login_json['profile']
