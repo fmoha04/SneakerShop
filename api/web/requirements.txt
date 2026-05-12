@@ -1,8 +1,9 @@
 PyMySQL
 Flask==1.1.4
+Flask-WTF
 markupsafe==2.0.1
 python-dotenv
 pytest
 # libreria vulnerable para testear el análisis SCA
 PyYAML==5.3.1
-
+bleach

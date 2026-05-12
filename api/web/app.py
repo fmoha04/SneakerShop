@@ -1,6 +1,14 @@
 from flask import Flask, jsonify
 import os
 from variables import cargarvariables
+from funciones_auxiliares import sanitize_field
+
+app = Flask(__name__)
+
+@app.before_request
+def clean_request():
+    if request.is_json:
+       request.cleaned_json = sanitize_field(request.get_json())
 
 def create_app():
     app = Flask(__name__)
