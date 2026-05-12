@@ -5,12 +5,17 @@ import controlador_ficheros
 import os
 import sys
 import subprocess
+from flask_wtf.csrf import CSRFProtect
+from app import app 
+
+csrf = CSRFProtect(app)
 
 bp = Blueprint('ficheros', __name__)
 
 extra_headers = prepare_response_extra_headers(True)
 
 @bp.route ('/', methods=['GET'])
+@csrf.exempt
 def listar():
     try:
         respuesta, code = controlador_ficheros.listar_ficheros()
@@ -23,6 +28,7 @@ def listar():
     return response
 
 @bp.route ('/', methods=['POST']) 
+@csrf.exempt
 def upload():
     try:
         contenido= request.files['fichero'] 
@@ -37,6 +43,7 @@ def upload():
     return response
 
 @bp.route ('/<archivo>', methods=['GET']) 
+@csrf.exempt
 def ver(archivo):
     try:
         respuesta,code = controlador_ficheros.ver_fichero(archivo)

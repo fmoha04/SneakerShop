@@ -46,7 +46,6 @@ def create_app():
 
 if __name__ == '__main__':
     app=create_app()
-    #cargarvariables() # ocultar en caso de lanzar todos los contenedores
     try:
         port = int(os.environ.get('PORT'))
         host = os.environ.get('HOST')

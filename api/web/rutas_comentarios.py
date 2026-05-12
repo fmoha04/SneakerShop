@@ -2,16 +2,20 @@ from __future__ import print_function
 from flask import request, Blueprint, jsonify, make_response
 from funciones_auxiliares import prepare_response_extra_headers
 import controlador_comentarios
+from flask_wtf.csrf import CSRFProtect
+from app import app 
 
+csrf = CSRFProtect(app)
 bp = Blueprint('comentarios', __name__)
 
 extra_headers = prepare_response_extra_headers(True)
 
 @bp.route("/",methods=['POST'])
+@csrf.exempt
 def login():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
-        comentario_json = request.json
+        comentario_json = request.cleaned_json
         usuario = comentario_json['usuario']
         descripcion = comentario_json['descripcion']
         respuesta,code= controlador_comentarios.insertar_comentario(usuario,descripcion)
@@ -24,6 +28,7 @@ def login():
     return response
 
 @bp.route("/",methods=['GET'])
+@csrf.exempt
 def consultaComentarios():
     respuesta,code= controlador_comentarios.obtener_comentarios()
     
