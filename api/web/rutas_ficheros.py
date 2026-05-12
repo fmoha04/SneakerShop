@@ -1,5 +1,6 @@
 from __future__ import print_function
-from flask import request,Blueprint, jsonify
+from flask import request,Blueprint, jsonify, make_response
+from funciones_auxiliares import prepare_response_extra_headers
 import controlador_ficheros
 import os
 import sys
@@ -11,6 +12,8 @@ csrf = CSRFProtect(app)
 
 bp = Blueprint('ficheros', __name__)
 
+extra_headers = prepare_response_extra_headers(True)
+
 @bp.route ('/', methods=['GET'])
 @csrf.exempt
 def listar():
@@ -20,7 +23,9 @@ def listar():
         print(f"Error listando archivos: {e}", flush=True)
         respuesta = []
         code = 500
-    return jsonify(respuesta), code
+    response = make_response(jsonify(respuesta), code)
+    response.headers.update(extra_headers)
+    return response
 
 @bp.route ('/', methods=['POST']) 
 @csrf.exempt
@@ -33,7 +38,9 @@ def upload():
         print(f"Error subiendo archivo: {e}", flush=True)
         respuesta={"status": "ERROR"}
         code=500
-    return jsonify(respuesta), code
+    response = make_response(jsonify(respuesta), code)
+    response.headers.update(extra_headers)
+    return response
 
 @bp.route ('/<archivo>', methods=['GET']) 
 @csrf.exempt
@@ -43,4 +50,7 @@ def ver(archivo):
     except:
         respuesta= {"status": "ERROR"}
         code=500
-    return jsonify(respuesta), code
+    response = make_response(jsonify(respuesta), code)
+    response.headers.update(extra_headers)
+    return response
+

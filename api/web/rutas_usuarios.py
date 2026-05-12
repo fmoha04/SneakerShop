@@ -1,6 +1,6 @@
 from __future__ import print_function
-from flask import request,Blueprint, jsonify
-from funciones_auxiliares import Encoder
+from flask import request,Blueprint, jsonify, make_response
+from funciones_auxiliares import Encoder, prepare_response_extra_headers
 import controlador_usuarios
 from flask_wtf.csrf import CSRFProtect
 from app import app 
@@ -8,6 +8,8 @@ from app import app
 csrf = CSRFProtect(app)
 
 bp = Blueprint('usuarios', __name__)
+
+extra_headers = prepare_response_extra_headers(True)
 
 @bp.route("/login",methods=['POST'])
 @csrf.exempt
@@ -17,11 +19,14 @@ def login():
         login_json = request.cleaned_json
         username = login_json['username']
         password = login_json['password']
-        respuesta,code= controlador_usuarios.login_usuario(username,password)
+        respuesta, code = controlador_usuarios.login_usuario(username, password)
     else:
-        respuesta={"status":"Bad request"}
-        code=401
-    return jsonify(respuesta), code
+        respuesta = {"status": "Bad request"}
+        code = 401
+    # Crear respuesta y añadir cabeceras
+    response = make_response(jsonify(respuesta), code)
+    response.headers.update(extra_headers)
+    return response
 
 @bp.route("/registro",methods=['POST'])
 @csrf.exempt
@@ -36,12 +41,23 @@ def registro():
     else:
         respuesta={"status":"Bad request"}
         code=401
-    return jsonify(respuesta), code
-
+    
+    # Crear respuesta y añadir cabeceras
+    response = make_response(jsonify(respuesta), code)
+    response.headers.update(extra_headers)
+    return response
 
 @bp.route("/logout",methods=['GET'])
 @csrf.exempt
 def logout():
-    respuesta,code= controlador_usuarios.logout()
-    return jsonify(respuesta), code
+    try:
+        controlador_usuarios.logout()()
+        ret={"status":"OK"}
+        code=200
+    except:
+        ret={"status":"ERROR"}
+        code=500
+    response=make_response(jsonify(ret),code)
+    response.headers.update(extra_headers)
+    return response
 

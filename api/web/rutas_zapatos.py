@@ -1,6 +1,6 @@
-from flask import request, Blueprint, jsonify
+from flask import request, Blueprint, jsonify, make_response
 import controlador_zapatos
-from funciones_auxiliares import Encoder
+from funciones_auxiliares import Encoder, prepare_response_extra_headers
 import os
 from werkzeug.utils import secure_filename
 from flask_wtf.csrf import CSRFProtect
@@ -9,6 +9,8 @@ from app import app
 csrf = CSRFProtect(app)
 
 bp = Blueprint('zapatos', __name__)
+
+extra_headers = prepare_response_extra_headers(True)
 
 # Directorio para guardar archivos
 UPLOAD_FOLDER = '/tmp/zapatos_uploads'
@@ -24,13 +26,17 @@ def allowed_file(filename):
 @csrf.exempt
 def zapatos():
     respuesta, code = controlador_zapatos.obtener_zapatos()
-    return jsonify(respuesta), code
+    response = make_response(jsonify(respuesta), code)
+    response.headers.update(extra_headers)
+    return response
     
 @bp.route("/<id>", methods=["GET"])
 @csrf.exempt
 def zapato_por_id(id):
     respuesta, code = controlador_zapatos.obtener_zapato_por_id(id)
-    return jsonify(respuesta), code
+    response = make_response(jsonify(respuesta), code)
+    response.headers.update(extra_headers)
+    return response
 
 @bp.route("/", methods=["POST"])
 @csrf.exempt
@@ -54,7 +60,9 @@ def guardar_zapato():
             # Validar campos requeridos
             if not all([nombre, descripcion, precio, marca]):
                 print("Error: Faltan campos requeridos", flush=True)
-                return jsonify({"status": "Bad request", "mensaje": "Faltan campos requeridos"}), 400
+                response = make_response(jsonify({"status": "Bad request", "mensaje": "Faltan campos requeridos"}), 400)
+                response.headers.update(extra_headers)
+                return response
             
             # Procesar archivo
             foto = None
@@ -70,11 +78,15 @@ def guardar_zapato():
                         print(f"Archivo guardado como: {foto}", flush=True)
                     else:
                         print(f"Tipo de archivo no permitido: {file.filename}", flush=True)
-                        return jsonify({"status": "Bad request", "mensaje": "Tipo de archivo no permitido"}), 400
+                        response = make_response(jsonify({"status": "Bad request", "mensaje": "Tipo de archivo no permitido"}), 400)
+                        response.headers.update(extra_headers)
+                        return response
             
             if not foto:
                 print("Error: No se proporcionó archivo", flush=True)
-                return jsonify({"status": "Bad request", "mensaje": "El archivo de foto es requerido"}), 400
+                response = make_response(jsonify({"status": "Bad request", "mensaje": "El archivo de foto es requerido"}), 400)
+                response.headers.update(extra_headers)
+                return response
             
             print(f"Llamando a insertar_zapato con: {nombre}, {descripcion}, {precio}, {foto}, {marca}", flush=True)
             respuesta, code = controlador_zapatos.insertar_zapato(
@@ -105,13 +117,17 @@ def guardar_zapato():
         respuesta = {"status": "Error", "mensaje": str(e)}
         code = 500
         
-    return jsonify(respuesta), code
+    response = make_response(jsonify(respuesta), code)
+    response.headers.update(extra_headers)
+    return response
 
 @bp.route("/<int:id>", methods=["DELETE"])
 @csrf.exempt
 def eliminar_zapato(id):
     respuesta, code = controlador_zapatos.eliminar_zapato(id)
-    return jsonify(respuesta), code
+    response = make_response(jsonify(respuesta), code)
+    response.headers.update(extra_headers)
+    return response
 
 @bp.route("/", methods=["PUT"])
 @csrf.exempt
@@ -131,6 +147,8 @@ def actualizar_zapato():
     else:
         respuesta = {"status": "Bad request"}
         code = 401
-    return jsonify(respuesta), code
-
+        
+    response = make_response(jsonify(respuesta), code)
+    response.headers.update(extra_headers)
+    return response
 

@@ -1,19 +1,27 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import os
-from funciones_auxiliares import sanitize_field
+from variables import cargarvariables
+from flask_wtf.csrf import CSRFProtect
+from funciones_auxiliares import prepare_response_extra_headers
 
-app = Flask(__name__)
-
-@app.before_request
-def clean_request():
-    if request.is_json:
-       request.cleaned_json = sanitize_field(request.get_json())
+# -- configuracion de cabeceras seguras -- #
+extra_headers=prepare_response_extra_headers(True)
 
 def create_app():
     app = Flask(__name__)
 
     # configuración...
     app.config.setdefault('DEBUG', True)
+    
+    # configuración...
+    app.config.from_pyfile('settings.py')
+    csrf = CSRFProtect(app)
+
+    @app.before_request
+    def csrf_protect():
+       # Excluye las rutas que empiecen por /login o /registro
+       if not request.path.startswith("/login") and not request.path.startswith("/registro"):
+           csrf.protect()
 
     # Importar y registrar blueprints aquí (evita side-effects en import)
     from rutas_usuarios import bp as usuarios_bp

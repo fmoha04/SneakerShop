@@ -4,6 +4,7 @@ Flask-WTF
 markupsafe==2.0.1
 python-dotenv
 pytest
-# libreria vulnerable para testear el análisis SCA
+bcrypt
+Flask-WTF==1.2.1
 PyYAML==5.3.1
 bleach

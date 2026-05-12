@@ -1,11 +1,14 @@
 from __future__ import print_function
-from flask import request,Blueprint, jsonify
+from flask import request, Blueprint, jsonify, make_response
+from funciones_auxiliares import prepare_response_extra_headers
 import controlador_comentarios
 from flask_wtf.csrf import CSRFProtect
 from app import app 
 
 csrf = CSRFProtect(app)
 bp = Blueprint('comentarios', __name__)
+
+extra_headers = prepare_response_extra_headers(True)
 
 @bp.route("/",methods=['POST'])
 @csrf.exempt
@@ -19,13 +22,17 @@ def login():
     else:
         respuesta={"status":"Bad request"}
         code=401
-    return jsonify(respuesta), code
+        
+    response = make_response(jsonify(respuesta), code)
+    response.headers.update(extra_headers)
+    return response
 
 @bp.route("/",methods=['GET'])
 @csrf.exempt
 def consultaComentarios():
     respuesta,code= controlador_comentarios.obtener_comentarios()
-    return jsonify(respuesta), code
-
-
+    
+    response = make_response(jsonify(respuesta), code)
+    response.headers.update(extra_headers)
+    return response
 
