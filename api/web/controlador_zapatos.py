@@ -14,24 +14,48 @@ def convertir_zapatos_a_json(zapato):
     return d
 
 def insertar_zapato(nombre, descripcion, precio, foto, marca):
+    conexion = None
     try:
-        precio_iva = float(precio) + calculariva(float(precio))
-        print(f"Insertando zapato: {nombre}, {descripcion}, {precio}, {precio_iva}, {foto}, {marca}", flush=True)
+        # Calculate price including VAT
+        price_val = float(precio)
+        precio_iva = price_val + calculariva(price_val)
+        
+        print(f"Inserting shoe: {nombre}, {descripcion}, {precio}, {precio_iva}, {foto}, {marca}", flush=True)
+        
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
-            cursor.execute("INSERT INTO zapatos(nombre, descripcion, precio, precio_iva, foto, marca) VALUES (%s, %s, %s, %s, %s, %s)",
-                        (nombre, descripcion, float(precio), float(precio_iva), foto, marca))
+            # Using parameterized query to prevent SQL Injection
+            sql = """
+                INSERT INTO zapatos (nombre, descripcion, precio, precio_iva, foto, marca) 
+                VALUES (%s, %s, %s, %s, %s, %s)
+            """
+            params = (nombre, descripcion, price_val, float(precio_iva), foto, marca)
+            cursor.execute(sql, params)
+        
+        # Save changes to the database
         conexion.commit()
-        conexion.close()
-        print("Zapato insertado correctamente", flush=True)
+        print("Shoe inserted successfully", flush=True)
+        
         ret = {"status": "OK"}
         code = 200
+        
     except Exception as e:
-        print(f"Error al insertar zapato: {e}", flush=True)
+        # Rollback in case of error to maintain data integrity
+        if conexion:
+            conexion.rollback()
+            
+        print(f"Error inserting shoe: {e}", flush=True)
         import traceback
         traceback.print_exc()
+        
         ret = {"status": "Error", "mensaje": str(e)}
         code = 500
+        
+    finally:
+        # Ensure connection is always closed
+        if conexion:
+            conexion.close()
+            
     return ret, code
 
 def obtener_zapatos():
@@ -66,6 +90,7 @@ def obtener_zapato_por_id(id):
         print("Excepcion al consultar un zapato", flush=True)
         code = 500
     return zapatojson, code
+
 def eliminar_zapato(id):
     try:
         conexion = obtener_conexion()
@@ -85,21 +110,46 @@ def eliminar_zapato(id):
     return ret,code
 
 def actualizar_zapato(id, nombre, descripcion, precio, foto, marca):
+    conexion = None
     try:
+        # Calculate new VAT price before opening connection
+        price_val = float(precio)
+        new_precio_iva = price_val + calculariva(price_val)
+        
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
-            cursor.execute("UPDATE zapatos SET nombre = %s, descripcion = %s, precio = %s, precio_iva = %s, foto = %s, marca = %s WHERE id = %s",
-                    (nombre, descripcion, precio, (calculariva(float(precio)) + float(precio)), foto, marca, id))
+            # SQL statement using placeholders for security
+            sql = """
+                UPDATE zapatos 
+                SET nombre = %s, descripcion = %s, precio = %s, 
+                    precio_iva = %s, foto = %s, marca = %s 
+                WHERE id = %s
+            """
+            params = (nombre, descripcion, price_val, new_precio_iva, foto, marca, id)
+            cursor.execute(sql, params)
+            
+            # Check if any row was actually updated
             if cursor.rowcount == 1:
+                conexion.commit()
                 ret = {"status": "OK"}
+                code = 200
             else:
-                ret = {"status": "Failure"}
-        conexion.commit()
-        conexion.close()
-        code = 200
-    except:
-        print("Excepcion al actualizar un zapato", flush=True)
-        ret = {"status": "Failure"}
+                # No row found with that ID or no changes made
+                ret = {"status": "Failure", "mensaje": "Shoe not found or no changes applied"}
+                code = 404
+
+    except Exception as e:
+        # Log the error and rollback changes
+        print(f"Exception while updating shoe: {e}", flush=True)
+        if conexion:
+            conexion.rollback()
+        ret = {"status": "Failure", "mensaje": str(e)}
         code = 500
+        
+    finally:
+        # Securely close the connection
+        if conexion:
+            conexion.close()
+            
     return ret, code
 
