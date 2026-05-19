@@ -19,6 +19,10 @@
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
+        if (sessionStorage.getItem("csrf_token")){ 
+            myHeaders.append("X-CSRFToken", sessionStorage.getItem("csrf_token")); 
+        }
+
         function conectar(){
             document.getElementsByClassName("error")[0].style.display="none";
             var raw = JSON.stringify({

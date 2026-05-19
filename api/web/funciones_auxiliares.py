@@ -23,18 +23,28 @@ def calculariva(precio):
     return precio * 0.21
 
 def cipher_password(password):
-  hashAndSalt = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt(10));
-  return hashAndSalt
+
+    pepper_key = os.getenv("PEPPER_KEY", "")
+    password_peppered = password + pepper_key
+    hash_and_salt = bcrypt.hashpw(password_peppered.encode("utf-8"), bcrypt.gensalt(10))
+    return hash_and_salt.decode("utf-8")
 
 def compare_password(password_hash,password):
-   if password_hash is None:
+    if not password_hash or not password:
       return False
-   try:
-      return bcrypt.checkpw(password,password_hash)
-      # cambiar por esta linea si da error de siempre devolver FALSE
-      # return bcrypt.checkpw(password.encode('utf-8'), password_hash)
-   except:
-      return False
+  
+    try:
+        
+        pepper_key = os.getenv("PEPPER_KEY")
+        password_peppered = password + pepper_key
+        
+        return bcrypt.checkpw(
+            password_peppered.encode('utf-8'),
+            password_hash.encode('utf-8')
+        )
+
+    except Exception:
+        return False
 
 # -- CABECERAS SEGURAS -- #
 

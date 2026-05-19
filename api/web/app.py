@@ -3,25 +3,77 @@ import os
 from variables import cargarvariables
 from flask_wtf.csrf import CSRFProtect
 from funciones_auxiliares import prepare_response_extra_headers
+from logging.config import dictConfig
+
+if not os.path.exists('logs'):
+    os.makedirs('logs')
+
+# -- configuracion de logging -- #
+dictConfig(
+    {
+        "version": 1,
+        "formatters": {
+            "default": {
+                "format": "[%(asctime)s] %(levelname)s in %(module)s: %(message)s",
+            }
+        },
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "stream": "ext://sys.stdout",
+                "formatter": "default",
+            },
+            "file": {
+                "class": "logging.FileHandler",
+                "filename": "logs/flask.log",
+                "formatter": "default",
+            },
+            "time-rotate": {
+               "class": "logging.handlers.TimedRotatingFileHandler",
+                "filename": "logs/flask.log",
+                "when": "D",
+                "interval": 10,
+                "backupCount": 5,
+                "formatter": "default",
+            },
+        },
+        "root": {"level": "DEBUG", "handlers": ["console","time-rotate"]},
+    }
+
+)
 
 # -- configuracion de cabeceras seguras -- #
 extra_headers=prepare_response_extra_headers(True)
 
 def create_app():
-    app = Flask(__name__)
-
-    # configuración...
-    app.config.setdefault('DEBUG', True)
     
-    # configuración...
+    app = Flask(__name__)
+    app.config.setdefault('DEBUG', True)
+    app.config['WTF_CSRF_SECRET_KEY'] = os.environ.get('WTF_CSRF_SECRET_KEY', 'default_csrf_secret')
+    
+    app.config['WTF_CSRF_CHECK_DEFAULT'] = False
+    
     app.config.from_pyfile('settings.py')
     csrf = CSRFProtect(app)
 
+    @app.after_request
+    def after_request(response):
+        response.headers['Server'] = 'API'
+        app.logger.info(
+            "path: %s | method: %s | status: %s | size: %s >>> %s",
+            request.path,
+            request.method,
+            response.status,
+            response.content_length,
+            request.remote_addr,
+        )
+        response.headers.extend(extra_headers)
+        return response
+
     @app.before_request
     def csrf_protect():
-       # Excluye las rutas que empiecen por /login o /registro
-       if not request.path.startswith("/login") and not request.path.startswith("/registro"):
-           csrf.protect()
+        if not request.path.startswith("/api/usuarios/login") and not request.path.startswith("/api/usuarios/registro"):
+            csrf.protect()
 
     # Importar y registrar blueprints aquí (evita side-effects en import)
     from rutas_usuarios import bp as usuarios_bp
@@ -47,8 +99,8 @@ def create_app():
 if __name__ == '__main__':
     app=create_app()
     try:
-        port = int(os.environ.get('PORT'))
-        host = os.environ.get('HOST')
+        port = int(os.environ.get('PORT', 5000))
+        host = os.environ.get('HOST', '0.0.0.0')
         app.run(host=host, port=port)
     except:
         print("Error starting server", flush=True)
