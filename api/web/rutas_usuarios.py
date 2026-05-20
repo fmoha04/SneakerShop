@@ -2,17 +2,17 @@ from __future__ import print_function
 from flask import request,Blueprint, jsonify, make_response
 from funciones_auxiliares import Encoder, prepare_response_extra_headers
 import controlador_usuarios
-from flask_wtf.csrf import CSRFProtect
-from app import app 
+#from flask_wtf.csrf import CSRFProtect
+#from app import app 
 
-csrf = CSRFProtect(app)
+#csrf = CSRFProtect(app)
 
 bp = Blueprint('usuarios', __name__)
 
 extra_headers = prepare_response_extra_headers(True)
 
 @bp.route("/login",methods=['POST'])
-@csrf.exempt
+#@csrf.exempt
 def login():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
@@ -29,15 +29,16 @@ def login():
     return response
 
 @bp.route("/registro",methods=['POST'])
-@csrf.exempt
+#@csrf.exempt
 def registro():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
         login_json = request.cleaned_json
         username = login_json['username']
         password = login_json['password']
-        profile = login_json['profile']
-        respuesta,code= controlador_usuarios.alta_usuario(username,password,profile)
+        perfil = login_json.get('profile', 'normal')
+        correo = login_json.get('correo', f"{username}@example.com")
+        respuesta, code = controlador_usuarios.alta_usuario(username, password, perfil, correo)
     else:
         respuesta={"status":"Bad request"}
         code=401
@@ -48,15 +49,17 @@ def registro():
     return response
 
 @bp.route("/logout",methods=['GET'])
-@csrf.exempt
+#@csrf.exempt
 def logout():
     try:
-        controlador_usuarios.logout()()
+        controlador_usuarios.logout()
         ret={"status":"OK"}
         code=200
-    except:
+    except Exception as e:
+        print(f"Error en logout: {e}", flush=True)
         ret={"status":"ERROR"}
         code=500
+        
     response=make_response(jsonify(ret),code)
     response.headers.update(extra_headers)
     return response

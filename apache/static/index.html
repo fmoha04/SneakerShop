@@ -98,8 +98,12 @@
             .then(response => response.json())
             .then(result => {
                 if (result.status == "OK") { 
-                    // Guardar el nombre de usuario en localStorage
+                    // 1. Guardamos el token CSRF y el perfil de forma segura
+                    sessionStorage.setItem("csrf_token", result.csrf_token);
+                    sessionStorage.setItem("perfil", result.perfil);
+                    // 2. Guardamos el nombre de usuario
                     localStorage.setItem('usuario', usuario);
+                    // 3. Redirigimos
                     location.href = "zapatos.html"; 
                 } 
                 else { 
