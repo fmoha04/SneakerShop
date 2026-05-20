@@ -1,2 +1,5 @@
 # Ignore .env variable file
 .env
+
+# Ignore python cache files
+api/web/__pycache__

@@ -1,12 +1,8 @@
-from flask import request, Blueprint, jsonify
+from flask import request, Blueprint, jsonify, g
 import controlador_zapatos
 from funciones_auxiliares import Encoder
 import os
 from werkzeug.utils import secure_filename
-from flask_wtf.csrf import CSRFProtect
-from app import app 
-
-csrf = CSRFProtect(app)
 
 bp = Blueprint('zapatos', __name__)
 
@@ -21,19 +17,16 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @bp.route("/", methods=["GET"])
-@csrf.exempt
 def zapatos():
     respuesta, code = controlador_zapatos.obtener_zapatos()
     return jsonify(respuesta), code
     
 @bp.route("/<id>", methods=["GET"])
-@csrf.exempt
 def zapato_por_id(id):
     respuesta, code = controlador_zapatos.obtener_zapato_por_id(id)
     return jsonify(respuesta), code
 
 @bp.route("/", methods=["POST"])
-@csrf.exempt
 def guardar_zapato():
     try:
         print("=== GUARDANDO ZAPATO ===", flush=True)
@@ -83,7 +76,7 @@ def guardar_zapato():
             print(f"Respuesta de insertar_zapato: {respuesta}, {code}", flush=True)
         # Manejo de JSON (sin archivo)
         elif content_type == 'application/json':
-            zapato_json = request.cleaned_json
+            zapato_json = g.cleaned_json
             nombre = zapato_json.get("nombre")
             descripcion = zapato_json.get("descripcion")
             precio = zapato_json.get("precio")
@@ -108,17 +101,15 @@ def guardar_zapato():
     return jsonify(respuesta), code
 
 @bp.route("/<int:id>", methods=["DELETE"])
-@csrf.exempt
 def eliminar_zapato(id):
     respuesta, code = controlador_zapatos.eliminar_zapato(id)
     return jsonify(respuesta), code
 
 @bp.route("/", methods=["PUT"])
-@csrf.exempt
 def actualizar_zapato():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
-        zapato_json = request.cleaned_json
+        zapato_json = g.cleaned_json
         id = zapato_json["id"]
         nombre = zapato_json["nombre"]
         descripcion = zapato_json["descripcion"]
