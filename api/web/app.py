@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 import os
-from variables import cargarvariables
+# from variables import cargarvariables
 from flask_wtf.csrf import CSRFProtect
 from funciones_auxiliares import prepare_response_extra_headers
 from logging.config import dictConfig
@@ -53,7 +53,7 @@ def create_app():
     
     app.config['WTF_CSRF_CHECK_DEFAULT'] = False
     
-    app.config.from_pyfile('settings.py')
+#    app.config.from_pyfile('settings.py', silent=True)
     csrf = CSRFProtect(app)
 
     @app.after_request
@@ -72,7 +72,7 @@ def create_app():
 
     @app.before_request
     def csrf_protect():
-        if not request.path.startswith("/api/usuarios/login") and not request.path.startswith("/api/usuarios/registro"):
+        if not request.path.startswith("/api/usuarios/login") and not request.path.startswith("/api/usuarios/registro") and not request.path.startswith("/api/comentarios"):
             csrf.protect()
 
     # Importar y registrar blueprints aquí (evita side-effects en import)
