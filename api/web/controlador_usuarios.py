@@ -3,7 +3,7 @@ import sys
 import datetime as dt
 from flask import current_app as app 
 from flask_wtf.csrf import generate_csrf
-from utils_passwords import cipher_password, compare_password
+from funciones_auxiliares import cipher_password, compare_password
 
 def create_session(username, perfil):
     """Create user session"""

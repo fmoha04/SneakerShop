@@ -1,6 +1,6 @@
 from __future__ import print_function
-from flask import request,Blueprint, jsonify, g
-from funciones_auxiliares import Encoder
+from flask import request,Blueprint, jsonify, g, make_response
+from funciones_auxiliares import Encoder, prepare_response_extra_headers
 import controlador_usuarios
 
 bp = Blueprint('usuarios', __name__)
