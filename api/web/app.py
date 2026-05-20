@@ -6,6 +6,7 @@ from funciones_auxiliares import sanitize_field
 csrf = CSRFProtect()
 
 def create_app():
+    
     app = Flask(__name__)
 
     # Config
@@ -56,8 +57,8 @@ def create_app():
 if __name__ == '__main__':
     app=create_app()
     try:
-        port = int(os.environ.get('PORT'))
-        host = os.environ.get('HOST')
+        port = int(os.environ.get('PORT', 5000))
+        host = os.environ.get('HOST', '0.0.0.0')
         app.run(host=host, port=port)
     except:
         print("Error starting server", flush=True)

@@ -4,6 +4,8 @@ import controlador_comentarios
 
 bp = Blueprint('comentarios', __name__)
 
+extra_headers = prepare_response_extra_headers(True)
+
 @bp.route("/",methods=['POST'])
 def login():
     content_type = request.headers.get('Content-Type')
@@ -15,12 +17,16 @@ def login():
     else:
         respuesta={"status":"Bad request"}
         code=401
-    return jsonify(respuesta), code
+        
+    response = make_response(jsonify(respuesta), code)
+    response.headers.update(extra_headers)
+    return response
 
 @bp.route("/",methods=['GET'])
 def consultaComentarios():
     respuesta,code= controlador_comentarios.obtener_comentarios()
-    return jsonify(respuesta), code
-
-
+    
+    response = make_response(jsonify(respuesta), code)
+    response.headers.update(extra_headers)
+    return response
 

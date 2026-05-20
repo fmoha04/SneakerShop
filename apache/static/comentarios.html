@@ -120,6 +120,10 @@
         myHeaders.append("X-CSRFToken", csrfToken);
         myHeaders.append("Content-Type", "application/json");
         
+        if (sessionStorage.getItem("csrf_token")){ 
+            myHeaders.append("X-CSRFToken", sessionStorage.getItem("csrf_token")); 
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             // Funcionalidad del navbar
             const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);

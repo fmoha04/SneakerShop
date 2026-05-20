@@ -169,13 +169,7 @@
                 console.log("Validación fallida: campos vacíos");
                 return;
             }
-            
-//            if (fileInput.files.length === 0) {
-//                alert("Por favor selecciona un archivo de foto");
-//                console.log("Validación fallida: no hay archivo");
-//                return;
-//            }
-            
+
             console.log("Validaciones pasadas, preparando FormData");
             
             // Crear FormData para enviar el archivo
@@ -188,10 +182,17 @@
             
             console.log("FormData preparado, enviando a /api/zapatos/");
             
+            // Justo después de crear tu formData y antes de declarar requestOptions:
+            var headersArchivos = new Headers();
+            if (sessionStorage.getItem("csrf_token")){ 
+                headersArchivos.append("X-CSRFToken", sessionStorage.getItem("csrf_token")); 
+            }
+            
             var requestOptions = {
                 method: 'POST',
+                headers: headersArchivos, // <- AÑADIMOS ESTA LÍNEA
                 body: formData
-                // No establecer Content-Type, el navegador lo hará automáticamente
+                // No establecemos Content-Type, el navegador lo hará automáticamente
             };
 
             fetch("/api/zapatos/", requestOptions)

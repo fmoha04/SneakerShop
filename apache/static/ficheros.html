@@ -114,6 +114,9 @@
         var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         myHeaders.append("X-CSRFToken", csrfToken);
         myHeaders.append("Content-Type", "application/json");
+        if (sessionStorage.getItem("csrf_token")){ 
+            myHeaders.append("X-CSRFToken", sessionStorage.getItem("csrf_token")); 
+        }
         
         document.addEventListener('DOMContentLoaded', () => {
             // Funcionalidad del navbar
@@ -175,10 +178,18 @@
             const formData = new FormData();
             formData.append('fichero', document.getElementById("fichero").files[0]);
             formData.append('nombre', document.getElementById("nombre").value);
+            
+            // Creamos cabeceras específicas solo para el archivo (sin JSON)
+            var headersArchivos = new Headers();
+            if (sessionStorage.getItem("csrf_token")){ 
+                headersArchivos.append("X-CSRFToken", sessionStorage.getItem("csrf_token")); 
+            }
+
             var requestOptions = {
                 method: 'POST',
+                headers: headersArchivos, // <- AÑADIMOS LAS CABECERAS
                 body: formData
-            };
+            };  
 
             fetch("/api/ficheros/", requestOptions)
                 .then(response => response.json())
