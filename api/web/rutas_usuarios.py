@@ -2,6 +2,7 @@ from __future__ import print_function
 from flask import request,Blueprint, jsonify, g, make_response
 from funciones_auxiliares import Encoder, prepare_response_extra_headers
 import controlador_usuarios
+import os
 
 bp = Blueprint('usuarios', __name__)
 

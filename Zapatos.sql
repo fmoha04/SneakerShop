@@ -23,6 +23,7 @@ CREATE TABLE usuarios(
     estado VARCHAR(100),
     fechaUltimoAcceso DATE,
     clave VARCHAR(255) NOT NULL,
+    correo VARCHAR(255),
     perfil VARCHAR(100) NOT NULL
 );
 

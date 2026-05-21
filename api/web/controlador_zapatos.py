@@ -1,5 +1,6 @@
 from bd import obtener_conexion
 import sys
+import os
 from funciones_auxiliares import calculariva
 
 def convertir_zapatos_a_json(zapato):

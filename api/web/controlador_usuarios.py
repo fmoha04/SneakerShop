@@ -1,4 +1,5 @@
 from bd import obtener_conexion
+import os
 import sys
 import datetime as dt
 from flask import current_app as app 
@@ -6,7 +7,9 @@ from flask_wtf.csrf import generate_csrf
 from funciones_auxiliares import cipher_password, compare_password
 
 def create_session(username, perfil):
-    """Create user session"""
+    pass
+
+def logout():
     pass
 
 def login_usuario(username,passwordIn):
@@ -56,7 +59,7 @@ def login_usuario(username,passwordIn):
         code = 500
     return ret, code
 
-def alta_usuario(username, password, correo):
+def alta_usuario(username, password, perfil, correo):
     conexion = None
     try:
         conexion = obtener_conexion()
@@ -68,7 +71,7 @@ def alta_usuario(username, password, correo):
                 passwordC = cipher_password(password)
                 cursor.execute(
                     "INSERT INTO usuarios(usuario, clave, correo, perfil, estado, numeroAccesosErroneo) VALUES(%s, %s, %s, %s, 'activo', 0)", 
-                    (username, passwordC, correo))
+                    (username, passwordC, correo, perfil))
 
                 if cursor.rowcount == 1:
                     conexion.commit()

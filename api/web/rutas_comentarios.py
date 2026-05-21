@@ -1,6 +1,7 @@
 from __future__ import print_function
 from flask import request,Blueprint, jsonify, g, make_response
 import controlador_comentarios
+import os
 from funciones_auxiliares import Encoder, prepare_response_extra_headers
 
 bp = Blueprint('comentarios', __name__)

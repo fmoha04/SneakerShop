@@ -1,5 +1,6 @@
 from bd import obtener_conexion
 import sys
+import os
 import datetime as dt
 
 
