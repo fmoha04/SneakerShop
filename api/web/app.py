@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, g
 from flask_wtf.csrf import CSRFProtect
 import os
 from funciones_auxiliares import sanitize_field
+from flask_wtf.csrf import generate_csrf
 
 csrf = CSRFProtect()
 
@@ -23,7 +24,7 @@ def create_app():
         if request.is_json:
             data = request.get_json(silent=True)
             if data is not None:
-               g.cleaned_json = sanitize_field(data)
+                g.cleaned_json = sanitize_field(data)
 
     # Importar y registrar blueprints aquí (evita side-effects en import)
     from rutas_usuarios import bp as usuarios_bp
@@ -38,11 +39,10 @@ def create_app():
 
     from rutas_comentarios import bp as comentarios_bp
     app.register_blueprint(comentarios_bp, url_prefix='/api/comentarios')
+    csrf.exempt(comentarios_bp)
 
     @app.after_request
     def set_csrf_cookie(response):
-        # Genera un token CSRF y lo guarda en una cookie llamada 'csrf_token'
-        from flask_wtf.csrf import generate_csrf
         response.set_cookie('csrf_token', generate_csrf(), samesite='Lax')
         return response
 
