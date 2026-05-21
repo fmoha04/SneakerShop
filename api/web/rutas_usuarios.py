@@ -1,6 +1,6 @@
 from __future__ import print_function
 from flask import request,Blueprint, jsonify, g, make_response
-from funciones_auxiliares import Encoder, prepare_response_extra_headers
+from funciones_auxiliares import Encoder, prepare_response_extra_headers, validar_session_normal
 import controlador_usuarios
 import os
 
@@ -43,14 +43,18 @@ def registro():
 
 @bp.route("/logout",methods=['GET'])
 def logout():
-    try:
-        controlador_usuarios.logout()
-        ret={"status":"OK"}
-        code=200
-    except Exception as e:
-        print(f"Error en logout: {e}", flush=True)
-        ret={"status":"ERROR"}
-        code=500
+    if not validar_session_normal():
+        ret = {"status": "Forbidden"}
+        code = 403
+    else:
+        try:
+            controlador_usuarios.logout()
+            ret={"status":"OK"}
+            code=200
+        except Exception as e:
+            print(f"Error en logout: {e}", flush=True)
+            ret={"status":"ERROR"}
+            code=500
         
     response=make_response(jsonify(ret),code)
     response.headers.update(extra_headers)

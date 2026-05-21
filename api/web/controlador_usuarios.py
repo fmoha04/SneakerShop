@@ -1,16 +1,17 @@
+from funciones_auxiliares import cipher_password, compare_password, create_session, delete_session
 from bd import obtener_conexion
 import os
 import sys
 import datetime as dt
 from flask import current_app as app 
 from flask_wtf.csrf import generate_csrf
-from funciones_auxiliares import cipher_password, compare_password
-
-def create_session(username, perfil):
-    pass
 
 def logout():
-    pass
+    try:
+        delete_session()
+        return {"status": "OK"}, 200
+    except:
+        return {"status": "ERROR"}, 500
 
 def login_usuario(username,passwordIn):
     try:
@@ -24,29 +25,29 @@ def login_usuario(username,passwordIn):
                 ret = {"status": "ERROR","mensaje":"Usuario/clave erroneo" }
             else:
                 perfil = usuario[0]
-                password = usuario[1]
+                password_hash = usuario[1]
                 numAccesosErroneos = usuario[2]
                 
                 current_date = dt.date.today()
                 hoy = current_date.strftime('%Y-%m-%d')
                 
-                if compare_password(password, passwordIn):
-                    ret = {"status": "OK",
-                           "csrf_token": generate_csrf(),
-                           "perfil": perfil}
+                if compare_password(password_hash, passwordIn):
+                    ret = {"status": "OK", "csrf_token": generate_csrf(), "perfil": perfil}
                     app.logger.info("Acceso usuario %s correcto", username)
                     create_session(username, perfil)
                     numAccesosErroneos = 0
                     estado = 'activo'
                 else:
                     app.logger.info("Acceso usuario %s incorrecto", username)
-                    numAccesosErroneos = numAccesosErroneos + 1
-                    if numAccesosErroneos > 2:
-                        estado = "bloqueado"
-                        app.logger.info("Usuario %s bloqueado", username)
-                    else:
-                        estado = 'activo'
-                    ret = {"status": "ERROR","mensaje":"Usuario/clave erroneo"}
+                    numAccesosErroneos += 1
+                    estado = 'bloqueado' if numAccesosErroneos > 2 else 'activo'
+                    ret = {"status": "ERROR", "mensaje": "Usuario/clave erroneo"}                    
+                    # if numAccesosErroneos > 2:                        
+                    #     estado = "bloqueado"
+                    #     app.logger.info("Usuario %s bloqueado", username)
+                    # else:
+                    #     estado = 'activo'
+                    # ret = {"status": "ERROR","mensaje":"Usuario/clave erroneo"}
                 
                 cursor.execute("UPDATE usuarios SET numeroAccesosErroneo=%s, fechaUltimoAcceso=%s, estado=%s WHERE usuario = %s",(numAccesosErroneos, hoy, estado, username))
                 conexion.commit()

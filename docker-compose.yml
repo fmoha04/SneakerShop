@@ -27,7 +27,8 @@ services:
     # imagen/python:${TAG_IMG}
     container_name: pythona7
     environment:
-      WTF_CSRF_SECRET_KEY: "secreto"
+      WTF_CSRF_SECRET_KEY: ${WTF_CSRF_SECRET_KEY}
+      SECRET_KEY: ${SECRET_KEY}
       PEPPER_KEY: ${PEPPER_KEY}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}

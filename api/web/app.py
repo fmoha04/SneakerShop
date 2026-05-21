@@ -52,6 +52,15 @@ def create_app():
         ret={"status": "Internal Server Error"}
         return jsonify(ret), 500
 
+    # - sesion segura con cookies - 
+    
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+    app.config.update(
+        PERMANENT_SESSION_LIFETIME=600,
+        SESSION_COOKIE_HTTPONLY=True,
+        SESSION_COOKIE_SAMESITE='Lax'
+    )
+
     return app
 
 if __name__ == '__main__':

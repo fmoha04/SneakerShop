@@ -19,8 +19,8 @@ CREATE TABLE comentarios(
 
 CREATE TABLE usuarios(
     usuario VARCHAR(100) NOT NULL PRIMARY KEY,
-    numeroAccesosErroneo INT,
-    estado VARCHAR(100),
+    numeroAccesosErroneo INT DEFAULT 0,
+    estado VARCHAR(100) DEFAULT 'activo',
     fechaUltimoAcceso DATE,
     clave VARCHAR(255) NOT NULL,
     correo VARCHAR(255),

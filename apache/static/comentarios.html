@@ -158,6 +158,14 @@
         }
         
         function guardarComentario() {
+
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            if (sessionStorage.getItem("csrf_token")) {
+                myHeaders.append("X-CSRFToken", sessionStorage.getItem("csrf_token"));
+            }
+
             var raw = JSON.stringify({
                 "usuario": document.getElementById("usuario").value,
                 "descripcion": document.getElementById("descripcion").value
@@ -166,7 +174,8 @@
             var requestOptions = {
                 method: 'POST',
                 headers: myHeaders,
-                body: raw
+                body: raw,
+                credentials: 'include'
             };
 
             fetch("/api/comentarios/", requestOptions)
@@ -198,9 +207,11 @@
         }
         
         function pedirComentarios(){
+            
             var requestOptions = {
                 method: 'GET',
                 headers: myHeaders,
+                credentials: 'include'
             };
 
             fetch("/api/comentarios/", requestOptions)

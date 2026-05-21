@@ -3,6 +3,7 @@ import controlador_zapatos
 from funciones_auxiliares import Encoder, prepare_response_extra_headers
 import os
 from werkzeug.utils import secure_filename
+from funciones_auxiliares import validar_session_normal
 
 bp = Blueprint('zapatos', __name__)
 
@@ -34,6 +35,8 @@ def zapato_por_id(id):
 
 @bp.route("/", methods=["POST"])
 def guardar_zapato():
+    if not validar_session_normal():
+        return make_response(jsonify({"status": "Forbidden"}), 403)
     try:
         print("=== GUARDANDO ZAPATO ===", flush=True)
         content_type = request.headers.get('Content-Type')
@@ -104,9 +107,9 @@ def guardar_zapato():
             code = 400
             
     except Exception as e:
-        print(f"Error al guardar zapato: {e}", flush=True)
-        import traceback
-        traceback.print_exc()
+        # print(f"Error al guardar zapato: {e}", flush=True)
+        # import traceback
+        # traceback.print_exc()
         respuesta = {"status": "Error", "mensaje": str(e)}
         code = 500
         
@@ -116,13 +119,19 @@ def guardar_zapato():
 
 @bp.route("/<int:id>", methods=["DELETE"])
 def eliminar_zapato(id):
-    respuesta, code = controlador_zapatos.eliminar_zapato(id)
+    if validar_session_normal():
+        respuesta, code = controlador_zapatos.eliminar_zapato(id)
+    else:
+        respuesta = {"status": "Forbidden"}
+        code = 403
     response = make_response(jsonify(respuesta), code)
     response.headers.update(extra_headers)
     return response
 
 @bp.route("/", methods=["PUT"])
 def actualizar_zapato():
+    if not validar_session_normal():
+        return make_response(jsonify({"status": "Forbidden"}), 403)
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
         zapato_json = g.cleaned_json
@@ -138,7 +147,7 @@ def actualizar_zapato():
     else:
         respuesta = {"status": "Bad request"}
         code = 401
-        
+
     response = make_response(jsonify(respuesta), code)
     response.headers.update(extra_headers)
     return response
