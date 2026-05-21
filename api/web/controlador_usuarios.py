@@ -67,7 +67,7 @@ def alta_usuario(username, password, correo):
             if usuario is None:
                 passwordC = cipher_password(password)
                 cursor.execute(
-                    "INSERT INTO usuarios(usuario, clave, correo, perfil, estado, numeroAccesosErroneo) VALUES(%s, %s, %s, 'normal', 'activo', 0)",
+                    "INSERT INTO usuarios(usuario, clave, correo, perfil, estado, numeroAccesosErroneo) VALUES(%s, %s, %s, %s, 'activo', 0)", 
                     (username, passwordC, correo))
 
                 if cursor.rowcount == 1:

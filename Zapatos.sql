@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS ciber;
-USE ciber;
+CREATE DATABASE IF NOT EXISTS ciberA7;
+USE ciberA7;
 
 CREATE TABLE zapatos(
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -32,5 +32,6 @@ INSERT INTO zapatos (nombre, descripcion, precio, precio_iva, foto, marca) VALUE
 INSERT INTO comentarios (usuario, descripcion) VALUES 
 ('root', 'Se ha actualizado el stock de las zapatillas Nike hoy mismo.');
 
-INSERT INTO usuarios (usuario, clave, perfil) VALUES 
-('root', '1234', 'admin');
+-- INSERT INTO usuarios (usuario, clave, perfil) VALUES 
+-- ('root', '1234', 'admin');
+
