@@ -39,20 +39,25 @@ services:
       HOST: ${HOST}
     depends_on:
       - mariadb
+    ports:
+      - "$EXPOSED_PORT_PYTHON:8080"
     volumes:
     - ./api/web:/app
     - ./logs:/app/logs
+    - ./certs:/app/certs
     restart: unless-stopped
   apache:
     container_name: apachea7
-    build: ./apache #./waf/ en un futuro
-    # imagen/WAF:${TAG_WAF}
+    build: ./apache
     ports:
-      - $EXPOSED_PORT_APACHE:80
+      - $EXPOSED_PORT_APACHE:443
     depends_on:
       - python
     links:
       - python
+    volumes:
+      - ./certs:/usr/local/apache2/certs
     restart: unless-stopped
 volumes:
   mariadb_data:
+

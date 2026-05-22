@@ -46,7 +46,8 @@ def create_app():
     app.config.update(
         PERMANENT_SESSION_LIFETIME=600,
         SESSION_COOKIE_HTTPONLY=True,
-        SESSION_COOKIE_SAMESITE='Lax'
+        SESSION_COOKIE_SAMESITE='Lax',
+        SESSION_COOKIE_SECURE=True
     )
 
     csrf.init_app(app)
@@ -59,7 +60,6 @@ def create_app():
             if data is not None:
                 g.cleaned_json = sanitize_field(data)
 
-    # Importar y registrar blueprints
     from rutas_usuarios import bp as usuarios_bp
     app.register_blueprint(usuarios_bp, url_prefix='/api/usuarios')
     csrf.exempt(usuarios_bp)
@@ -77,14 +77,11 @@ def create_app():
     @app.after_request
     def after_request_handler(response):
         
-        # 1. Cabeceras de Seguridad
         response.headers['Server'] = 'API'
         response.headers.extend(extra_headers)
         
-        # 2. Cookie Anti-CSRF
         response.set_cookie('csrf_token', generate_csrf(), samesite='Lax')
         
-        # 3. Logging de auditoría
         app.logger.info(
             "path: %s | method: %s | status: %s | size: %s >>> %s",
             request.path, request.method, response.status, 
@@ -104,7 +101,7 @@ if __name__ == '__main__':
     try:
         port = int(os.environ.get('PORT', 5000))
         host = os.environ.get('HOST', '0.0.0.0')
-        app.run(host=host, port=port)
-    except:
-        print("Error starting server", flush=True)
+        app.run(host=host, port=port, ssl_context=('/app/certs/cert.pem', '/app/certs/key.pem'))
+    except Exception as e:
+        print(f"Error starting server: {e}", flush=True)
 
