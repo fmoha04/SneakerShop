@@ -3,7 +3,7 @@ from bd import obtener_conexion
 import os
 import sys
 import datetime as dt
-from flask import current_app as app 
+from flask import current_app
 from flask_wtf.csrf import generate_csrf
 
 def logout():
@@ -22,7 +22,11 @@ def login_usuario(username,passwordIn):
             usuario = cursor.fetchone()
             
             if usuario is None:
+                
+                current_app.logger.warning(f"Intento acceso con usuario no encontrado: {username}")
+                
                 ret = {"status": "ERROR","mensaje":"Usuario/clave erroneo" }
+                code = 200
             else:
                 perfil = usuario[0]
                 password_hash = usuario[1]
@@ -33,27 +37,32 @@ def login_usuario(username,passwordIn):
                 
                 if compare_password(password_hash, passwordIn):
                     ret = {"status": "OK", "csrf_token": generate_csrf(), "perfil": perfil}
-                    app.logger.info("Acceso usuario %s correcto", username)
+                    
+                    current_app.logger.info(f"Acceso usuario {username} correcto")
+                    
                     create_session(username, perfil)
                     numAccesosErroneos = 0
                     estado = 'activo'
                 else:
-                    app.logger.info("Acceso usuario %s incorrecto", username)
+                    
+                    current_app.logger.warning(f"Acceso usuario {username} incorrecto")
+                    
                     numAccesosErroneos += 1
-                    estado = 'bloqueado' if numAccesosErroneos > 2 else 'activo'
-                    ret = {"status": "ERROR", "mensaje": "Usuario/clave erroneo"}                    
-                    # if numAccesosErroneos > 2:                        
-                    #     estado = "bloqueado"
-                    #     app.logger.info("Usuario %s bloqueado", username)
-                    # else:
-                    #     estado = 'activo'
-                    # ret = {"status": "ERROR","mensaje":"Usuario/clave erroneo"}
+                    if numAccesosErroneos > 2:
+                        estado = 'bloqueado'
+                    
+                        current_app.logger.error(f"Usuario {username} bloqueado por mala persona")
+                    
+                    else:
+                        estado = 'activo'
+                    ret = {"status": "ERROR", "mensaje": "Usuario/Clave erroneo"}
                 
                 cursor.execute("UPDATE usuarios SET numeroAccesosErroneo=%s, fechaUltimoAcceso=%s, estado=%s WHERE usuario = %s",(numAccesosErroneos, hoy, estado, username))
                 conexion.commit()
-            
+
             conexion.close()
         code = 200
+
     except Exception as e:
         print(f"Excepcion al validar al usuario: {e}", flush=True)   
         ret = {"status":"ERROR"}
@@ -76,7 +85,7 @@ def alta_usuario(username, password, perfil, correo):
 
                 if cursor.rowcount == 1:
                     conexion.commit()
-                    app.logger.info("Nuevo usuario creado")
+                    current_app.logger.info("Nuevo usuario creado")
                     ret = {"status": "OK"}
                     code = 200
                 else:

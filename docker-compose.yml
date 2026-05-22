@@ -39,6 +39,9 @@ services:
       HOST: ${HOST}
     depends_on:
       - mariadb
+    volumes:
+    - ./api/web:/app
+    - ./logs:/app/logs
     restart: unless-stopped
   apache:
     container_name: apachea7
