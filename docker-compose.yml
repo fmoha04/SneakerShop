@@ -10,7 +10,7 @@ services:
       MARIADB_DATABASE: ${SQL_DATABASE}
     volumes:
       - mariadb_data:/var/lib/mysql
-      - ./Zapatos.sql:/docker-entrypoint-initdb.d/Zapatos.sql
+      - ./Zapatos.sql:/docker-entrypoint-initdb.d/Zapatos.sql:ro
     user: mysql
   phpmyadmin:
     image: phpmyadmin
@@ -42,9 +42,9 @@ services:
     ports:
       - "$EXPOSED_PORT_PYTHON:8080"
     volumes:
-    - ./api/web:/app
-    - ./logs:/app/logs
-    - ./certs:/app/certs
+    - ./api/web:/app:rw
+    - ./logs:/app/logs:rw
+    - ./certs:/app/certs:ro
     restart: unless-stopped
   apache:
     container_name: apachea7
