@@ -1,8 +1,5 @@
 import { getHeaders } from './headers.js';
 
-// Inicializamos los headers y pedimos el token CSRF pasando true
-const myHeaders = getHeaders(true);
-
 // Extraer el ID del zapato desde los parámetros de la URL (?id=...)
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
@@ -47,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function obtenerDatosZapato(id) {
     const requestOptions = {
         method: 'GET',
-        headers: myHeaders
+        headers: getHeaders(true)
     };
 
     fetch("/api/zapatos/" + id, requestOptions)
@@ -96,7 +93,7 @@ function guardar() {
 
     const requestOptions = {
         method: 'PUT',
-        headers: myHeaders,
+        headers: getHeaders(true),
         body: datos
     };
 

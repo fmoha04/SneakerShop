@@ -85,8 +85,9 @@ def alta_usuario(username, password, perfil, correo):
 
                 if cursor.rowcount == 1:
                     conexion.commit()
+                    create_session(username, perfil)
                     current_app.logger.info("Nuevo usuario creado")
-                    ret = {"status": "OK"}
+                    ret = {"status": "OK", "csrf_token": generate_csrf(), "perfil": perfil}
                     code = 200
                 else:
                     ret = {"status": "ERROR"}

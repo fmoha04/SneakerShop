@@ -55,9 +55,9 @@
         function signup(){
             document.getElementsByClassName("error")[0].style.display="none";
 
-
+            var usuario = document.getElementById("username_sign").value;
             var raw = JSON.stringify({
-                "username": document.getElementById("username_sign").value,
+                "username": usuario,
                 "password": document.getElementById("password_sign").value,
                 "profile": "admin",
             });
@@ -74,7 +74,13 @@
                 .then(response => response.json())
                 .then(result => {
                     if (result.status=="OK"){
+                        // Guardar token CSRF, perfil y usuario en sessionStorage/localStorage
+                        sessionStorage.setItem("csrf_token", result.csrf_token);
+                        sessionStorage.setItem("perfil", result.perfil);
+                        localStorage.setItem('usuario', usuario);
                         alert("Usuario registrado correctamente");
+                        // Redirigir a zapatos
+                        location.href = "zapatos.html";
                     } else {
                         document.getElementsByClassName("error")[0].style.display="block";
                     }

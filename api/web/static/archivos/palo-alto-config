@@ -1,0 +1,38 @@
+number: 1
+name: ALUMNOS A DMZ
+type: universal
+zone: alumnos
+address: red comercio, red informatica
+user: any
+device: any
+zone: dmz
+address: red dmz
+device: any
+app: any
+service: rdp, http, ssh
+action: allow
+
+number: 2
+name: internet
+type: universal
+zone: alumnos, dmz
+address: red comercio, red dmz, red informatica
+user: any
+device: any
+zone: wan
+address: any
+device: any
+app: any
+service: any
+action: allow
+
+number: 3
+name: intrazone-default
+
+number: 4
+name: interzone-default
+
+
+route table
+0.0.0.0 192.168.1.1 ethernet1/1
+192.168.1.1 192.168.1.21 ethernet1/1

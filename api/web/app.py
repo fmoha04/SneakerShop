@@ -66,9 +66,11 @@ def create_app():
 
     from rutas_zapatos import bp as zapatos_bp
     app.register_blueprint(zapatos_bp, url_prefix='/api/zapatos')
+    csrf.exempt(zapatos_bp)
 
     from rutas_ficheros import bp as ficheros_bp
     app.register_blueprint(ficheros_bp, url_prefix='/api/ficheros')
+    csrf.exempt(ficheros_bp)
 
     from rutas_comentarios import bp as comentarios_bp
     app.register_blueprint(comentarios_bp, url_prefix='/api/comentarios')
