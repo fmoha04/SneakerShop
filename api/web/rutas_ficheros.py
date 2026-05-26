@@ -1,6 +1,6 @@
 from __future__ import print_function
 from flask import request,Blueprint, jsonify, make_response
-from funciones_auxiliares import prepare_response_extra_headers
+from funciones_auxiliares import prepare_response_extra_headers, validar_session_normal
 import controlador_ficheros
 import os
 import sys
@@ -24,14 +24,18 @@ def listar():
 
 @bp.route ('/', methods=['POST']) 
 def upload():
-    try:
-        contenido= request.files['fichero'] 
-        nombre = request.form.get("nombre")
-        respuesta,code = controlador_ficheros.guardar_fichero(nombre,contenido)
-    except Exception as e:
-        print(f"Error subiendo archivo: {e}", flush=True)
-        respuesta={"status": "ERROR"}
-        code=500
+    if not validar_session_normal():
+        respuesta = {"status": "Forbidden"}
+        code = 403
+    else:
+        try:
+            contenido= request.files['fichero'] 
+            nombre = request.form.get("nombre")
+            respuesta,code = controlador_ficheros.guardar_fichero(nombre,contenido)
+        except Exception as e:
+            print(f"Error subiendo archivo: {e}", flush=True)
+            respuesta={"status": "ERROR"}
+            code=500
     response = make_response(jsonify(respuesta), code)
     response.headers.update(extra_headers)
     return response

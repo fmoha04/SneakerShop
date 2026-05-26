@@ -149,6 +149,8 @@
         
         function cerrarSesion() {
             localStorage.removeItem('usuario');
+            sessionStorage.removeItem('csrf_token');
+            sessionStorage.removeItem('perfil');
             location.href = 'index.html';
         }
 

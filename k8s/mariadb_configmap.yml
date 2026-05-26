@@ -5,8 +5,8 @@ metadata:
   namespace: grupo7a
 data:
   init.sql: |-
-    CREATE DATABASE IF NOT EXISTS ciber;
-    USE ciber;
+    CREATE DATABASE IF NOT EXISTS ciberA7;
+    USE ciberA7;
 
     CREATE TABLE zapatos(
         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,

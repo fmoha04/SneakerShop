@@ -115,13 +115,15 @@
         }
     </style>
     <script>
-        var myHeaders = new Headers();
-        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        myHeaders.append("X-CSRFToken", csrfToken);
-        myHeaders.append("Content-Type", "application/json");
-        
-        if (sessionStorage.getItem("csrf_token")){ 
-            myHeaders.append("X-CSRFToken", sessionStorage.getItem("csrf_token")); 
+        function getHeaders() {
+            const headers = new Headers();
+            // Primero intenta obtener de sessionStorage (después del login)
+            let token = sessionStorage.getItem('csrf_token');
+            if (token) {
+                headers.append("X-CSRFToken", token);
+            }
+            headers.append("Content-Type", "application/json");
+            return headers;
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -154,6 +156,8 @@
         
         function cerrarSesion() {
             localStorage.removeItem('usuario');
+            sessionStorage.removeItem('csrf_token');
+            sessionStorage.removeItem('perfil');
             location.href = 'index.html';
         }
         
@@ -165,8 +169,9 @@
 
             var requestOptions = {
                 method: 'POST',
-                headers: myHeaders,
-                body: raw
+                headers: getHeaders(),
+                body: raw,
+                credentials: 'include'
             };
 
             fetch("/api/comentarios/", requestOptions)
@@ -198,9 +203,11 @@
         }
         
         function pedirComentarios(){
+            
             var requestOptions = {
                 method: 'GET',
-                headers: myHeaders,
+                headers: getHeaders(),
+                credentials: 'include'
             };
 
             fetch("/api/comentarios/", requestOptions)

@@ -20,14 +20,11 @@
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
-        if (sessionStorage.getItem("csrf_token")){ 
-            myHeaders.append("X-CSRFToken", sessionStorage.getItem("csrf_token")); 
-        }
-
         function conectar(){
             document.getElementsByClassName("error")[0].style.display="none";
+            var usuario = document.getElementById("username").value;
             var raw = JSON.stringify({
-                "username": document.getElementById("username").value,
+                "username": usuario,
                 "password": document.getElementById("password").value,
                 "profile": document.getElementById("profile").value
             });
@@ -42,8 +39,13 @@
                 .then(response => response.json())
                 .then(result => {
                     if (result.status=="OK"){
+                        // Guardar token CSRF, perfil y usuario
+                        sessionStorage.setItem("csrf_token", result.csrf_token);
+                        sessionStorage.setItem("perfil", result.perfil);
+                        localStorage.setItem('usuario', usuario);
                         alert("Usuario registrado correctamente");
-                        location.href="index.html";
+                        // Redirigir a zapatos
+                        location.href="zapatos.html";
                     } else {
                         document.getElementsByClassName("error")[0].style.display="block";
                     }

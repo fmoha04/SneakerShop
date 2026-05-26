@@ -1,6 +1,7 @@
 import decimal
 import json
 import datetime
+import os
 from werkzeug.http import http_date
 import bcrypt
 import html
@@ -60,17 +61,30 @@ def prepare_response_extra_headers(include_security_headers):
     
     if include_security_headers:
         response_security_headers = {
-            # X-Frame-Options: page can only be shown in an iframe of the same site
             'X-Frame-Options': 'SAMEORIGIN',
-            # ensure all app communication is sent over HTTPS
             'Strict-Transport-Security': 'max-age=63072000; includeSubdomains',
-            # instructs the browser not to override the response content type
             'X-Content-Type-Options': 'nosniff',
-            # enable browser cross-site scripting (XSS) filter
             'X-XSS-Protection': '1; mode=block'
         }
         
         response_extra_headers.update(response_security_headers)
         
     return response_extra_headers
+
+# -- SESION SEGURA CON COOKIES -- #
+
+from flask import session
+
+def create_session(usuario, perfil):
+    session["usuario"] = usuario
+    session["perfil"] = perfil
+
+def delete_session():
+    session.clear()
+
+def validar_session_normal():
+    return session.get("usuario") is not None and session.get("usuario") != ""
+
+def validar_session_admin():
+    return validar_session_normal() and session.get("perfil") == "admin"
 

@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS ciber;
-USE ciber;
+CREATE DATABASE IF NOT EXISTS ciberA7;
+USE ciberA7;
 
 CREATE TABLE zapatos(
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -19,18 +19,23 @@ CREATE TABLE comentarios(
 
 CREATE TABLE usuarios(
     usuario VARCHAR(100) NOT NULL PRIMARY KEY,
-    numeroAccesosErroneo INT,
-    estado VARCHAR(100),
+    numeroAccesosErroneo INT DEFAULT 0,
+    estado VARCHAR(100) DEFAULT 'activo',
     fechaUltimoAcceso DATE,
     clave VARCHAR(255) NOT NULL,
+    correo VARCHAR(255),
     perfil VARCHAR(100) NOT NULL
 );
 
 INSERT INTO zapatos (nombre, descripcion, precio, precio_iva, foto, marca) VALUES 
-('Air Max Plus', 'Zapatillas premium con diseño aerodinámico.', 185.00, 223.85, 'airmax_plus.jpg', 'Nike');
+('Air Max Plus', 'Zapatillas premium con diseño aerodinamico.', 185.00, 223.85, 'airmax_plus.jpg', 'Nike'),
+('Puma Smooth3', 'Zapatillas para correr premium.', 225.00, 323.85, 'air_puma.jpg', 'Puma'),
+('Adidas Campus', 'Zapatillas de calidad para combinar.', 285.00, 723.85, 'adidas_campus.jpg', 'Adidas');
+
 
 INSERT INTO comentarios (usuario, descripcion) VALUES 
 ('root', 'Se ha actualizado el stock de las zapatillas Nike hoy mismo.');
 
-INSERT INTO usuarios (usuario, clave, perfil) VALUES 
-('root', '1234', 'admin');
+-- INSERT INTO usuarios (usuario, clave, perfil) VALUES 
+-- ('root', '1234', 'admin');
+

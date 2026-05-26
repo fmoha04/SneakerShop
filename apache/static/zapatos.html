@@ -15,13 +15,15 @@
         }
     </style>
     <script>
-        var myHeaders = new Headers();
-        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        myHeaders.append("X-CSRFToken", csrfToken);
-        myHeaders.append("Content-Type", "application/json");
-
-        if (sessionStorage.getItem("csrf_token")){ 
-            myHeaders.append("X-CSRFToken", sessionStorage.getItem("csrf_token")); 
+        function getHeaders() {
+            const headers = new Headers();
+            // Primero intenta obtener de sessionStorage (después del login)
+            let token = sessionStorage.getItem('csrf_token');
+            if (token) {
+                headers.append("X-CSRFToken", token);
+            }
+            headers.append("Content-Type", "application/json");
+            return headers;
         }
 
         onload = function () {
@@ -71,7 +73,7 @@
         function pedirZapatos() {
             var requestOptions = {
                 method: 'GET',
-                headers: myHeaders,
+                headers: getHeaders(),
             };
 
             fetch("/api/zapatos/", requestOptions)
@@ -88,7 +90,7 @@
         function eliminarZapato(id) {
             var requestOptions = {
                 method: 'DELETE',
-                headers: myHeaders,
+                headers: getHeaders(),
             };
 
             fetch("/api/zapatos/" + id, requestOptions)
@@ -109,13 +111,15 @@
         function cerrarSesion() {
             var requestOptions = {
                 method: 'GET',
-                headers: myHeaders
+                headers: getHeaders()
             };
             fetch("/api/usuarios/logout", requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     if (result.status == "OK") {
                         localStorage.removeItem('usuario');
+                        sessionStorage.removeItem('csrf_token');
+                        sessionStorage.removeItem('perfil');
                         location.href = "index.html";
                     } else {
                         alert("No se ha podido cerrar sesión")

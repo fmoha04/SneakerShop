@@ -14,7 +14,12 @@ export function getHeaders(getCsrf) {
     headers.append("Content-Type", "application/json");
 
     if (getCsrf) {
-        const token = getCookie('csrf_token');
+        // Primero intenta obtener de sessionStorage (después del login)
+        let token = sessionStorage.getItem('csrf_token');
+        // Si no está en sessionStorage, intenta desde cookies
+        if (!token) {
+            token = getCookie('csrf_token');
+        }
         if (token) {
             headers.append("X-CSRFToken", token);
         }

@@ -27,14 +27,21 @@ spec:
                 secretKeyRef:
                   name: grupo7a-secret
                   key: SQL_ROOT_PASSWORD
+            - name: MARIADB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: grupo7a-secret
+                  key: SQL_USER
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: grupo7a-secret
+                  key: SQL_PASSWORD
             - name: MARIADB_DATABASE
               valueFrom:
                 secretKeyRef:
                   name: grupo7a-secret
                   key: SQL_DATABASE
-          envFrom:
-            - secretRef:
-                name: grupo7a-secret
           volumeMounts:
             - name: mariadb-data
               mountPath: /var/lib/mysql

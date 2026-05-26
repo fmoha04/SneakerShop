@@ -10,7 +10,7 @@ services:
       MARIADB_DATABASE: ${SQL_DATABASE}
     volumes:
       - mariadb_data:/var/lib/mysql
-      - ./Zapatos.sql:/docker-entrypoint-initdb.d/Zapatos.sql
+      - ./Zapatos.sql:/docker-entrypoint-initdb.d/Zapatos.sql:ro
     user: mysql
   phpmyadmin:
     image: phpmyadmin
@@ -27,7 +27,9 @@ services:
     # imagen/python:${TAG_IMG}
     container_name: pythona7
     environment:
-      WTF_CSRF_SECRET_KEY: "secreto_superseguro"
+      WTF_CSRF_SECRET_KEY: ${WTF_CSRF_SECRET_KEY}
+      SECRET_KEY: ${SECRET_KEY}
+      PEPPER_KEY: ${PEPPER_KEY}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_DATABASE: ${DB_DATABASE}
@@ -37,17 +39,25 @@ services:
       HOST: ${HOST}
     depends_on:
       - mariadb
+    ports:
+      - "$EXPOSED_PORT_PYTHON:8080"
+    volumes:
+    - ./api/web:/app:rw
+    - ./logs:/app/logs:rw
+    - ./certs:/app/certs:ro
     restart: unless-stopped
   apache:
     container_name: apachea7
-    build: ./apache #./waf/ en un futuro
-    # imagen/WAF:${TAG_WAF}
+    build: ./apache
     ports:
-      - $EXPOSED_PORT_APACHE:80
+      - $EXPOSED_PORT_APACHE:443
     depends_on:
       - python
     links:
       - python
+    volumes:
+      - ./certs:/usr/local/apache2/certs
     restart: unless-stopped
 volumes:
   mariadb_data:
+
