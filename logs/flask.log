@@ -1,239 +1,75 @@
-[2026-05-22 15:31:05,458] INFO in _internal:  * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
-[2026-05-22 15:31:24,419] INFO in controlador_usuarios: Nuevo usuario creado
-[2026-05-22 15:31:24,420] INFO in app: path: /api/usuarios/registro | method: POST | status: 200 OK | size: 16 >>> 172.18.0.5
-[2026-05-22 15:31:24,421] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:31:24] "[37mPOST /api/usuarios/registro HTTP/1.1[0m" 200 -
-[2026-05-22 15:31:36,500] INFO in app: path: /api/usuarios/login | method: POST | status: 200 OK | size: 53 >>> 172.18.0.5
-[2026-05-22 15:31:36,501] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:31:36] "[37mPOST /api/usuarios/login HTTP/1.1[0m" 200 -
-[2026-05-22 15:31:41,085] INFO in app: path: /api/usuarios/login | method: POST | status: 200 OK | size: 53 >>> 172.18.0.5
-[2026-05-22 15:31:41,086] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:31:41] "[37mPOST /api/usuarios/login HTTP/1.1[0m" 200 -
-[2026-05-22 15:31:41,338] INFO in controlador_usuarios: Acceso usuario root correcto
-[2026-05-22 15:31:41,341] INFO in app: path: /api/usuarios/login | method: POST | status: 200 OK | size: 140 >>> 172.18.0.5
-[2026-05-22 15:31:41,342] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:31:41] "[37mPOST /api/usuarios/login HTTP/1.1[0m" 200 -
-[2026-05-22 15:31:41,477] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 15:31:41,477] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:31:41] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 15:31:43,792] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.18.0.5
-[2026-05-22 15:31:43,793] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:31:43] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
-[2026-05-22 15:31:44,292] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.18.0.5
-[2026-05-22 15:31:44,293] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:31:44] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
-[2026-05-22 15:31:44,849] INFO in app: path: /api/comentarios/ | method: GET | status: 200 OK | size: 105 >>> 172.18.0.5
-[2026-05-22 15:31:44,850] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:31:44] "[37mGET /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 15:31:58,088] INFO in app: path: /api/comentarios/ | method: POST | status: 200 OK | size: 16 >>> 172.18.0.5
-[2026-05-22 15:31:58,089] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:31:58] "[37mPOST /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 15:31:59,504] INFO in app: path: /api/comentarios/ | method: GET | status: 200 OK | size: 207 >>> 172.18.0.5
-[2026-05-22 15:31:59,505] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:31:59] "[37mGET /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 15:32:00,931] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 15:32:00,931] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:32:00] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 15:32:01,947] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.18.0.5
-[2026-05-22 15:32:01,948] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:32:01] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
-[2026-05-22 15:32:02,716] INFO in app: path: /api/comentarios/ | method: GET | status: 200 OK | size: 207 >>> 172.18.0.5
-[2026-05-22 15:32:02,717] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:32:02] "[37mGET /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 15:32:05,171] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.18.0.5
-[2026-05-22 15:32:05,172] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:32:05] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
-[2026-05-22 15:32:06,572] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 15:32:06,573] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:32:06] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 15:32:07,728] INFO in app: path: /api/comentarios/ | method: GET | status: 200 OK | size: 207 >>> 172.18.0.5
-[2026-05-22 15:32:07,729] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:32:07] "[37mGET /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 15:32:09,397] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 15:32:09,398] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:32:09] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 15:32:10,266] INFO in app: path: /api/usuarios/logout | method: GET | status: 200 OK | size: 16 >>> 172.18.0.5
-[2026-05-22 15:32:10,267] INFO in _internal: 172.18.0.5 - - [22/May/2026 15:32:10] "[37mGET /api/usuarios/logout HTTP/1.1[0m" 200 -
-[2026-05-22 15:52:48,914] INFO in _internal:  * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
-[2026-05-22 16:16:17,944] INFO in controlador_usuarios: Nuevo usuario creado
-[2026-05-22 16:16:17,946] INFO in app: path: /api/usuarios/registro | method: POST | status: 200 OK | size: 16 >>> 172.18.0.5
-[2026-05-22 16:16:17,947] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:16:17] "[37mPOST /api/usuarios/registro HTTP/1.1[0m" 200 -
-[2026-05-22 16:16:27,467] INFO in controlador_usuarios: Nuevo usuario creado
-[2026-05-22 16:16:27,468] INFO in app: path: /api/usuarios/registro | method: POST | status: 200 OK | size: 16 >>> 172.18.0.5
-[2026-05-22 16:16:27,469] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:16:27] "[37mPOST /api/usuarios/registro HTTP/1.1[0m" 200 -
-[2026-05-22 16:16:33,182] WARNING in controlador_usuarios: Intento acceso con usuario no encontrado: root1
-[2026-05-22 16:16:33,183] INFO in app: path: /api/usuarios/login | method: POST | status: 200 OK | size: 53 >>> 172.18.0.5
-[2026-05-22 16:16:33,183] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:16:33] "[37mPOST /api/usuarios/login HTTP/1.1[0m" 200 -
-[2026-05-22 16:16:40,943] WARNING in controlador_usuarios: Intento acceso con usuario no encontrado: root123
-[2026-05-22 16:16:40,944] INFO in app: path: /api/usuarios/login | method: POST | status: 200 OK | size: 53 >>> 172.18.0.5
-[2026-05-22 16:16:40,945] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:16:40] "[37mPOST /api/usuarios/login HTTP/1.1[0m" 200 -
-[2026-05-22 16:16:49,678] INFO in controlador_usuarios: Acceso usuario root correcto
-[2026-05-22 16:16:49,681] INFO in app: path: /api/usuarios/login | method: POST | status: 200 OK | size: 140 >>> 172.18.0.5
-[2026-05-22 16:16:49,682] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:16:49] "[37mPOST /api/usuarios/login HTTP/1.1[0m" 200 -
-[2026-05-22 16:16:49,818] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 16:16:49,819] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:16:49] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 16:17:04,607] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.18.0.5
-[2026-05-22 16:17:04,608] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:17:04] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
-[2026-05-22 16:17:08,578] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.18.0.5
-[2026-05-22 16:17:08,579] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:17:08] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
-[2026-05-22 16:17:09,287] INFO in app: path: /api/comentarios/ | method: GET | status: 200 OK | size: 105 >>> 172.18.0.5
-[2026-05-22 16:17:09,288] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:17:09] "[37mGET /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 16:17:15,893] INFO in app: path: /api/comentarios/ | method: POST | status: 200 OK | size: 16 >>> 172.18.0.5
-[2026-05-22 16:17:15,893] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:17:15] "[37mPOST /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 16:17:16,880] INFO in app: path: /api/comentarios/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 16:17:16,881] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:17:16] "[37mGET /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 16:17:17,680] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 16:17:17,681] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:17:17] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 16:17:19,245] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.18.0.5
-[2026-05-22 16:17:19,245] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:17:19] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
-[2026-05-22 16:17:19,727] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 16:17:19,728] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:17:19] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 16:17:21,130] INFO in app: path: /api/zapatos/1 | method: GET | status: 200 OK | size: 178 >>> 172.18.0.5
-[2026-05-22 16:17:21,131] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:17:21] "[37mGET /api/zapatos/1 HTTP/1.1[0m" 200 -
-[2026-05-22 16:17:22,216] INFO in app: path: /api/zapatos/ | method: PUT | status: 404 NOT FOUND | size: 70 >>> 172.18.0.5
-[2026-05-22 16:17:22,216] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:17:22] "[33mPUT /api/zapatos/ HTTP/1.1[0m" 404 -
-[2026-05-22 16:17:33,974] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 16:17:33,975] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:17:33] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 16:17:36,747] INFO in app: path: /api/usuarios/logout | method: GET | status: 200 OK | size: 16 >>> 172.18.0.5
-[2026-05-22 16:17:36,748] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:17:36] "[37mGET /api/usuarios/logout HTTP/1.1[0m" 200 -
-[2026-05-22 16:25:03,829] WARNING in controlador_usuarios: Intento acceso con usuario no encontrado: &#x27; OR &#x27;1&#x27; = &#x27;1
-[2026-05-22 16:25:03,830] INFO in app: path: /api/usuarios/login | method: POST | status: 200 OK | size: 53 >>> 172.18.0.5
-[2026-05-22 16:25:03,831] INFO in _internal: 172.18.0.5 - - [22/May/2026 16:25:03] "[37mPOST /api/usuarios/login HTTP/1.1[0m" 200 -
-[2026-05-22 18:17:29,963] INFO in _internal:  * Running on https://0.0.0.0:8080/ (Press CTRL+C to quit)
-[2026-05-22 18:23:12,229] INFO in _internal:  * Running on https://0.0.0.0:8080/ (Press CTRL+C to quit)
-[2026-05-22 18:24:09,104] INFO in app: path: /api/zapatos | method: GET | status: 308 PERMANENT REDIRECT | size: 277 >>> 172.18.0.1
-[2026-05-22 18:24:09,105] INFO in _internal: 172.18.0.1 - - [22/May/2026 18:24:09] "[32mGET /api/zapatos HTTP/1.1[0m" 308 -
-[2026-05-22 18:24:09,131] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.1
-[2026-05-22 18:24:09,132] INFO in _internal: 172.18.0.1 - - [22/May/2026 18:24:09] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 18:24:09,170] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 18:24:09,170] INFO in _internal: 172.18.0.1 - - [22/May/2026 18:24:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 18:24:16,920] INFO in app: path: / | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 18:24:16,921] INFO in _internal: 172.18.0.1 - - [22/May/2026 18:24:16] "[33mGET / HTTP/1.1[0m" 404 -
-[2026-05-22 18:24:17,003] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 18:24:17,004] INFO in _internal: 172.18.0.1 - - [22/May/2026 18:24:17] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 18:24:29,021] INFO in app: path: /api/comentarios/ | method: GET | status: 200 OK | size: 105 >>> 172.18.0.1
-[2026-05-22 18:24:29,022] INFO in _internal: 172.18.0.1 - - [22/May/2026 18:24:29] "[37mGET /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 18:24:29,086] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 18:24:29,087] INFO in _internal: 172.18.0.1 - - [22/May/2026 18:24:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 18:27:30,928] INFO in _internal:  * Running on https://0.0.0.0:8080/ (Press CTRL+C to quit)
-[2026-05-22 18:44:12,952] INFO in _internal:  * Running on https://0.0.0.0:8080/ (Press CTRL+C to quit)
-[2026-05-22 18:45:00,775] INFO in app: path: /api/comentarios/ | method: GET | status: 200 OK | size: 105 >>> 172.18.0.1
-[2026-05-22 18:45:00,776] INFO in _internal: 172.18.0.1 - - [22/May/2026 18:45:00] "[37mGET /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 18:45:00,806] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 18:45:00,807] INFO in _internal: 172.18.0.1 - - [22/May/2026 18:45:00] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 18:45:04,650] INFO in app: path: /api/login/ | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 18:45:04,651] INFO in _internal: 172.18.0.1 - - [22/May/2026 18:45:04] "[33mGET /api/login/ HTTP/1.1[0m" 404 -
-[2026-05-22 18:45:04,698] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 18:45:04,698] INFO in _internal: 172.18.0.1 - - [22/May/2026 18:45:04] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 18:45:09,727] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.1
-[2026-05-22 18:45:09,728] INFO in _internal: 172.18.0.1 - - [22/May/2026 18:45:09] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 18:45:09,773] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 18:45:09,774] INFO in _internal: 172.18.0.1 - - [22/May/2026 18:45:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 18:45:14,138] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.1
-[2026-05-22 18:45:14,138] INFO in _internal: 172.18.0.1 - - [22/May/2026 18:45:14] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 18:45:14,263] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 18:45:14,264] INFO in _internal: 172.18.0.1 - - [22/May/2026 18:45:14] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 19:12:50,857] INFO in _internal:  * Running on https://0.0.0.0:8080/ (Press CTRL+C to quit)
-[2026-05-22 19:30:29,266] INFO in app: path: / | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:30:29,267] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:30:29] "[33mGET / HTTP/1.1[0m" 404 -
-[2026-05-22 19:30:29,320] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:30:29,321] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:30:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 19:33:35,232] INFO in app: path: /api/usuarios/registro | method: GET | status: 405 METHOD NOT ALLOWED | size: 178 >>> 172.18.0.1
-[2026-05-22 19:33:35,232] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:33:35] "[31m[1mGET /api/usuarios/registro HTTP/1.1[0m" 405 -
-[2026-05-22 19:33:35,467] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:33:35,467] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:33:35] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 19:33:43,564] INFO in app: path: /api/usuarios/login | method: GET | status: 405 METHOD NOT ALLOWED | size: 178 >>> 172.18.0.1
-[2026-05-22 19:33:43,564] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:33:43] "[31m[1mGET /api/usuarios/login HTTP/1.1[0m" 405 -
-[2026-05-22 19:33:43,650] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:33:43,651] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:33:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 19:33:49,193] INFO in app: path: /api/usuarios/registro | method: GET | status: 405 METHOD NOT ALLOWED | size: 178 >>> 172.18.0.1
-[2026-05-22 19:33:49,194] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:33:49] "[31m[1mGET /api/usuarios/registro HTTP/1.1[0m" 405 -
-[2026-05-22 19:33:49,244] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:33:49,245] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:33:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 19:33:52,397] INFO in app: path: /api/usuarios/ | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:33:52,398] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:33:52] "[33mGET /api/usuarios/ HTTP/1.1[0m" 404 -
-[2026-05-22 19:33:52,443] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:33:52,444] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:33:52] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 19:33:56,272] INFO in app: path: /api// | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:33:56,273] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:33:56] "[33mGET /api// HTTP/1.1[0m" 404 -
-[2026-05-22 19:33:56,313] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:33:56,314] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:33:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 19:33:58,244] INFO in app: path: /api/ | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:33:58,245] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:33:58] "[33mGET /api/ HTTP/1.1[0m" 404 -
-[2026-05-22 19:33:58,293] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:33:58,293] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:33:58] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 19:41:02,497] INFO in _internal:  * Running on https://0.0.0.0:8080/ (Press CTRL+C to quit)
-[2026-05-22 19:41:30,199] INFO in app: path: / | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:41:30,200] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:41:30] "[33mGET / HTTP/1.1[0m" 404 -
-[2026-05-22 19:41:30,406] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:41:30,406] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:41:30] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 19:41:36,258] INFO in app: path: / | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:41:36,258] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:41:36] "[33mGET / HTTP/1.1[0m" 404 -
-[2026-05-22 19:41:36,308] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:41:36,308] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:41:36] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 19:41:39,343] INFO in app: path: / | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:41:39,343] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:41:39] "[33mGET / HTTP/1.1[0m" 404 -
-[2026-05-22 19:41:39,426] INFO in app: path: /favicon.ico | method: GET | status: 404 NOT FOUND | size: 232 >>> 172.18.0.1
-[2026-05-22 19:41:39,426] INFO in _internal: 172.18.0.1 - - [22/May/2026 19:41:39] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-[2026-05-22 20:00:22,922] INFO in _internal:  * Running on https://0.0.0.0:8080/ (Press CTRL+C to quit)
-[2026-05-22 20:02:21,921] INFO in controlador_usuarios: Nuevo usuario creado
-[2026-05-22 20:02:21,923] INFO in app: path: /api/usuarios/registro | method: POST | status: 200 OK | size: 16 >>> 172.18.0.5
-[2026-05-22 20:02:21,924] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:02:21] "[37mPOST /api/usuarios/registro HTTP/1.1[0m" 200 -
-[2026-05-22 20:02:26,833] INFO in controlador_usuarios: Acceso usuario root correcto
-[2026-05-22 20:02:26,835] INFO in app: path: /api/usuarios/login | method: POST | status: 200 OK | size: 140 >>> 172.18.0.5
-[2026-05-22 20:02:26,837] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:02:26] "[37mPOST /api/usuarios/login HTTP/1.1[0m" 200 -
-[2026-05-22 20:02:26,954] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 20:02:26,955] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:02:26] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:09:49,946] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.18.0.5
-[2026-05-22 20:09:49,946] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:09:49] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:09:50,341] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.18.0.5
-[2026-05-22 20:09:50,342] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:09:50] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:09:50,719] INFO in app: path: /api/comentarios/ | method: GET | status: 405 METHOD NOT ALLOWED | size: 178 >>> 172.18.0.5
-[2026-05-22 20:09:50,720] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:09:50] "[31m[1mGET /api/comentarios/ HTTP/1.1[0m" 405 -
-[2026-05-22 20:09:54,999] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 20:09:55,000] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:09:55] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:09:56,928] INFO in app: path: /api/comentarios/ | method: GET | status: 405 METHOD NOT ALLOWED | size: 178 >>> 172.18.0.5
-[2026-05-22 20:09:56,929] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:09:56] "[31m[1mGET /api/comentarios/ HTTP/1.1[0m" 405 -
-[2026-05-22 20:10:50,690] INFO in app: path: /api/comentarios/ | method: POST | status: 200 OK | size: 16 >>> 172.18.0.5
-[2026-05-22 20:10:50,691] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:10:50] "[37mPOST /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:10:51,873] INFO in app: path: /api/comentarios/ | method: GET | status: 405 METHOD NOT ALLOWED | size: 178 >>> 172.18.0.5
-[2026-05-22 20:10:51,874] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:10:51] "[31m[1mGET /api/comentarios/ HTTP/1.1[0m" 405 -
-[2026-05-22 20:13:56,748] INFO in _internal:  * Running on https://0.0.0.0:8080/ (Press CTRL+C to quit)
-[2026-05-22 20:14:20,618] INFO in controlador_usuarios: Nuevo usuario creado
-[2026-05-22 20:14:20,619] INFO in app: path: /api/usuarios/registro | method: POST | status: 200 OK | size: 16 >>> 172.18.0.5
-[2026-05-22 20:14:20,620] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:20] "[37mPOST /api/usuarios/registro HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:25,946] INFO in controlador_usuarios: Acceso usuario root correcto
-[2026-05-22 20:14:25,948] INFO in app: path: /api/usuarios/login | method: POST | status: 200 OK | size: 140 >>> 172.18.0.5
-[2026-05-22 20:14:25,949] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:25] "[37mPOST /api/usuarios/login HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:26,014] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 20:14:26,014] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:26] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:28,318] INFO in app: path: /api/usuarios/logout | method: GET | status: 200 OK | size: 16 >>> 172.18.0.5
-[2026-05-22 20:14:28,319] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:28] "[37mGET /api/usuarios/logout HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:30,922] INFO in app: path: /api/usuarios/registro | method: POST | status: 200 OK | size: 49 >>> 172.18.0.5
-[2026-05-22 20:14:30,922] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:30] "[37mPOST /api/usuarios/registro HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:32,311] INFO in app: path: /api/usuarios/registro | method: POST | status: 200 OK | size: 49 >>> 172.18.0.5
-[2026-05-22 20:14:32,312] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:32] "[37mPOST /api/usuarios/registro HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:36,922] INFO in controlador_usuarios: Acceso usuario root correcto
-[2026-05-22 20:14:36,924] INFO in app: path: /api/usuarios/login | method: POST | status: 200 OK | size: 140 >>> 172.18.0.5
-[2026-05-22 20:14:36,925] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:36] "[37mPOST /api/usuarios/login HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:36,978] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 20:14:36,978] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:36] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:43,286] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 20:14:43,286] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:43] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:45,901] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 20:14:45,901] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:45] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:46,795] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.18.0.5
-[2026-05-22 20:14:46,796] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:46] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:47,801] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.18.0.5
-[2026-05-22 20:14:47,802] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:47] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:48,514] INFO in app: path: /api/comentarios/ | method: GET | status: 200 OK | size: 105 >>> 172.18.0.5
-[2026-05-22 20:14:48,515] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:48] "[37mGET /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:50,713] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 20:14:50,714] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:50] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:51,696] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.18.0.5
-[2026-05-22 20:14:51,697] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:51] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:52,289] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.18.0.5
-[2026-05-22 20:14:52,289] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:52] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:52,676] INFO in app: path: /api/comentarios/ | method: GET | status: 200 OK | size: 105 >>> 172.18.0.5
-[2026-05-22 20:14:52,676] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:52] "[37mGET /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:53,333] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 20:14:53,334] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:53] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:54,386] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.18.0.5
-[2026-05-22 20:14:54,387] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:54] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:54,755] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.18.0.5
-[2026-05-22 20:14:54,756] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:54] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:55,033] INFO in app: path: /api/comentarios/ | method: GET | status: 200 OK | size: 105 >>> 172.18.0.5
-[2026-05-22 20:14:55,033] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:55] "[37mGET /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:14:55,539] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 20:14:55,540] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:14:55] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:15:23,395] INFO in app: path: /api/comentarios/ | method: GET | status: 200 OK | size: 105 >>> 172.18.0.5
-[2026-05-22 20:15:23,395] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:15:23] "[37mGET /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:15:56,061] INFO in app: path: /api/comentarios/ | method: POST | status: 200 OK | size: 16 >>> 172.18.0.5
-[2026-05-22 20:15:56,061] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:15:56] "[37mPOST /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:16:16,216] INFO in app: path: /api/comentarios/ | method: GET | status: 200 OK | size: 229 >>> 172.18.0.5
-[2026-05-22 20:16:16,217] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:16:16] "[37mGET /api/comentarios/ HTTP/1.1[0m" 200 -
-[2026-05-22 20:16:42,788] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.18.0.5
-[2026-05-22 20:16:42,788] INFO in _internal: 172.18.0.5 - - [22/May/2026 20:16:42] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 07:56:28,322] INFO in _internal:  * Running on https://0.0.0.0:8080/ (Press CTRL+C to quit)
+[2026-05-26 07:57:10,326] INFO in app: path: /api/usuarios/registro | method: POST | status: 500 INTERNAL SERVER ERROR | size: 19 >>> 172.19.0.5
+[2026-05-26 07:57:10,327] INFO in _internal: 172.19.0.5 - - [26/May/2026 07:57:10] "[35m[1mPOST /api/usuarios/registro HTTP/1.1[0m" 500 -
+[2026-05-26 07:57:13,174] INFO in app: path: /api/usuarios/registro | method: POST | status: 500 INTERNAL SERVER ERROR | size: 19 >>> 172.19.0.5
+[2026-05-26 07:57:13,175] INFO in _internal: 172.19.0.5 - - [26/May/2026 07:57:13] "[35m[1mPOST /api/usuarios/registro HTTP/1.1[0m" 500 -
+[2026-05-26 07:57:15,584] INFO in app: path: /api/usuarios/registro | method: POST | status: 500 INTERNAL SERVER ERROR | size: 19 >>> 172.19.0.5
+[2026-05-26 07:57:15,584] INFO in _internal: 172.19.0.5 - - [26/May/2026 07:57:15] "[35m[1mPOST /api/usuarios/registro HTTP/1.1[0m" 500 -
+[2026-05-26 07:57:22,098] INFO in app: path: /api/usuarios/login | method: POST | status: 500 INTERNAL SERVER ERROR | size: 19 >>> 172.19.0.5
+[2026-05-26 07:57:22,098] INFO in _internal: 172.19.0.5 - - [26/May/2026 07:57:22] "[35m[1mPOST /api/usuarios/login HTTP/1.1[0m" 500 -
+[2026-05-26 08:01:56,633] INFO in _internal:  * Running on https://0.0.0.0:8080/ (Press CTRL+C to quit)
+[2026-05-26 08:02:16,861] INFO in controlador_usuarios: Nuevo usuario creado
+[2026-05-26 08:02:16,862] INFO in app: path: /api/usuarios/registro | method: POST | status: 200 OK | size: 16 >>> 172.19.0.5
+[2026-05-26 08:02:16,862] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:16] "[37mPOST /api/usuarios/registro HTTP/1.1[0m" 200 -
+[2026-05-26 08:02:22,303] INFO in controlador_usuarios: Acceso usuario root correcto
+[2026-05-26 08:02:22,309] INFO in app: path: /api/usuarios/login | method: POST | status: 200 OK | size: 140 >>> 172.19.0.5
+[2026-05-26 08:02:22,309] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:22] "[37mPOST /api/usuarios/login HTTP/1.1[0m" 200 -
+[2026-05-26 08:02:22,494] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.19.0.5
+[2026-05-26 08:02:22,494] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:22] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:02:31,277] INFO in app: path: /api/usuarios/logout | method: GET | status: 200 OK | size: 16 >>> 172.19.0.5
+[2026-05-26 08:02:31,277] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:31] "[37mGET /api/usuarios/logout HTTP/1.1[0m" 200 -
+[2026-05-26 08:02:33,304] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.19.0.5
+[2026-05-26 08:02:33,304] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:33] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:02:40,895] INFO in app: path: /api/usuarios/logout | method: GET | status: 403 FORBIDDEN | size: 23 >>> 172.19.0.5
+[2026-05-26 08:02:40,895] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:40] "[31m[1mGET /api/usuarios/logout HTTP/1.1[0m" 403 -
+[2026-05-26 08:02:43,905] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.19.0.5
+[2026-05-26 08:02:43,906] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:43] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:02:45,310] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.19.0.5
+[2026-05-26 08:02:45,311] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:45] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:02:53,872] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.19.0.5
+[2026-05-26 08:02:53,872] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:53] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:02:55,956] INFO in app: path: /api/usuarios/logout | method: GET | status: 403 FORBIDDEN | size: 23 >>> 172.19.0.5
+[2026-05-26 08:02:55,957] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:55] "[31m[1mGET /api/usuarios/logout HTTP/1.1[0m" 403 -
+[2026-05-26 08:02:57,710] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.19.0.5
+[2026-05-26 08:02:57,710] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:57] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:02:58,225] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.19.0.5
+[2026-05-26 08:02:58,226] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:58] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:02:58,403] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.19.0.5
+[2026-05-26 08:02:58,404] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:58] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:02:58,625] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.19.0.5
+[2026-05-26 08:02:58,626] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:58] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:02:58,823] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.19.0.5
+[2026-05-26 08:02:58,824] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:58] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:02:59,007] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.19.0.5
+[2026-05-26 08:02:59,007] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:59] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:02:59,158] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.19.0.5
+[2026-05-26 08:02:59,158] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:59] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:02:59,758] INFO in app: path: /api/usuarios/logout | method: GET | status: 403 FORBIDDEN | size: 23 >>> 172.19.0.5
+[2026-05-26 08:02:59,758] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:02:59] "[31m[1mGET /api/usuarios/logout HTTP/1.1[0m" 403 -
+[2026-05-26 08:03:14,512] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.19.0.5
+[2026-05-26 08:03:14,512] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:03:14] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:03:16,480] INFO in app: path: /api/zapatos/1 | method: GET | status: 200 OK | size: 178 >>> 172.19.0.5
+[2026-05-26 08:03:16,481] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:03:16] "[37mGET /api/zapatos/1 HTTP/1.1[0m" 200 -
+[2026-05-26 08:03:18,038] INFO in app: path: /api/zapatos/ | method: PUT | status: 400 BAD REQUEST | size: 153 >>> 172.19.0.5
+[2026-05-26 08:03:18,038] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:03:18] "[31m[1mPUT /api/zapatos/ HTTP/1.1[0m" 400 -
+[2026-05-26 08:03:22,932] INFO in app: path: /api/ficheros/ | method: GET | status: 200 OK | size: 3 >>> 172.19.0.5
+[2026-05-26 08:03:22,932] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:03:22] "[37mGET /api/ficheros/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:03:23,535] INFO in app: path: /api/comentarios/ | method: GET | status: 403 FORBIDDEN | size: 23 >>> 172.19.0.5
+[2026-05-26 08:03:23,535] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:03:23] "[31m[1mGET /api/comentarios/ HTTP/1.1[0m" 403 -
+[2026-05-26 08:03:28,115] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.19.0.5
+[2026-05-26 08:03:28,116] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:03:28] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:03:38,930] INFO in app: path: /api/zapatos/ | method: POST | status: 400 BAD REQUEST | size: 145 >>> 172.19.0.5
+[2026-05-26 08:03:38,930] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:03:38] "[31m[1mPOST /api/zapatos/ HTTP/1.1[0m" 400 -
+[2026-05-26 08:03:47,527] INFO in controlador_usuarios: Acceso usuario root correcto
+[2026-05-26 08:03:47,528] INFO in app: path: /api/usuarios/login | method: POST | status: 200 OK | size: 140 >>> 172.19.0.5
+[2026-05-26 08:03:47,528] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:03:47] "[37mPOST /api/usuarios/login HTTP/1.1[0m" 200 -
+[2026-05-26 08:03:47,639] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.19.0.5
+[2026-05-26 08:03:47,639] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:03:47] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:03:59,085] INFO in app: path: /api/zapatos/ | method: POST | status: 400 BAD REQUEST | size: 153 >>> 172.19.0.5
+[2026-05-26 08:03:59,085] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:03:59] "[31m[1mPOST /api/zapatos/ HTTP/1.1[0m" 400 -
+[2026-05-26 08:04:05,188] INFO in app: path: /api/zapatos/ | method: GET | status: 200 OK | size: 180 >>> 172.19.0.5
+[2026-05-26 08:04:05,188] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:04:05] "[37mGET /api/zapatos/ HTTP/1.1[0m" 200 -
+[2026-05-26 08:04:08,976] INFO in app: path: /api/zapatos/1 | method: GET | status: 200 OK | size: 178 >>> 172.19.0.5
+[2026-05-26 08:04:08,976] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:04:08] "[37mGET /api/zapatos/1 HTTP/1.1[0m" 200 -
+[2026-05-26 08:04:09,644] INFO in app: path: /api/zapatos/ | method: PUT | status: 400 BAD REQUEST | size: 153 >>> 172.19.0.5
+[2026-05-26 08:04:09,645] INFO in _internal: 172.19.0.5 - - [26/May/2026 08:04:09] "[31m[1mPUT /api/zapatos/ HTTP/1.1[0m" 400 -
